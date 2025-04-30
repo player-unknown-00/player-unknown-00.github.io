@@ -23,10 +23,9 @@ NMAP
 Add board.htb to /etc/hosts
 
 - Subdomain enum:
-```bash
-gobuster vhost -u <http://board.htb> -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -t 64 --append-domain
 
-```
+`gobuster vhost -u http://board.htb -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -t 64 --append-domain`
+
 
 ![image3](../resources/0ebd3032692f4606bee68d2167100955.png)
 

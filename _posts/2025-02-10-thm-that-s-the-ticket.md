@@ -62,7 +62,7 @@ or use prompt(1) instead
 
 ![image8](../resources/351e6e93882347dda4d8ab127b3faefb.png)
 
-```javascript
+```
 </textarea>
 <script>
     var email_first = document.getElementById("email").innerHTML.split("@")[0];

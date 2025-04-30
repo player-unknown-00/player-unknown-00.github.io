@@ -52,10 +52,10 @@ gobuster dns -d analysis.htb -w /usr/share/seclists/Discovery/DNS/subdomains-top
 ![image5](../resources/e7b930126da141cab0e4a5b4ec00e6af.png)
 
 - Dirsearch (without recursive **-r**):
-```bash
-dirsearch -u http://internal.analysis.htb -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt -t 50
 
-```
+`dirsearch -u http://internal.analysis.htb -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt -t 50`
+
+
 
 ![image6](../resources/cf8f40b31f754d43a9564afae8074d7f.png)
 
@@ -79,17 +79,18 @@ dirsearch -u http://internal.analysis.htb/employees -w /usr/share/wordlists/secl
 
 ![image9](../resources/cbdef65fe7ab4d6e881950c2b28f0d7b.png)
 
-- We get <http://internal.analysis.htb/dashboard/404.html> but it's just a template:
+- We get  `http://internal.analysis.htb/dashboard/404.html`  but it's just a template:
 
 ![image10](../resources/b3b70035b5cc4620918e53bb67f1cb22.png)
 
 - Login panel but we don't have credentials:
-<http://internal.analysis.htb/employees/login.php>
+
+`http://internal.analysis.htb/employees/login.php`
 
 
 ![image11](../resources/7c1402c5de684afa9c9803d21deb22c5.png)
 
-- Going to <http://internal.analysis.htb/users/list.php> - we get:
+- Going to  `http://internal.analysis.htb/users/list.php`  - we get:
 
 ![image12](../resources/d57b674cb7a2404f92242561fc563a41.png)
 
@@ -213,7 +214,8 @@ technician : **97NTtl\*4QP96Bv**
 **technician@analysis.htb**
 
 - We can now login to:
-<http://internal.analysis.htb/employees/login.php>
+
+`http://internal.analysis.htb/employees/login.php`
 
 
 ![image27](../resources/e2fcb5575abc4ba18bdf9d505d7cf62a.png)
@@ -408,7 +410,8 @@ If you want to follow the logic behind the exploit - continue:
 - Open a Windows VM
 
 - Download APIMonitor:
-<http://www.rohitab.com/downloads>
+
+`http://www.rohitab.com/downloads`
 
 - Upload the BCTextEncoder that we downloaded
 
