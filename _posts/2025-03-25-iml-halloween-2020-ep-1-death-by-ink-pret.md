@@ -1,6 +1,6 @@
 ---
 date: 2025-03-25
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Halloween 2020: Ep.1 – Death by Ink (PRET)"
 tags: ['privilege escalation', 'python', 'rce']
 

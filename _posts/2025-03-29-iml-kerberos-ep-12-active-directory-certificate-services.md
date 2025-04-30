@@ -1,6 +1,6 @@
 ---
 date: 2025-03-29
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Kerberos: Ep.12 – Active Directory Certificate Services"
 tags: ['kerberos', 'powershell', 'privilege escalation', 'rce', 'windows']
 

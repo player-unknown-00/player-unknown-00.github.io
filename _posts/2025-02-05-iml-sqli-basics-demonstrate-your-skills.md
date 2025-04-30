@@ -1,6 +1,6 @@
 ---
 date: 2025-02-05
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - SQLi Basics - Demonstrate your skills"
 tags: ['rce', 'sql', 'sqli']
 

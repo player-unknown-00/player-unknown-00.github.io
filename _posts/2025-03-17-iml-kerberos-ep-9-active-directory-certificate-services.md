@@ -1,6 +1,6 @@
 ---
 date: 2025-03-17
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Kerberos: Ep.9 – Active Directory Certificate Services"
 tags: ['impacket', 'kerberos', 'mimikatz', 'powershell', 'privilege escalation', 'python', 'rce', 'windows']
 

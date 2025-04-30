@@ -1,6 +1,6 @@
 ---
 date: 2025-03-09
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Radare2 Reverse Engineering: Ep.2 – Windows Binary Part 2"
 tags: ['privilege escalation', 'rce', 'windows', 'radare2']
 

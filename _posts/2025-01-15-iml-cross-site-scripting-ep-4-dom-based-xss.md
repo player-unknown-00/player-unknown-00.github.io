@@ -1,6 +1,6 @@
 ---
 date: 2025-01-15
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Cross-Site Scripting: Ep.4 – DOM-Based XSS"
 tags: ['privilege escalation', 'rce', 'xss']
 

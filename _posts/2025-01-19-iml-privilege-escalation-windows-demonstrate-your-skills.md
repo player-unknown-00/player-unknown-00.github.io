@@ -1,6 +1,6 @@
 ---
 date: 2025-01-19
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Privilege Escalation: Windows – Demonstrate Your Skills"
 tags: ['privilege escalation', 'rce', 'reverse shell', 'windows']
 

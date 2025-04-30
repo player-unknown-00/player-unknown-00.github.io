@@ -1,6 +1,6 @@
 ---
 date: 2025-03-07
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Immersive Bank"
 tags: ['ftp', 'hashdump', 'john the ripper', 'privilege escalation', 'rce', 'reverse shell', 'smb', 'windows']
 

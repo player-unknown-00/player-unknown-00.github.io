@@ -1,6 +1,6 @@
 ---
 date: 2025-04-12
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Cross-Site Scripting: Ep.3 – Stored XSS"
 tags: ['privilege escalation', 'rce', 'xss']
 

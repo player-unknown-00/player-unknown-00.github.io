@@ -1,6 +1,6 @@
 ---
 date: 2025-04-24
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Scanning: Demonstrate Your Skills"
 tags: ['hydra', 'privilege escalation', 'rce']
 

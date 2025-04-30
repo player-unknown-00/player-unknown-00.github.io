@@ -1,6 +1,6 @@
 ---
 date: 2025-04-18
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - XML External Entity Injection"
 tags: ['xml']
 

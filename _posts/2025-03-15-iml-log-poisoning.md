@@ -1,6 +1,6 @@
 ---
 date: 2025-03-15
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Log Poisoning"
 tags: ['log poisoning']
 

@@ -1,6 +1,6 @@
 ---
 date: 2025-04-23
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Kerberos: Ep.10 – Active Directory Certificate Services"
 tags: ['impacket', 'kerberos', 'ldap', 'mimikatz', 'privilege escalation', 'rce']
 

@@ -1,6 +1,6 @@
 ---
 date: 2025-03-10
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Mini CTF: Vulnerable Web App – Ep.1"
 tags: ['web exploit']
 

@@ -1,6 +1,6 @@
 ---
 date: 2025-02-12
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Halloween 2020: Ep.5 – JinjaBread Man (SSTI)"
 tags: ['privilege escalation', 'python', 'rce', 'xss']
 

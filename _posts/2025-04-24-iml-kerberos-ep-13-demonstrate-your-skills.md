@@ -1,6 +1,6 @@
 ---
 date: 2025-04-24
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Kerberos: Ep.13 – Demonstrate your skills"
 tags: ['hashcat', 'john the ripper', 'kerberos', 'mimikatz', 'powershell', 'privilege escalation', 'python', 'rce', 'windows']
 

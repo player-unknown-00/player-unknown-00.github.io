@@ -1,6 +1,6 @@
 ---
 date: 2025-01-09
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Server-Side Request Forgery"
 tags: ['rce']
 

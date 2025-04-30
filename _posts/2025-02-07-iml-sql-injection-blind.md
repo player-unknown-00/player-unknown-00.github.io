@@ -1,6 +1,6 @@
 ---
 date: 2025-02-07
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - SQL Injection: Blind"
 tags: ['http', 'sqli', 'exploit', 'rce', 'sql']
 

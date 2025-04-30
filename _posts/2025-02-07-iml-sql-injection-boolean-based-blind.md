@@ -1,6 +1,6 @@
 ---
 date: 2025-02-07
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - SQL Injection – Boolean-Based Blind"
 tags: ['http', 'sql', 'sqli', 'rce']
 

@@ -1,6 +1,6 @@
 ---
 date: 2025-03-27
-categories: [CTF, IML]
+categories: [CTF, ImmersiveLabs]
 title: "IML - Python Coding Network Challenge Ep. 2&3"
 tags: ['privilege escalation', 'python', 'rce']
 
