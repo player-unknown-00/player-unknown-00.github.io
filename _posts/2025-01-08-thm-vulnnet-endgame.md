@@ -67,7 +67,7 @@ Directory bruteforce on admin1.vulnnet.thm:
 
 ![image11](../resources/929feddb106c4f319a8fd7ae7e9560f3.png)
 
-<http://api.vulnnet.thm/vn_internals/api/v2/fetch/?blog=1>
+`http:// api.vulnnet.thm/vn_internals/api/v2/fetch/?blog=1`
 
 
 ![image12](../resources/ea0e7378fc9c41d99f078bdda6676893.png)
@@ -220,7 +220,7 @@ rlwrap -cAr nc -lvnp 4443
 ```
 Go to:
 
-<http://admin1.vulnnet.thm/fileadmin/shell.php>
+`http:// admin1.vulnnet.thm/fileadmin/shell.php`
 
 Shell:
 

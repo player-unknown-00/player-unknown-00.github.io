@@ -359,7 +359,8 @@ cp -a /lib/modules/6.1.0-20-amd64/ lib/modules/\$(uname -r)
 
 ```
 - Create the **reverse-shell.c** file:
-```bash
+
+```c
 #include <linux/kmod.h>
 #include <linux/module.h>
 
@@ -410,6 +411,7 @@ clean:
 - Upload both to the docker container
 
 - Compile the kernel module:
+
 ```bash
 make
 
