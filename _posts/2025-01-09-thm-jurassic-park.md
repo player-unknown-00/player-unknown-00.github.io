@@ -30,8 +30,9 @@ Website  `http://10.10.204.254/shop.php`
 
 - So we know it's MySQL
 
-- Attempting to break it
-[http://10.10.204.254/item.php?id=3'](http://10.10.204.254/item.php?id=3)
+- Attempting to break it:
+
+`http://10.10.204.254/item.php?id=3'`
 
 or using Union
 

