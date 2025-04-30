@@ -482,7 +482,7 @@ This command line is used to start a browser instance of Firefox Extended Suppor
 - **-no-remote**: Prevent Firefox from trying to open an already running instance. In an automated testing environment, this option is important because it ensures that you have control over a completely new browser instance.
 - **-profile /tmp/rust_mozprofileGfH5kl**: Use the specified profile folder to start Firefox. In this example, the profile folder is located at /tmp/rust_mozprofileba09VC. This allows you to configure specific settings, extensions, bookmarks, etc. for a specific browser instance.
 
-As you can see, since root is running Firefox with remote debugging enabled, there is definitely a vulnerability in this way. The CDP protocol allows opening pages at any URL, including "[file://](NULL)". It also allows capturing screenshots of the browser window, which combined, can obtain any PNG file
+As you can see, since root is running Firefox with remote debugging enabled, there is definitely a vulnerability in this way. The CDP protocol allows opening pages at any URL, including "file://". It also allows capturing screenshots of the browser window, which combined, can obtain any PNG file
 
 - This can be exploited with:
 
