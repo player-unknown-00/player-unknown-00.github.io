@@ -58,7 +58,7 @@ gobuster dir -u http://10.10.200.110:31331 -w /usr/share/seclists/Discovery/Web-
 Got a login page
 
 - Look at traffic in Burp
-Looking at <http://10.10.200.110:31331/partners.html>
+Looking at  `http://10.10.200.110:31331/partners.html`
 
 The site constantly pings to see if the server is online
 

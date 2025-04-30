@@ -49,10 +49,9 @@ or use prompt(1) instead
 ![image6](../resources/87923bcc9a264223a3afe3baeb009864.png)
 
 - Using the XSS vulnerability, do a call back to the DNS logger (above)
-```javascript
-</textarea> <img src="http://079a105aecaee7a7a858eca97499a96e.log.tryhackme.tech">
 
-```
+`</textarea> <img src="http://079a105aecaee7a7a858eca97499a96e.log.tryhackme.tech">`
+
 - Received 4 hits (3 from us and once from the server - maybe admin)
 
 

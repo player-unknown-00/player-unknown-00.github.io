@@ -16,7 +16,7 @@ NMAP
 
 ![image1](../resources/14057f1d9542453899f2ba16e9ea99ae.png)
 
-<http://10.10.200.236/old/>
+`http://10.10.200.236/old/`
 
 ![image2](../resources/845c7abfbb254f1a9dca21d5ba2473f8.png)
 
@@ -72,7 +72,7 @@ git log -p | grep "key"
 
 ![image7](../resources/d53af304c7684560abe919982751f7c1.png)
 
-<http://10.10.200.236:8081/forgot>
+`http://10.10.200.236:8081/forgot`
 
 ![image8](../resources/e2a161d7461647c6af772c61f68b527f.png)
 

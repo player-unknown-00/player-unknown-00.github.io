@@ -69,7 +69,7 @@ find /mnt -type d -exec sh -c 'touch "$1/x" 2>/dev/null && echo "$1 is writable"
 
 <https://www.ired.team/offensive-security/initial-access/t1187-forced-authentication>
 
-The way this works is a victim user opens the share [\\sizzle.htb.local\ZZ_ARCHIVE](file://sizzle.htb.local/ZZ_ARCHIVE) and the icon.scf gets executed automatically, which in turn forces the victim system to attempt to authenticate to the attacking system at 10.10.14.31, where responder is listening
+The way this works is a victim user opens the share  `\\sizzle.htb.local\ZZ_ARCHIVE`  and the icon.scf gets executed automatically, which in turn forces the victim system to attempt to authenticate to the attacking system at 10.10.14.31, where responder is listening
 
 - Create an SCF file - icon.scf:
 
@@ -151,7 +151,8 @@ We can see there is a Certificate Service
 ![image16](../resources/e6f9cd88e2524359ace6742cbd8c027e.png)
 
 - Log in with the credentials for Amanda
-<http://sizzle.htb.local/certsrv/>
+
+`http://sizzle.htb.local/certsrv/`
 
 
 ![image17](../resources/598c34acbcca4db781eb1e5a20065256.png)

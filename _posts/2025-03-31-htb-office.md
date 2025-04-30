@@ -57,10 +57,9 @@ dirsearch -u http://office.htb/ -w /usr/share/wordlists/seclists/Discovery/Web-C
 ![image6](../resources/4c15fbb97f2c4786a6b0e7d4accec0fb.png)
 
 - Directory search - same as robots.txt
-```bash
-dirsearch -u <http://office.htb> -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt -t 50
 
-```
+`dirsearch -u http://office.htb -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt -t 50`
+
 
 ![image7](../resources/825614c70d4e4118bef9a2ae3819c103.png)
 
@@ -277,7 +276,8 @@ hashcat -m 19900 -a 0 hash /usr/share/wordlists/rockyou.txt
 
 From previous enumeration, we know:
 - The login page for the Joomla Administration
-<http://office.htb/administrator>
+
+`http://office.htb/administrator`
 
 - The user Tony Stark (tstark) was leaked from the Joomla database as a SuperUser and his username is **Administrator**
 
@@ -315,7 +315,7 @@ From previous enumeration, we know:
 - 
   - Set up listener
 
-- Navigate to <http://office.htb/templates/cassiopeia/error.php>
+- Navigate to  `http://office.htb/templates/cassiopeia/error.php`
 
 - We have a shell as web_account:
 

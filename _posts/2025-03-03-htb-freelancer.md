@@ -19,10 +19,10 @@ NMAP
 Add freelancer.htb to /etc/hosts
 
 - Ran dirsearch:
-```bash
-dirsearch -u <http://freelancer.htb> /usr/share/wordlists/seclists/Discovery/Web-Content/raft-large-directories-lowercase.txt
 
-```
+`dirsearch -u http://freelancer.htb /usr/share/wordlists/seclists/Discovery/Web-Content/raft-large-directories-lowercase.txt`
+
+
 - Got admin login page:
 
 ![image2](../resources/0fb67fe5eaa64c7e8b72cbedeffb1ef8.png)
@@ -37,10 +37,12 @@ dirsearch -u <http://freelancer.htb> /usr/share/wordlists/seclists/Discovery/Web
 
 - On her page - we can see some of her info
 - But the URL is more interesting:
-<http://freelancer.htb/accounts/profile/visit/9/>
+
+`http://freelancer.htb/accounts/profile/visit/9/`
 
 - If we change the 9 to a 0 or 1, nothing happens, but if we change it to 2:
-[http://freelancer.htb/accounts/profile/visit/2/](http://freelancer.htb/accounts/profile/visit/2/)
+
+`http://freelancer.htb/accounts/profile/visit/2/`
 
 - We get an admin:
 
