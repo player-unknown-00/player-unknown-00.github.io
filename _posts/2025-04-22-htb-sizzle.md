@@ -204,7 +204,7 @@ Copy contents of the CSR:
 
 Go to:
 
-<http://sizzle.htb.local/certsrv/> -\> Request a Certificate -\> Advanced certificate request
+`http:// sizzle.htb.local/certsrv/`   -\> Request a Certificate -\> Advanced certificate request
 
 
 ![image23](../resources/01f00d480b4d4e209248b199803e03f0.png)
