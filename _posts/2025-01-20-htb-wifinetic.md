@@ -20,6 +20,7 @@ NMAP
 ![image2](../resources/6ff6375347cd4e4682ac2f9f0dc49315.png)
 
 - Get all the files:
+
 ```bash
 mget *
 
@@ -50,6 +51,7 @@ ssh netadmin@10.129.229.90
 ![image7](../resources/569a7bee5ff5431a9eaa9c2f60ee511e.png)
 
 - Doing enumeration - we can see reaver is installed and has the cap_net_raw+ep capability set:
+  
 ```bash
 getcap -r / 2>/dev/null
 
@@ -92,6 +94,7 @@ reaver -i mon0 -c 1 -b 02:00:00:00:00:00 -vv
 **WhatIsRealAnDWhAtIsNot51121!**
 
 - Now we can try and see if that password is used for the root account:
+  
 ```bash
 ssh root@192.168.1.1
 
@@ -106,7 +109,8 @@ ssh root@192.168.1.1
 cat root.txt
 
 ```
-- Or simply 
+- Or simply
+  
 ```bash
 su -
 ```
