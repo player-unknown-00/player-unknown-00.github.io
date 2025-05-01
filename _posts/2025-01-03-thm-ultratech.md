@@ -26,6 +26,7 @@ nmap 10.10.200.110 -p 31331 -A
 ![image2](../resources/29ecbbb1da6341daa229d6034f4d8ee3.png)
 
 - Directory bruteforcing:
+
 ```bash
 gobuster dir -u http://10.10.200.110:8081 -w /usr/share/seclists/Discovery/Web-Content/big.txt
 
@@ -200,6 +201,7 @@ mkpasswd -m md5 pass123
 ![image23](../resources/8725cc9f13d94b6682a120a9970ceec0.png)
 
 - On the target - in the container (because we're root now)
+  
 ```bash
 vi /etc/shadow
 
