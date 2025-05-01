@@ -1,5 +1,5 @@
 ---
-date: 2025-05-02
+date: 2025-05-01
 categories: [CTF, ImmersiveLabs]
 title: "IML - Offensive Cyber Range: Artica Shipping Company"
 tags: ['ftp', 'nmap', 'privilege escalation', 'python', 'rce', 'sqli', 'windows']

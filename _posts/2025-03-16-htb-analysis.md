@@ -1,5 +1,5 @@
 ---
-date: 2025-05-02
+date: 2025-05-01
 categories: [CTF, HTB]
 title: "HTB - Analysis"
 tags: ['gobuster', 'impacket', 'ldap', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'reverse shell', 'secretsdump', 'smb', 'sqli', 'windows']
