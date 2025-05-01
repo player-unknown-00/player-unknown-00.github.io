@@ -19,7 +19,8 @@ description: "Cross-Site Scripting Ep.3 – S - A walkthrough of the challenge w
 
 - Review field is vulnerable
 
-- Close the \<p\> tag and enter script tag
+- Close the \<p\> tag and enter script tag:
+
 ```javascript
 </p><script>alert(11)</script>
 ```

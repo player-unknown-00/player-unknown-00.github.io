@@ -20,10 +20,12 @@ description: "XML External Entity Injection - A walkthrough of the challenge wit
 
 ![image2](../resources/c5ec4df93f22417c9191a84e03a27bcf.png)
 
-- Create file and paste the xml data in. Then add the:  
+- Create file and paste the xml data in. Then add the:
+
 ```bash
 <!DOCTYPE store[<!ENTITY signature SYSTEM "file:///tmp/token.txt" >]>
 ```
+
 to the top
 
 - Make sure the name next to DOCTYPE correlates with the name in the xml script ie. store

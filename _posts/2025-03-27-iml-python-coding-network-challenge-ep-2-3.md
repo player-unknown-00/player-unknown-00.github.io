@@ -48,6 +48,7 @@ But you can get this token from either Ep.2 or Ep.3
 
 ![image6](../resources/b15bed0e83a2431d9a3760cbe8e223f7.png)
 - This one is a bit more advance - we need to look at this line:
+
 ```python
 dk = hashlib.pbkdf2_hmac('sha256', bytes(os.environ.get('level_2_secret_token'),'utf-8'), b'12345', randint(100,199))
 

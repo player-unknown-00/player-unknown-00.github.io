@@ -99,6 +99,7 @@ echo "<id_rsa.pub>" > /home/susan/.ssh/authorized_keys
 ```bash
 ssh susan@10.129.208.176 -i id_rsa
 ```
+
 ![image11](../resources/e388b7ede795481dabe510f0d22f2fa6.png)
 
 - We find a credentials file and the type of SQL db used:
@@ -126,6 +127,7 @@ I didn't do the whole range in one go, as the file would have been enormous:
 ![image16](../resources/e430581d76bb427c9a87ab67cb99378d.png)
 
 - After every generated list I tried it with hashcat:
+
 ```bash
 hashcat -m 1400 -a 0 hash list
 

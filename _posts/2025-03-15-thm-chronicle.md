@@ -32,6 +32,7 @@ Found .git
 ![image4](../resources/d4143950bfdd448f85875c9fe6d30fa0.png)
 
 - Download .git:
+
 ```bash
 wget --recursive http://10.10.200.236/old/.git/ --continue
 
@@ -65,6 +66,7 @@ Got the deleted files
 Nothing in them.
 
 - Look at the logs and grep for key:
+
 ```bash
 git log -p | grep "key"
 
@@ -198,6 +200,7 @@ Seg fault on option 2:
 ![image31](../resources/352c16470d214620936469090991bca1.png)
 
 - Check protections:
+
 ```bash
 checksec smail
 
@@ -242,6 +245,7 @@ Also, the base address should end in three 0's - which it does:
 **0x7ffff79e2000**
 
 - Getting the location of system():
+
 ```bash
 readelf -s /lib/x86_64-linux-gnu/libc.so.6 | grep system
 
@@ -330,6 +334,7 @@ Copy pattern into signature
 ![image41](../resources/d91daec5859849958a5a22def752e3f0.png)
 
 - Find the offset:
+
 ```bash
 pattern search $rsp
 
@@ -338,6 +343,7 @@ pattern search $rsp
 ![image42](../resources/2fb9362824de4672aef6c4749afdbab7.png)
 
 - Create the payload (pwntools):
+
 ```python
 #!/usr/bin/python3
 

