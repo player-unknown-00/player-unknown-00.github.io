@@ -254,8 +254,8 @@ which can then affect other clients accessing the server's responses
 
 ![image35](../resources/d1a74a0beb2e454da9c670a1e4f63d31.png)
 
-- Now to access the file we need to go to:
-<http://bandit.escape/uploads/d97f005810ddf0a6af6468712f082ca3.php?0=id>
+- Now to access the file we need to go to:  
+`http://bandit.escape/uploads/d97f005810ddf0a6af6468712f082ca3.php?0=id`
 
 
 ![image36](../resources/eaf02909f37b4a03b4dc699e8cf2d93e.png)

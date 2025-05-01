@@ -158,7 +158,7 @@ We can see there is a Certificate Service
 
 - Log in with the credentials for Amanda
 
-`http://sizzle.htb.local/certsrv/`
+`http: //sizzle.htb.local/certsrv/`
 
 
 ![image17](../resources/598c34acbcca4db781eb1e5a20065256.png)
