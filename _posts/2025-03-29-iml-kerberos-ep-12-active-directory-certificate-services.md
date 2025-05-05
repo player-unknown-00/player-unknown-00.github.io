@@ -2,7 +2,7 @@
 date: 2025-03-29
 categories: [CTF, ImmersiveLabs]
 title: "IML - Kerberos: Ep.12 – Active Directory Certificate Services"
-tags: ['kerberos', 'powershell', 'privilege escalation', 'rce', 'windows']
+tags: ['kerberos', 'powershell', 'privilege escalation', 'rce', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Kerberos Ep.12 – Active Directory Certificate Services - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

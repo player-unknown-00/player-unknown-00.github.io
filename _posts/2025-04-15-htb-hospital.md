@@ -2,7 +2,7 @@
 date: 2025-04-15
 categories: [CTF, HTB]
 title: "HTB - Hospital"
-tags: ['hashcat', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'smb', 'windows']
+tags: ['hashcat', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'smb', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Hospital - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

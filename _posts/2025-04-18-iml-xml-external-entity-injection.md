@@ -2,7 +2,7 @@
 date: 2025-04-18
 categories: [CTF, ImmersiveLabs]
 title: "IML - XML External Entity Injection"
-tags: ['xml']
+tags: ['xml', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "XML External Entity Injection - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

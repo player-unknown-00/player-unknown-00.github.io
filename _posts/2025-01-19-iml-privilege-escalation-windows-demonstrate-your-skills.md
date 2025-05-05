@@ -2,7 +2,7 @@
 date: 2025-01-19
 categories: [CTF, ImmersiveLabs]
 title: "IML - Privilege Escalation: Windows – Demonstrate Your Skills"
-tags: ['privilege escalation', 'rce', 'reverse shell', 'windows']
+tags: ['privilege escalation', 'rce', 'reverse shell', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Privilege Escalation Windows - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Windows]
 title: "GPO Backup Fails - Path Too Long"
-tags: ['Windows', 'gpo']
+tags: ['Windows', 'gpo', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "GPO Backup Fails - Path Too Long"
 ---

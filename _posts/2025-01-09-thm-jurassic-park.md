@@ -2,7 +2,7 @@
 date: 2025-01-09
 categories: [CTF, THM]
 title: "THM - Jurassic Park"
-tags: ['nmap', 'privilege escalation', 'python', 'rce', 'sqli']
+tags: ['nmap', 'privilege escalation', 'python', 'rce', 'sqli', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Jurassic Park - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

@@ -2,7 +2,7 @@
 date: 2025-03-01
 categories: [CTF, ImmersiveLabs]
 title: "IML - Infrastructure Pen Testing: Ep.7 — Pivoting"
-tags: ['hydra', 'linux', 'privilege escalation', 'python', 'rce', 'reverse shell', 'windows']
+tags: ['hydra', 'linux', 'privilege escalation', 'python', 'rce', 'reverse shell', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Infrastructure Pen Testing Ep - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

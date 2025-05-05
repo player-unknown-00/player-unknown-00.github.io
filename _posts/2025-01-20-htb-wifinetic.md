@@ -2,7 +2,7 @@
 date: 2025-01-20
 categories: [CTF, HTB]
 title: "HTB - Wifinetic"
-tags: ['nmap', 'privilege escalation', 'rce','wireless', 'wifi', 'wps', 'reaver']
+tags: ['nmap', 'privilege escalation', 'rce','wireless', 'wifi', 'wps', 'reaver', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Wifinetic - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

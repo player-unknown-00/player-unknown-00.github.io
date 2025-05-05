@@ -19,7 +19,7 @@ title: TrompieSec # the main title
 tagline: Gotta Hack 'em all # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
-  blog, github, ctf, htb, thm, immersive, hacking, trompiesec, immersivelabs, writeup, walkthrough, tryhackme, hackthebox
+  A blog where I can share my writeups and fixes with everyone.
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.

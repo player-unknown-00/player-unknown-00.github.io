@@ -2,7 +2,7 @@
 date: 2025-03-29
 categories: [CTF, HTB]
 title: "HTB - Monitored"
-tags: ['john the ripper', 'linux', 'nmap', 'privilege escalation', 'rce', 'sqli']
+tags: ['john the ripper', 'linux', 'nmap', 'privilege escalation', 'rce', 'sqli', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Monitored - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

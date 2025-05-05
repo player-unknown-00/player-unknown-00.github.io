@@ -2,7 +2,7 @@
 date: 2025-03-30
 categories: [CTF, HTB]
 title: "HTB - Absolute"
-tags: ['bloodhound', 'hashcat', 'impacket', 'kerberos', 'ldap', 'linux', 'nmap', 'privilege escalation', 'python', 'rce', 'secretsdump', 'smb', 'windows']
+tags: ['bloodhound', 'hashcat', 'impacket', 'kerberos', 'ldap', 'linux', 'nmap', 'privilege escalation', 'python', 'rce', 'secretsdump', 'smb', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Absolute - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

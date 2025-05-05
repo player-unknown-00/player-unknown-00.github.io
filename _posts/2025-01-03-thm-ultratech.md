@@ -2,7 +2,7 @@
 date: 2025-01-03
 categories: [CTF, THM]
 title: "THM - UltraTech"
-tags: ['docker breakout', 'gobuster', 'hashcat', 'nmap', 'privilege escalation', 'rce', 'sqli']
+tags: ['docker breakout', 'gobuster', 'hashcat', 'nmap', 'privilege escalation', 'rce', 'sqli', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "UltraTech - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

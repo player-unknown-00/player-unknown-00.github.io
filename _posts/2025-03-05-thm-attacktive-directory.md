@@ -2,7 +2,7 @@
 date: 2025-03-05
 categories: [CTF, THM]
 title: "THM - Attacktive Directory"
-tags: ['hashcat', 'impacket', 'ldap', 'linux', 'nmap', 'privilege escalation', 'rce', 'secretsdump', 'smb']
+tags: ['hashcat', 'impacket', 'ldap', 'linux', 'nmap', 'privilege escalation', 'rce', 'secretsdump', 'smb', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Attacktive Directory - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

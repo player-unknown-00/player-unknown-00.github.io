@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "SCP Connection closed error"
-tags: ['linux', 'scp']
+tags: ['linux', 'scp', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "SCP Connection closed error"
 ---

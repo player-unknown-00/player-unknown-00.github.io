@@ -2,7 +2,7 @@
 date: 2025-02-16
 categories: [CTF, HTB]
 title: "HTB - Perfection"
-tags: ['hashcat', 'nmap', 'privilege escalation', 'python', 'rce', 'xss']
+tags: ['hashcat', 'nmap', 'privilege escalation', 'python', 'rce', 'xss', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Perfection - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

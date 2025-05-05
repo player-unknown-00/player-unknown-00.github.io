@@ -2,7 +2,7 @@
 date: 2025-01-30
 categories: [CTF, HTB]
 title: "HTB - Intuition"
-tags: ['ftp', 'hashcat', 'nmap', 'privilege escalation', 'python', 'rce', 'xss']
+tags: ['ftp', 'hashcat', 'nmap', 'privilege escalation', 'python', 'rce', 'xss', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Intuition - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Python]
 title: "Python Error - SMB not found"
-tags: ['linux', 'python']
+tags: ['linux', 'python', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Python Error - SMB not found"
 ---

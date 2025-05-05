@@ -1,8 +1,8 @@
 ---
-date: 2025-05-01
+date: 2025-05-02
 categories: [Fixes, Windows]
 title: "GPedit Error - Corrupted Registry.pol File"
-tags: ['Windows', 'gpedit', 'gpo']
+tags: ['Windows', 'gpedit', 'gpo', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "GPedit error: The volume for a file has been externally altered so that the opened file is no longer valid."
 ---

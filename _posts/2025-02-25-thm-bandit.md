@@ -2,7 +2,7 @@
 date: 2025-02-25
 categories: [CTF, THM]
 title: "THM - Bandit"
-tags: ['command injection', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'reverse shell', 'windows', 'xss']
+tags: ['command injection', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'reverse shell', 'windows', 'xss', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Bandit - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

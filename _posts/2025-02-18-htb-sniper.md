@@ -2,7 +2,7 @@
 date: 2025-02-18
 categories: [CTF, HTB]
 title: "HTB - Sniper"
-tags: ['ftp', 'impacket', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'reverse shell', 'smb', 'webshell', 'windows']
+tags: ['ftp', 'impacket', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'reverse shell', 'smb', 'webshell', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Sniper - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

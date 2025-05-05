@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "Linux Error - Apt Update not enough free space"
-tags: ['linux', 'apt', 'free space']
+tags: ['linux', 'apt', 'free space', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Linux Error - Apt Update not enough free space"
 ---

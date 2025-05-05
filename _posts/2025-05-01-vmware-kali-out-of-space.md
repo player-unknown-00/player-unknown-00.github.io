@@ -1,8 +1,8 @@
 ---
-date: 2025-05-01
+date: 2025-05-02
 categories: [Fixes, Linux]
 title: "VMWare - Kali - Out of space"
-tags: ['linux', 'vmware']
+tags: ['linux', 'vmware', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "VMWare - Kali - Out of space"
 ---

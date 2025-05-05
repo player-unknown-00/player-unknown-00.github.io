@@ -2,7 +2,7 @@
 date: 2025-03-19
 categories: [CTF, ImmersiveLabs]
 title: "IML - Kerberos: Ep.11 – Active Directory Certificate Services"
-tags: ['kerberos', 'powershell', 'privilege escalation', 'rce']
+tags: ['kerberos', 'powershell', 'privilege escalation', 'rce', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Kerberos Ep.11 – Resource-Based Constrained Delegation (RBCD) - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

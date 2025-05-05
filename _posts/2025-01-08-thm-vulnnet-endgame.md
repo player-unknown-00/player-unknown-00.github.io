@@ -2,7 +2,7 @@
 date: 2025-01-08
 categories: [CTF, THM]
 title: "THM - VulnNet: Endgame"
-tags: ['john the ripper', 'linux', 'linux capabilities', 'linux setuid', 'nmap', 'privilege escalation', 'python', 'rce', 'reverse shell', 'sqli']
+tags: ['john the ripper', 'linux', 'linux capabilities', 'linux setuid', 'nmap', 'privilege escalation', 'python', 'rce', 'reverse shell', 'sqli', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "VulnNet Endgame - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

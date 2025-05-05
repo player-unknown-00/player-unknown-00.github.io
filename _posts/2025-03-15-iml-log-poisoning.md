@@ -2,7 +2,7 @@
 date: 2025-03-15
 categories: [CTF, ImmersiveLabs]
 title: "IML - Log Poisoning"
-tags: ['log poisoning']
+tags: ['log poisoning', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Log Poisoning - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

@@ -2,7 +2,7 @@
 date: 2025-01-16
 categories: [CTF, HTB]
 title: "HTB - Napper"
-tags: ['nmap', 'privilege escalation', 'python', 'rce', 'reverse shell']
+tags: ['nmap', 'privilege escalation', 'python', 'rce', 'reverse shell', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Napper - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

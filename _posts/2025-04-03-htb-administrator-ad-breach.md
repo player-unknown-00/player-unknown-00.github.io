@@ -2,7 +2,7 @@
 date: 2025-04-03
 categories: [CTF, HTB]
 title: "HTB - Administrator - AD Breach"
-tags: ['bloodhound', 'ftp', 'hashcat', 'impacket', 'nmap', 'privilege escalation', 'python', 'rce', 'secretsdump', 'smb', 'windows']
+tags: ['bloodhound', 'ftp', 'hashcat', 'impacket', 'nmap', 'privilege escalation', 'python', 'rce', 'secretsdump', 'smb', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 
 description: "Administrator - AD Breach - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."

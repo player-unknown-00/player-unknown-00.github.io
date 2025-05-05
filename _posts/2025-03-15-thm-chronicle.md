@@ -2,7 +2,7 @@
 date: 2025-03-15
 categories: [CTF, THM]
 title: "THM - Chronicle"
-tags: ['gobuster', 'linux', 'nmap', 'privilege escalation', 'python', 'rce']
+tags: ['gobuster', 'linux', 'nmap', 'privilege escalation', 'python', 'rce', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Chronicle  (good ret2libc lab - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

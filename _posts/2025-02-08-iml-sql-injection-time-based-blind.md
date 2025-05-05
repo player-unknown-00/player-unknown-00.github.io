@@ -2,7 +2,7 @@
 date: 2025-02-08
 categories: [CTF, ImmersiveLabs]
 title: "IML - SQL Injection – Time-Based Blind"
-tags: ['http', 'sql', 'sqli', 'rce']
+tags: ['http', 'sql', 'sqli', 'rce', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "SQL Injection – Time-Based Bl - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

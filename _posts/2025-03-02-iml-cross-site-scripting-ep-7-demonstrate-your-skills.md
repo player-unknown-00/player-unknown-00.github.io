@@ -2,7 +2,7 @@
 date: 2025-03-02
 categories: [CTF, ImmersiveLabs]
 title: "IML - Cross-Site Scripting: Ep.7 – Demonstrate your Skills"
-tags: ['privilege escalation', 'python', 'rce', 'xss']
+tags: ['privilege escalation', 'python', 'rce', 'xss', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Cross-Site Scripting Ep.7 – D - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

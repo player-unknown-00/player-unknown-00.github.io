@@ -2,7 +2,7 @@
 date: 2025-02-05
 categories: [CTF, ImmersiveLabs]
 title: "IML - SQLi Basics - Demonstrate your skills"
-tags: ['rce', 'sql', 'sqli']
+tags: ['rce', 'sql', 'sqli', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "SQLi Basics - Demonstrate you - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

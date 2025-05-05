@@ -2,7 +2,7 @@
 date: 2025-02-10
 categories: [CTF, THM]
 title: "THM - That's The Ticket"
-tags: ['hydra', 'ffuf', 'nmap', 'privilege escalation', 'rce', 'xss']
+tags: ['hydra', 'ffuf', 'nmap', 'privilege escalation', 'rce', 'xss', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "That's The Ticket - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "PRET - Error dumping NVRAM"
-tags: ['linux', 'pret', 'printer', 'nvram']
+tags: ['linux', 'pret', 'printer', 'nvram', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "PRET - Error dumping NVRAM"
 ---

@@ -2,7 +2,7 @@
 date: 2025-04-02
 categories: [CTF, HTB]
 title: "HTB - SolarLab"
-tags: ['hashcat', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce']
+tags: ['hashcat', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "SolarLab - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

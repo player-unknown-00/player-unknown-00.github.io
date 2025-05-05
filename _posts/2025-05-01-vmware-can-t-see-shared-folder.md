@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "VMWare - Can't see shared folder"
-tags: ['linux', 'vmware']
+tags: ['linux', 'vmware', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "VMWare - Can't see shared folder"
 ---

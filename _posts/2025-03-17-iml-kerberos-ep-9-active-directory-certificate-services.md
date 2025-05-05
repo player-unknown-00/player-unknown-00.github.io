@@ -2,7 +2,7 @@
 date: 2025-03-17
 categories: [CTF, ImmersiveLabs]
 title: "IML - Kerberos: Ep.9 – Active Directory Certificate Services"
-tags: ['impacket', 'kerberos', 'mimikatz', 'powershell', 'privilege escalation', 'python', 'rce', 'windows']
+tags: ['impacket', 'kerberos', 'mimikatz', 'powershell', 'privilege escalation', 'python', 'rce', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Kerberos Ep. 9 – Unconstraine - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

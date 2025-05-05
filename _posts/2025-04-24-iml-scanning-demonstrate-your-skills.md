@@ -2,7 +2,7 @@
 date: 2025-04-24
 categories: [CTF, ImmersiveLabs]
 title: "IML - Scanning: Demonstrate Your Skills"
-tags: ['hydra', 'privilege escalation', 'rce']
+tags: ['hydra', 'privilege escalation', 'rce', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Scanning Demonstrate Your Skills - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

@@ -2,7 +2,7 @@
 date: 2025-02-20
 categories: [CTF, ImmersiveLabs]
 title: "IML - Mini CTF: Vulnerable Web App – Ep.3"
-tags: ['web exploit']
+tags: ['web exploit', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Mini CTF Vulnerable Web App – - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

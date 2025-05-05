@@ -2,7 +2,7 @@
 date: 2025-02-03
 categories: [CTF, HTB]
 title: "HTB - Mailing"
-tags: ['hashcat', 'nmap', 'privilege escalation', 'python', 'rce', 'reverse shell', 'windows']
+tags: ['hashcat', 'nmap', 'privilege escalation', 'python', 'rce', 'reverse shell', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Mailing - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

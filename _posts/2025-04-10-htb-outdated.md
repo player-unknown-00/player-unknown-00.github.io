@@ -2,7 +2,7 @@
 date: 2025-04-10
 categories: [CTF, HTB]
 title: "HTB - Outdated"
-tags: ['bloodhound', 'hashcat', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'smb', 'windows']
+tags: ['bloodhound', 'hashcat', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'smb', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Outdated - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

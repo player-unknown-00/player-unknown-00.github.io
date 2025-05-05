@@ -2,7 +2,7 @@
 date: 2025-03-15
 categories: [CTF, HTB]
 title: "HTB - FormulaX"
-tags: ['hashcat', 'nmap', 'privilege escalation', 'python', 'rce', 'xss']
+tags: ['hashcat', 'nmap', 'privilege escalation', 'python', 'rce', 'xss', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "FormulaX - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

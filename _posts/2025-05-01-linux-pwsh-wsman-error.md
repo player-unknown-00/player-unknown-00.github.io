@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "Linux PWSH WSMan Error"
-tags: ['linux', 'wsman', 'pwsh', 'error']
+tags: ['linux', 'wsman', 'pwsh', 'error', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Linux PWSH WSMan Error"
 ---

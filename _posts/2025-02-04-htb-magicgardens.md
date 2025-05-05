@@ -2,7 +2,7 @@
 date: 2025-02-04
 categories: [CTF, HTB]
 title: "HTB - MagicGardens"
-tags: ['docker breakout', 'hashcat', 'hydra', 'linux', 'linux capabilities', 'nmap', 'privilege escalation', 'python', 'rce', 'reverse shell', 'sqli']
+tags: ['docker breakout', 'hashcat', 'hydra', 'linux', 'linux capabilities', 'nmap', 'privilege escalation', 'python', 'rce', 'reverse shell', 'sqli', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "MagicGardens - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

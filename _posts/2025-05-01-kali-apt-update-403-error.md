@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "Kali Apt Update 403 error"
-tags: ['linux', 'apt']
+tags: ['linux', 'apt', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Kali Apt Update 403 error"
 ---

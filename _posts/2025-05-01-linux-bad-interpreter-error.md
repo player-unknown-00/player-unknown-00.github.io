@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "Linux - Bad interpreter error"
-tags: ['linux', 'interpreter']
+tags: ['linux', 'interpreter', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Linux - Bad interpreter error"
 ---

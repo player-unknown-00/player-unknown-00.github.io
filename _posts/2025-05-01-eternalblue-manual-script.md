@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "EternalBlue Manual Script"
-tags: ['linux', 'eternalblue', 'smb']
+tags: ['linux', 'eternalblue', 'smb', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "EternalBlue Manual Script"
 ---

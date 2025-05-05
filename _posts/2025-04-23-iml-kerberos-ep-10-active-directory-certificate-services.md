@@ -2,7 +2,7 @@
 date: 2025-04-23
 categories: [CTF, ImmersiveLabs]
 title: "IML - Kerberos: Ep.10 – Active Directory Certificate Services"
-tags: ['impacket', 'kerberos', 'ldap', 'mimikatz', 'privilege escalation', 'rce']
+tags: ['impacket', 'kerberos', 'ldap', 'mimikatz', 'privilege escalation', 'rce', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Kerberos Ep.10 – Constrained Delegation - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

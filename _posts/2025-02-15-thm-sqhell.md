@@ -2,7 +2,7 @@
 date: 2025-02-15
 categories: [CTF, THM]
 title: "THM - SQHell"
-tags: ['privilege escalation', 'python', 'rce', 'sqli']
+tags: ['privilege escalation', 'python', 'rce', 'sqli', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "SQHell - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

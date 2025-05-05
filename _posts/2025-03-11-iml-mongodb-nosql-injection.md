@@ -2,7 +2,7 @@
 date: 2025-03-11
 categories: [CTF, ImmersiveLabs]
 title: "IML - MongoDB NoSQL Injection"
-tags: ['gobuster', 'linux', 'privilege escalation', 'python', 'rce', 'reverse shell', 'sqli', 'mongodb', 'nosqli']
+tags: ['gobuster', 'linux', 'privilege escalation', 'python', 'rce', 'reverse shell', 'sqli', 'mongodb', 'nosqli', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "MongoDB NoSQL Injection - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

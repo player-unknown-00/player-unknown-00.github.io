@@ -2,7 +2,7 @@
 date: 2025-03-03
 categories: [CTF, HTB]
 title: "HTB - Freelancer"
-tags: ['bloodhound', 'impacket', 'kerberos', 'linux', 'mimikatz', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'secretsdump', 'smb', 'windows']
+tags: ['bloodhound', 'impacket', 'kerberos', 'linux', 'mimikatz', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'secretsdump', 'smb', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Freelancer - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

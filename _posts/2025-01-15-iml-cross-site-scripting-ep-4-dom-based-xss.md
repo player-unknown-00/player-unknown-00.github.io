@@ -2,7 +2,7 @@
 date: 2025-01-15
 categories: [CTF, ImmersiveLabs]
 title: "IML - Cross-Site Scripting: Ep.4 – DOM-Based XSS"
-tags: ['privilege escalation', 'rce', 'xss']
+tags: ['privilege escalation', 'rce', 'xss', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Cross-Site Scripting Ep.4 – D - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

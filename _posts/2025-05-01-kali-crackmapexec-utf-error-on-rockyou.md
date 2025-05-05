@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "Kali - Crackmapexec UTF error on rockyou"
-tags: ['linux', 'crackmapexec', 'UTF error']
+tags: ['linux', 'crackmapexec', 'UTF error', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Kali - Crackmapexec UTF error on rockyou"
 ---

@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "VMWare Bridging doesn't work"
-tags: ['linux', 'vmware']
+tags: ['linux', 'vmware', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "VMWare Bridging doesn't work"
 ---

@@ -2,7 +2,7 @@
 date: 2025-04-22
 categories: [CTF, HTB]
 title: "HTB - Sizzle"
-tags: ['bloodhound', 'hashcat', 'impacket', 'linux', 'mimikatz', 'nmap', 'privilege escalation', 'python', 'rce', 'secretsdump', 'smb', 'smbmap', 'windows']
+tags: ['bloodhound', 'hashcat', 'impacket', 'linux', 'mimikatz', 'nmap', 'privilege escalation', 'python', 'rce', 'secretsdump', 'smb', 'smbmap', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Sizzle - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

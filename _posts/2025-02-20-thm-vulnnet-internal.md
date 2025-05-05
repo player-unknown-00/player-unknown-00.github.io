@@ -2,7 +2,7 @@
 date: 2025-02-20
 categories: [CTF, THM]
 title: "THM - VulnNet: Internal"
-tags: ['privilege escalation', 'python', 'rce', 'reverse shell', 'smb', 'smbmap']
+tags: ['privilege escalation', 'python', 'rce', 'reverse shell', 'smb', 'smbmap', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "VulnNet Internal - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

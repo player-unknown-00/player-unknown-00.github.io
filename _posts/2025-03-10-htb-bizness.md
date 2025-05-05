@@ -2,7 +2,7 @@
 date: 2025-03-10
 categories: [CTF, HTB]
 title: "HTB - Bizness"
-tags: ['hashcat', 'nmap', 'privilege escalation', 'python', 'rce', 'reverse shell']
+tags: ['hashcat', 'nmap', 'privilege escalation', 'python', 'rce', 'reverse shell', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Bizness - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

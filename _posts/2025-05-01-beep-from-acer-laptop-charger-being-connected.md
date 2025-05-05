@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Windows]
 title: "Beep from Acer laptop charger being connected"
-tags: ['Windows', 'Acer']
+tags: ['Windows', 'Acer', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Beep from Acer laptop charger being connected"
 ---

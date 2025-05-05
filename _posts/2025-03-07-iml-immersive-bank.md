@@ -2,7 +2,7 @@
 date: 2025-03-07
 categories: [CTF, ImmersiveLabs]
 title: "IML - Immersive Bank"
-tags: ['ftp', 'hashdump', 'john the ripper', 'privilege escalation', 'rce', 'reverse shell', 'smb', 'windows']
+tags: ['ftp', 'hashdump', 'john the ripper', 'privilege escalation', 'rce', 'reverse shell', 'smb', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Immersive Bank - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

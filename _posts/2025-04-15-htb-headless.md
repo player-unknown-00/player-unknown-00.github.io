@@ -2,7 +2,7 @@
 date: 2025-04-15
 categories: [CTF, HTB]
 title: "HTB - Headless"
-tags: ['linux', 'nmap', 'privilege escalation', 'python', 'rce', 'reverse shell', 'xss']
+tags: ['linux', 'nmap', 'privilege escalation', 'python', 'rce', 'reverse shell', 'xss', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Headless - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

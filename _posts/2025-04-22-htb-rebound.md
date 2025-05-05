@@ -2,7 +2,7 @@
 date: 2025-04-22
 categories: [CTF, HTB]
 title: "HTB - Rebound"
-tags: ['bloodhound', 'hashcat', 'impacket', 'kerberos', 'ldap', 'linux', 'nmap', 'privilege escalation', 'python', 'rce', 'secretsdump', 'smb']
+tags: ['bloodhound', 'hashcat', 'impacket', 'kerberos', 'ldap', 'linux', 'nmap', 'privilege escalation', 'python', 'rce', 'secretsdump', 'smb', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Rebound - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

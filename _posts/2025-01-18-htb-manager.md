@@ -2,7 +2,7 @@
 date: 2025-01-18
 categories: [CTF, HTB]
 title: "HTB - Manager"
-tags: ['hashcat', 'impacket', 'linux', 'nmap', 'privilege escalation', 'rce', 'smb', 'windows']
+tags: ['hashcat', 'impacket', 'linux', 'nmap', 'privilege escalation', 'rce', 'smb', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Manager - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

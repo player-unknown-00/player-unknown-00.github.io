@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "Linux - C - Make error - Missing headers"
-tags: ['linux', 'c', 'missing headers']
+tags: ['linux', 'c', 'missing headers', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "C - Make error - Missing headers"
 ---

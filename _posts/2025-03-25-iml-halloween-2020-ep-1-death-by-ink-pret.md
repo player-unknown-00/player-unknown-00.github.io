@@ -2,7 +2,7 @@
 date: 2025-03-25
 categories: [CTF, ImmersiveLabs]
 title: "IML - Halloween 2020: Ep.1 – Death by Ink (PRET)"
-tags: ['privilege escalation', 'python', 'rce']
+tags: ['privilege escalation', 'python', 'rce', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Halloween 2020 Ep.1 – Death by Ink - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

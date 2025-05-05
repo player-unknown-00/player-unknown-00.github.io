@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "Snmpwalk error"
-tags: ['linux', 'smbclient']
+tags: ['linux', 'smbclient', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Snmpwalk error"
 ---

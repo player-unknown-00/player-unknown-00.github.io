@@ -2,7 +2,7 @@
 date: 2025-01-15
 categories: [CTF, HTB]
 title: ""
-tags: ['gobuster', 'nmap', 'privilege escalation', 'rce']
+tags: ['gobuster', 'nmap', 'privilege escalation', 'rce', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "BoardLight - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

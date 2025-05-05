@@ -2,7 +2,7 @@
 date: 2025-03-31
 categories: [CTF, HTB]
 title: "HTB - Office"
-tags: ['bloodhound', 'gobuster', 'hashcat', 'impacket', 'kerberos', 'linux', 'mimikatz', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'reverse shell', 'smb', 'smbmap', 'windows']
+tags: ['bloodhound', 'gobuster', 'hashcat', 'impacket', 'kerberos', 'linux', 'mimikatz', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'reverse shell', 'smb', 'smbmap', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Office - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

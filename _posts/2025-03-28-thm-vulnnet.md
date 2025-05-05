@@ -2,7 +2,7 @@
 date: 2025-03-28
 categories: [CTF, THM]
 title: "THM - VulnNet"
-tags: ['bloodhound', 'hashcat', 'impacket', 'linux', 'mimikatz', 'nmap', 'powershell', 'privilege escalation', 'rce', 'smb', 'windows']
+tags: ['bloodhound', 'hashcat', 'impacket', 'linux', 'mimikatz', 'nmap', 'powershell', 'privilege escalation', 'rce', 'smb', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "VulnNet - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

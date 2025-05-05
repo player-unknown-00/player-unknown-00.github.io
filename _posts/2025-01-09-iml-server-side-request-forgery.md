@@ -2,7 +2,7 @@
 date: 2025-01-09
 categories: [CTF, ImmersiveLabs]
 title: "IML - Server-Side Request Forgery"
-tags: ['rce']
+tags: ['rce', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Server-Side Request Forgery - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "VirtualBox Kernel Headers Not Found"
-tags: ['linux', 'virtualbox']
+tags: ['linux', 'virtualbox', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Fix VirtualBox Kernel Headers Not Found Error"
 ---

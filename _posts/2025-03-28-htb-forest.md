@@ -2,7 +2,7 @@
 date: 2025-03-28
 categories: [CTF, HTB]
 title: "HTB - Forest"
-tags: ['bloodhound', 'hashcat', 'impacket', 'kerberos', 'ldap', 'linux', 'nmap', 'privilege escalation', 'rce', 'secretsdump', 'smb', 'windows']
+tags: ['bloodhound', 'hashcat', 'impacket', 'kerberos', 'ldap', 'linux', 'nmap', 'privilege escalation', 'rce', 'secretsdump', 'smb', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Forest - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

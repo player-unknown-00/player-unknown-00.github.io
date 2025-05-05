@@ -1,8 +1,8 @@
 ---
-date: 2025-04-03
+date: 2025-05-02
 categories: [CTF, HTB]
 title: "HTB - Crafty"
-tags: ['ldap', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'reverse shell', 'windows', 'minecraft']
+tags: ['ldap', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'reverse shell', 'windows', 'minecraft', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Crafty - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

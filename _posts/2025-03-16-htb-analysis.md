@@ -1,8 +1,8 @@
 ---
-date: 2025-05-01
+date: 2025-05-02
 categories: [CTF, HTB]
 title: "HTB - Analysis"
-tags: ['gobuster', 'impacket', 'ldap', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'reverse shell', 'secretsdump', 'smb', 'sqli', 'windows']
+tags: ['gobuster', 'impacket', 'ldap', 'linux', 'nmap', 'powershell', 'privilege escalation', 'python', 'rce', 'reverse shell', 'secretsdump', 'smb', 'sqli', 'windows', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Analysis - A walkthrough of the challenge with enumeration, exploitation and privilege escalation steps."
 ---

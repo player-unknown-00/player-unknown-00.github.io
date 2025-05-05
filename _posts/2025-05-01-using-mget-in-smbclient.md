@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "Using mget in SMBClient"
-tags: ['linux', 'smbclient']
+tags: ['linux', 'smbclient', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Using mget in SMBClient"
 ---

@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Python]
 title: "Error - Exception: a bytes-like object is required"
-tags: ['linux', 'python']
+tags: ['linux', 'python', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Error - Exception: a bytes-like object is required"
 ---

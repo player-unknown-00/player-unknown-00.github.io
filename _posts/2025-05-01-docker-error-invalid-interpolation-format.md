@@ -2,7 +2,7 @@
 date: 2025-05-01
 categories: [Fixes, Linux]
 title: "Docker error - Invalid interpolation format"
-tags: ['linux', 'docker']
+tags: ['linux', 'docker', 'tryhackme', 'hackthebox', 'immersivelabs', 'thm', 'iml', 'htb']
 
 description: "Docker error - Invalid interpolation format"
 ---
