@@ -32,6 +32,7 @@ enum4linux -u Guest -p "" -a solarlab.htb
 ![image3](../resources/132a7023ff524186b7932b89764f5942.png)
 
 - Download the content and look for metadata:
+
 ```bash
 
 exiftool concepts/* old_leave_request_form.docx details-file.xlsx  | grep "Modified" & exiftool concepts/* old_leave_request_form.docx details-file.xlsx | grep "Creator"
